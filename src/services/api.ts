@@ -9,10 +9,13 @@ import { themes, resolveActiveTheme } from "@/data/themes";
 import { events, eventStatus } from "@/data/events";
 import { jobRoles, media, promotions, reviews, shows, timeline } from "@/data/catalog";
 import type { EventItem, Media } from "@/data/types";
+import { DATA_SOURCE } from "@/lib/supabase";
+import { remote } from "./remote";
 
 const delay = <T,>(v: T) => Promise.resolve(v);
 
-export const api = {
+/** Dati locali di esempio (src/data): usati senza Supabase o con VITE_DATA_SOURCE=local. */
+const local = {
   settings: () => delay(settings),
   content: () => delay(content),
   activeTheme: () => delay(resolveActiveTheme(themes, events)),
@@ -55,6 +58,12 @@ export const api = {
         .sort((a, b) => a.sort - b.sort),
     ),
   membersMedia: () => delay(media.filter((m) => m.visible && m.placement.includes("members"))),
+};
+
+const reads = DATA_SOURCE === "supabase" ? remote : local;
+
+export const api = {
+  ...reads,
 
   /**
    * Chiederà a sign-media un URL firmato di 300 secondi. Senza Supabase non c'è
