@@ -5,7 +5,7 @@ React 18 + Vite + TypeScript, Tailwind, i18n IT/EN. Hosting previsto: Cloudflare
 
 ## Stato
 
-**Fatto: struttura e pagine pubbliche, con dati di esempio locali.** Supabase non è ancora collegato.
+**Fatto: struttura e pagine pubbliche, collegate a Supabase in lettura.**
 
 - Tutte le pagine pubbliche IT/EN della mappa del sito, con il cambio lingua che porta alla pagina equivalente.
 - Hero con la firma grafica: la parola «ZOO» fa da finestra sull'immagine del tema attivo. Allo scroll si rimpicciolisce ed entra nella barra.
