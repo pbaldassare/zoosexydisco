@@ -19,13 +19,17 @@ React 18 + Vite + TypeScript, Tailwind, i18n IT/EN. Hosting previsto: Cloudflare
 - Generatore di immagini segnaposto astratte (nessuna persona), logo provvisorio convertito in tracciati, og-image.
 - `_headers` (CSP e security header), `_redirects` e `robots.txt` per Cloudflare Pages.
 
+**Supabase (progetto «sito zoo», `rpbprmngkkscnhqqayfq`, regione eu-west-3 Parigi):** migrazioni applicate (`supabase/migrations/`), RLS attiva su tutte le tabelle, 5 bucket, contenuti di esempio caricati con `npm run seed`. Il frontend legge dal database con `VITE_DATA_SOURCE=supabase` (in `.env.local`); con `local` torna ai dati di `src/data`.
+
+Avviso noto dell'advisor: `is_member()` è eseguibile da `anon`. È voluto: la valutano le policy di lettura pubblica e restituisce solo lo stato dell'utente corrente.
+
 **Da fare:**
 
-- Supabase: migrazioni, RLS, bucket, Edge Functions, seed.
-- Pannello admin: oggi `/admin` mostra solo un segnaposto.
-- Widget Turnstile vero.
-- Statistiche in-house e sitemap.
-- Video di esempio: ffmpeg non è installato, quindi ci sono solo i poster.
+- Edge Functions: sign-media, moduli (contatti, feste, candidature), newsletter, track, purge-expired + pg_cron.
+- Pannello admin (`/admin` oggi è un segnaposto) e primo utente admin.
+- Widget Turnstile vero, statistiche, sitemap.
+- Video di esempio (manca ffmpeg: ci sono solo i poster, e il seed non carica video).
+- **Prima del lancio:** sostituire la chiave service_role (condivisa in chat durante lo sviluppo) con una nuova secret key e disattivare le chiavi legacy.
 
 ## Comandi
 
@@ -36,6 +40,8 @@ npm run typecheck
 npm run lint
 npm run build          # output in dist/
 npm run placeholders   # rigenera public/placeholders, logo e og-image
+npm run seed           # carica i contenuti di esempio su Supabase (serve .env.local)
+npm run seed:clean     # cancella tutto ciò che è is_sample
 ```
 
 ## Dove stanno le cose
