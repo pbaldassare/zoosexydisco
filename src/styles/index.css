@@ -1,0 +1,213 @@
+@import "@fontsource/bodoni-moda/700.css";
+@import "@fontsource/bodoni-moda/700-italic.css";
+@import "@fontsource/karla/400.css";
+@import "@fontsource/karla/500.css";
+@import "@fontsource/karla/700.css";
+@import "@fontsource/syne/600.css";
+@import "@fontsource/syne/700.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Token del tema Default. Canali RGB separati da spazi, così Tailwind può
+ * applicare l'opacità (bg-accent/20). Il tema attivo riscrive --accent e
+ * --accent-hot su <html> a runtime: nessun colore scritto a mano nei componenti.
+ */
+@layer base {
+  :root {
+    --bg: 10 8 9; /* #0A0809 */
+    --surface: 21 16 18; /* #151012 */
+    --surface-2: 31 23 26; /* #1F171A */
+    --line: 46 34 38; /* #2E2226 */
+    --ink: 244 237 230; /* #F4EDE6 */
+    --ink-dim: 179 166 159; /* #B3A69F */
+    --accent: 200 164 93; /* #C8A45D */
+    --accent-hot: 230 36 107; /* #E6246B */
+    --danger: 229 72 77; /* #E5484D */
+    --ok: 63 182 139; /* #3FB68B */
+    --sample: 245 200 76; /* giallo «Esempio», solo per contenuti is_sample */
+
+    --header-h: 72px;
+    color-scheme: dark;
+  }
+
+  html {
+    background: rgb(var(--bg));
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 16px);
+  }
+
+  body {
+    @apply bg-bg font-body text-base text-ink antialiased;
+    min-height: 100dvh;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.35);
+    color: rgb(var(--ink));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display font-bold;
+    text-wrap: balance;
+  }
+
+  em.accent,
+  .accent-word {
+    @apply font-display italic text-accent;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  .label {
+    @apply font-label text-2xs font-semibold uppercase tracking-label;
+  }
+
+  .container-site {
+    @apply mx-auto w-full max-w-site px-4 sm:px-8 lg:px-12;
+  }
+
+  .hairline {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgb(var(--accent) / 0.55), transparent);
+  }
+
+  /* Grana leggera sopra le superfici fotografiche. */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.09;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  /* Protezione deterrente dei media (sezione 12). */
+  .protected {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  /* Filigrana «ZOO» ripetuta in diagonale, 7% di opacità. */
+  .watermark {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='140'%3E%3Ctext x='20' y='90' transform='rotate(-24 110 70)' font-family='Georgia,serif' font-weight='700' font-size='44' letter-spacing='6' fill='%23F4EDE6'%3EZOO%3C/text%3E%3C/svg%3E");
+  }
+
+  .gallery-veiled {
+    filter: blur(24px);
+    transition: filter 0s;
+  }
+
+  /* Elenco «da carta dei drink»: voce ........ valore */
+  .leader {
+    @apply flex items-baseline gap-3;
+  }
+  .leader::after {
+    content: "";
+    order: 1;
+    flex: 1;
+    border-bottom: 1px dotted rgb(var(--ink-dim) / 0.45);
+    transform: translateY(-4px);
+  }
+  .leader > :last-child {
+    order: 2;
+  }
+}
+
+@layer utilities {
+  .text-shadow-soft {
+    text-shadow: 0 2px 30px rgb(0 0 0 / 0.6);
+  }
+  .pause-on-hover:hover {
+    animation-play-state: paused;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Entrata della hero: unico momento orchestrato, 900ms in tutto. */
+@layer utilities {
+  .hero-stroke {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: hero-draw 900ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .hero-fill {
+    animation: hero-fill 700ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
+  }
+  .hero-spot {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: hero-spot 16s ease-in-out infinite alternate;
+  }
+  .hero-step {
+    animation: rise 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes hero-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes hero-fill {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes hero-spot {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(190%);
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@layer utilities {
+  .hero-sub {
+    animation: hero-fill 500ms cubic-bezier(0.16, 1, 0.3, 1) 420ms both;
+  }
+}

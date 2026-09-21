@@ -1,0 +1,122 @@
+import type { L } from "./types";
+
+/**
+ * content_blocks: chiave → IT/EN. Modificabili dall'admin (sezione Testi).
+ * Se l'EN è vuoto il sito mostra l'IT. I fatti non ancora noti restano segnaposto.
+ */
+export const content: Record<string, L> = {
+  /* home */
+  "home.hero.line": {
+    it: "Dalla fine degli anni '90, la notte ha un indirizzo.",
+    en: "Since the late '90s, the night has an address.",
+  },
+  "home.club.title": { it: "Scuro, raccolto, discreto.", en: "Dark, intimate, discreet." },
+  "home.club.body": {
+    it: "Una sala scura, un palco al centro, tavoli da cui si vede tutto e un privé per chi preferisce stare lontano dagli sguardi. Qui la serata si costruisce con calma: si arriva, si ordina, si guarda.",
+    en: "A dark room, a stage in the centre, tables with a view of everything and a private room for those who prefer to stay out of sight. Here the night is built slowly: you arrive, you order, you watch.",
+  },
+  "home.story.excerpt": {
+    it: "Da più di venticinque anni, sempre qui. Una storia fatta di notti, non di anniversari.",
+    en: "More than twenty-five years, always here. A story made of nights, not anniversaries.",
+  },
+  "home.gallery.title": { it: "Dalla sala", en: "From the floor" },
+
+  /* il locale */
+  "club.intro": {
+    it: "ZOO non è un posto dove si passa: è un posto dove si resta. Tre ambienti, un'unica regola: ognuno vive la notte come vuole, nessuno la racconta.",
+    en: "ZOO is not a place you pass through: it's a place you stay. Three spaces, one rule: everyone lives the night their way, nobody tells about it.",
+  },
+  "club.room.sala": {
+    it: "La sala: il palco centrale, il bar lungo la parete, luci che cambiano con la serata.",
+    en: "The main room: the centre stage, the bar along the wall, lights that change with the night.",
+  },
+  "club.room.tavoli": {
+    it: "I tavoli: rialzati, con servizio al tavolo e la vista migliore sul palco.",
+    en: "The tables: raised, with table service and the best view of the stage.",
+  },
+  "club.room.prive": {
+    it: "Il privé: più raccolto, separato dalla sala, pensato per chi cerca riservatezza.",
+    en: "The private room: more intimate, set apart from the main room, for those who want discretion.",
+  },
+  "club.rules.photo": {
+    it: "Qui dentro nessuno ti fotografa. Per questo foto e video in sala sono vietati a tutti.",
+    en: "In here, nobody takes your picture. That's why photos and videos are forbidden for everyone.",
+  },
+  "club.rules.age": {
+    it: "Si entra solo dai 18 anni compiuti, con documento alla porta.",
+    en: "Entry from age 18 only, with ID at the door.",
+  },
+  "club.rules.privacy": {
+    it: "Quello che succede in sala resta in sala. Lo staff è il primo a garantirlo.",
+    en: "What happens in the room stays in the room. The staff are the first to guarantee it.",
+  },
+  "club.rules.respect": {
+    it: "Si guarda, non si tocca. Chi non rispetta le artiste e lo staff viene accompagnato all'uscita.",
+    en: "Look, don't touch. Anyone who disrespects the performers or staff is shown the door.",
+  },
+  "club.directions": {
+    it: "Come arrivare e parcheggio: [da completare].",
+    en: "Getting here and parking: [to be completed].",
+  },
+
+  /* eventi */
+  "events.intro": {
+    it: "Ogni sabato ha il suo tema. Qui trovi le prossime serate, il dress code e come prenotare un tavolo.",
+    en: "Every Saturday has its theme. Here you'll find upcoming nights, the dress code and how to book a table.",
+  },
+
+  /* spettacoli */
+  "shows.intro": {
+    it: "Gli spettacoli sono il ritmo della notte. Cambiano con la serata, ma hanno sempre la stessa cura.",
+    en: "The shows set the rhythm of the night. They change with each theme, but the care is always the same.",
+  },
+  "shows.difference": {
+    it: "Cosa distingue ZOO: [da completare con il proprietario].",
+    en: "What sets ZOO apart: [to be completed with the owner].",
+  },
+
+  /* feste private */
+  "parties.intro": {
+    it: "Una festa qui si organizza con una telefonata: tavolo, bottiglie, orario e tutto quello che serve. Voi pensate a esserci.",
+    en: "A party here is organised with one call: table, bottles, timing and everything else. You just show up.",
+  },
+  "parties.celibato": {
+    it: "L'ultima notte da scapolo merita un tavolo in prima fila. Pensiamo noi all'accoglienza e a una sorpresa per lo sposo.",
+    en: "The last night as a single man deserves a front-row table. We take care of the welcome and a surprise for the groom.",
+  },
+  "parties.compleanni": {
+    it: "Candeline, brindisi e un tavolo tutto per voi. Diteci quanti siete, al resto pensiamo noi.",
+    en: "Candles, a toast and a table all to yourselves. Tell us how many you are, we'll handle the rest.",
+  },
+  "parties.aziendali": {
+    it: "Cene di fine anno, premiazioni, serate con i clienti: riservatezza garantita e conto chiaro.",
+    en: "End-of-year dinners, awards, nights out with clients: guaranteed discretion and a clear bill.",
+  },
+
+  /* lavora con noi */
+  "work.intro": {
+    it: "Cerchiamo persone serie. La candidatura è riservata: la leggono solo i responsabili del locale e non finisce mai sul sito.",
+    en: "We're looking for serious people. Applications are confidential: only the club's managers read them, and they never appear on the site.",
+  },
+  "work.offer": {
+    it: "Cosa offriamo: compensi, turni e condizioni [da completare con il proprietario].",
+    en: "What we offer: pay, shifts and conditions [to be completed with the owner].",
+  },
+
+  /* newsletter */
+  "newsletter.title": { it: "Mettiti in lista", en: "Get on the list" },
+  "newsletter.gift": {
+    it: "Chi si iscrive riceve un regalo di benvenuto da usare alla prima serata: [da completare].",
+    en: "Subscribers get a welcome gift to use on their first night: [to be completed].",
+  },
+  "newsletter.body": {
+    it: "Le date delle serate prima di tutti, le promozioni riservate e gli inviti alle notti su lista.",
+    en: "Night dates before anyone else, reserved offers and invitations to list-only nights.",
+  },
+
+  /* contatti */
+  "contacts.intro": {
+    it: "Per un tavolo, una festa o un'informazione: scrivici su WhatsApp, chiamaci o usa il modulo.",
+    en: "For a table, a party or a question: message us on WhatsApp, call us or use the form.",
+  },
+};
