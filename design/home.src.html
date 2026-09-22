@@ -1,0 +1,975 @@
+<title>Home ZOO Sexy Disco</title>
+<style>
+  @font-face{font-family:"Tilt Neon";src:url(__F_TILT__) format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Atkinson Hyperlegible";src:url(__F_ATK4__) format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Atkinson Hyperlegible";src:url(__F_ATK7__) format("woff2");font-weight:700;font-display:swap}
+  @font-face{font-family:"Chivo Mono";src:url(__F_CH4__) format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Chivo Mono";src:url(__F_CH5__) format("woff2");font-weight:500;font-display:swap}
+  .logo-art{background:url(__LOGO720__) center/contain no-repeat}
+  .sign-art{background:url(__SIGN__) center/contain no-repeat}
+  .ph-pedana{background-image:url(__PH_PEDANA__)}
+  .ph-gambe{background-image:url(__PH_GAMBE__)}
+  .ph-perizoma{background-image:url(__PH_PERIZOMA__)}
+  .photo{position:absolute;inset:0;z-index:-1;background-size:cover;background-repeat:no-repeat;pointer-events:none}
+  .photo::after{content:"";position:absolute;inset:0}
+  .logo-sm{background:url(__LOGO192__) center/contain no-repeat;display:block}
+  :root{
+    --wall:#07040A;
+    --wall-2:#0E0813;
+    --panel:#140C1A;
+    --panel-2:#1C1224;
+    --line:#2D1F36;
+    --ink:#F6EDF7;
+    --ink-dim:#BDAAC4;
+    --ink-faint:#8C7894;
+    --pink:#E939D7;
+    --pink-core:#FFE6FB;
+    --pink-deep:#8E1F83;
+    --blue:#3B81E9;
+    --blue-core:#E4EEFF;
+    --blue-deep:#1C3F78;
+    --ok:#52E3A4;
+    --neon:"Tilt Neon","Arial Rounded MT Bold","Helvetica Neue",sans-serif;
+    --body:"Atkinson Hyperlegible","Helvetica Neue",Arial,sans-serif;
+    --mono:"Chivo Mono",ui-monospace,Menlo,Consolas,monospace;
+    --ease-out:cubic-bezier(.16,1,.3,1);
+    --gutter:clamp(18px,4vw,40px);
+    --max:1180px;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scrollbar-color:var(--pink-deep) var(--wall)}
+  body{
+    margin:0;
+    background:var(--wall);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    caret-color:var(--pink);
+    overflow-x:hidden;
+  }
+  /* muro: grana leggera su tutta la pagina */
+  body::before{
+    content:"";
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    opacity:.045;mix-blend-mode:screen;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .75  0 0 0 0 .35  0 0 0 0 .9  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  ::selection{background:var(--pink);color:var(--wall)}
+  ::-webkit-scrollbar{width:10px}
+  ::-webkit-scrollbar-track{background:var(--wall)}
+  ::-webkit-scrollbar-thumb{background:var(--pink-deep);border-radius:10px;border:2px solid var(--wall)}
+  a{color:var(--pink-core);text-decoration-color:var(--pink);text-underline-offset:4px}
+  :focus-visible{outline:2px solid var(--pink);outline-offset:3px;border-radius:6px;box-shadow:0 0 0 6px rgba(233,57,215,.25)}
+  img{max-width:100%;display:block}
+  .wrap{position:relative;z-index:1;max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
+
+  /* ---------- tubi neon ---------- */
+  .tube{
+    font-family:var(--neon);
+    font-weight:400;
+    letter-spacing:.01em;
+    line-height:1.02;
+    text-wrap:balance;
+  }
+  .tube.pink{
+    color:var(--pink-core);
+    text-shadow:
+      0 0 1px #fff,
+      0 0 4px var(--pink),
+      0 0 11px var(--pink),
+      0 0 24px var(--pink),
+      0 0 48px rgba(233,57,215,.55),
+      0 4px 70px rgba(233,57,215,.35);
+  }
+  .tube.blue{
+    color:var(--blue-core);
+    text-shadow:
+      0 0 1px #fff,
+      0 0 4px var(--blue),
+      0 0 11px var(--blue),
+      0 0 24px var(--blue),
+      0 0 48px rgba(59,129,233,.55),
+      0 4px 70px rgba(59,129,233,.35);
+  }
+  .tube.flick{animation:strike 1.3s steps(1,end) both}
+  @keyframes strike{
+    0%{opacity:.35} 8%{opacity:1} 12%{opacity:.4} 20%{opacity:1} 24%{opacity:.55} 34%{opacity:1} 100%{opacity:1}
+  }
+  .hum{animation:hum 7s ease-in-out infinite}
+  @keyframes hum{0%,100%{opacity:1}47%{opacity:1}48%{opacity:.82}49%{opacity:1}72%{opacity:.94}}
+
+  /* ---------- header ---------- */
+  .top{
+    position:fixed;inset:0 0 auto 0;z-index:40;
+    transition:background .4s var(--ease-out),box-shadow .4s var(--ease-out);
+  }
+  .top.solid{background:rgba(7,4,10,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line),0 10px 30px rgba(0,0,0,.45)}
+  .top .wrap{display:flex;align-items:center;gap:16px;height:68px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto;min-width:0}
+  
+  .brand .tube{font-size:21px;white-space:nowrap}
+  .nav{display:none;gap:4px}
+  .nav a{
+    color:var(--ink-dim);text-decoration:none;font-size:15px;
+    padding:8px 11px;border-radius:999px;transition:color .2s,text-shadow .2s;
+  }
+  .nav a:hover{color:var(--pink-core);text-shadow:0 0 12px var(--pink)}
+  .lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px}
+  .lang button{
+    font:700 13px/1 var(--body);letter-spacing:.06em;color:var(--ink-faint);
+    background:none;border:0;padding:7px 9px;border-radius:999px;cursor:pointer;
+  }
+  .lang button[aria-pressed="true"]{background:var(--panel-2);color:var(--ink)}
+  .badge18{
+    font:700 13px/1 var(--body);color:var(--pink-core);
+    border:1.5px solid var(--pink);border-radius:999px;padding:7px 8px;
+    box-shadow:0 0 10px rgba(233,57,215,.45),inset 0 0 8px rgba(233,57,215,.3);
+  }
+  .burger{
+    width:44px;height:44px;border-radius:12px;border:1px solid var(--line);
+    background:var(--panel);color:var(--ink);cursor:pointer;display:grid;place-items:center;
+  }
+  .burger svg{width:22px;height:22px}
+  .only-wide{display:none}
+  @media (min-width:1060px){
+    .nav{display:flex}
+    .burger{display:none}
+    .only-wide{display:inline-flex}
+  }
+  @media (max-width:420px){ .brand .tube{display:none} }
+
+  /* ---------- menu mobile ---------- */
+  .menu{
+    position:fixed;inset:0;z-index:60;background:rgba(7,4,10,.97);
+    display:flex;flex-direction:column;padding:88px var(--gutter) 32px;gap:6px;
+    overflow-y:auto;
+  }
+  .menu[hidden]{display:none!important}
+  .menu a.tube{font-size:clamp(34px,9vw,52px);text-decoration:none;padding:6px 0}
+  .menu .close{position:absolute;top:12px;right:var(--gutter)}
+  .menu .menu-foot{margin-top:auto;padding-top:28px;display:grid;gap:10px;color:var(--ink-dim);font-size:15px}
+
+  /* ---------- hero: l'insegna sul muro ---------- */
+  .hero-photo{background-position:50% 62%;filter:saturate(1.05) contrast(1.05)}
+  .hero-photo::after{background:
+      radial-gradient(70% 40% at 50% 22%, rgba(7,4,10,.55), rgba(7,4,10,.2) 70%),
+      linear-gradient(180deg, rgba(7,4,10,.6) 0%, rgba(7,4,10,.28) 36%, rgba(7,4,10,.5) 70%, var(--wall) 100%)}
+  @media (min-width:900px){
+    .hero-photo{background-size:52% auto;background-position:100% 45%}
+    .hero-photo::after{background:
+      linear-gradient(90deg, var(--wall) 30%, rgba(7,4,10,.55) 62%, rgba(7,4,10,.25) 100%),
+      linear-gradient(180deg, rgba(7,4,10,.6) 0%, rgba(7,4,10,0) 30%, rgba(7,4,10,.2) 75%, var(--wall) 100%)}
+  }
+  .sign{
+    isolation:isolate;
+    position:relative;z-index:1;
+    padding:clamp(96px,14vw,150px) 0 56px;
+    overflow:hidden;
+    background:
+      radial-gradient(55% 45% at 50% 34%, rgba(233,57,215,.30), rgba(233,57,215,0) 70%),
+      radial-gradient(40% 40% at 28% 55%, rgba(59,129,233,.20), rgba(59,129,233,0) 70%),
+      radial-gradient(40% 40% at 72% 55%, rgba(59,129,233,.14), rgba(59,129,233,0) 70%);
+  }
+  .sign .wrap{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .logo-stage{position:relative;width:min(100%,1120px);aspect-ratio:1600/__SIGNH__;margin-inline:auto}
+  @media (max-width:640px){.logo-stage{width:116%;margin-inline:-8%}}
+  .logo-stage .sign-art{
+    position:absolute;inset:0;
+    filter:saturate(1.1) brightness(1);
+  }
+  .logo-stage .sign-art.lit-in{animation:ignite 1.6s steps(1,end) both}
+  @keyframes ignite{
+    0%{filter:brightness(.35) saturate(.6)}
+    6%{filter:brightness(1.05)}
+    10%{filter:brightness(.4) saturate(.7)}
+    18%{filter:brightness(1.1)}
+    22%{filter:brightness(.55)}
+    30%,100%{filter:brightness(1) saturate(1.1)}
+  }
+  /* riflesso sul pavimento lucido */
+  .floor{
+    width:min(78vw,540px,56svh);max-width:100%;aspect-ratio:1/.2;margin-top:-6px;
+    position:relative;overflow:hidden;pointer-events:none;
+    -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,0) 85%);
+            mask-image:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,0) 85%);
+  }
+  .floor .logo-art{
+    width:100%;aspect-ratio:1;transform:scaleY(-1);transform-origin:50% 50%;
+    filter:blur(4px) brightness(.7);opacity:.45;
+    position:absolute;left:0;bottom:0;
+  }
+  .since{font-size:clamp(26px,5vw,48px);margin:-2% 0 0;position:relative}
+  .hero-copy{max-width:40ch;color:var(--ink-dim);margin:12px auto 0;font-size:17px}
+
+  /* insegna aperto/chiuso */
+  .openbox{
+    margin-top:24px;display:grid;gap:16px;justify-items:center;
+    padding:22px clamp(18px,4vw,34px) 24px;
+    background:linear-gradient(180deg,rgba(20,12,26,.86),rgba(14,8,19,.92));
+    border:1px solid var(--line);border-radius:22px;
+    box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 0 1px rgba(233,57,215,.06) inset;
+    width:min(100%,620px);
+  }
+  .days3{margin:0;font-size:clamp(28px,3.4vw,40px);display:flex;flex-wrap:nowrap;justify-content:center;gap:0 .35em;line-height:1.15;white-space:nowrap}
+  @media (max-width:560px){.days3{flex-direction:column;align-items:center;font-size:34px;gap:2px}.days3 i{display:none}}
+  .days3 i{font-style:normal;color:var(--ink-faint)}
+  .days3 span{color:var(--blue-core);text-shadow:0 0 1px #fff,0 0 4px var(--blue),0 0 11px var(--blue),0 0 24px rgba(59,129,233,.6)}
+  .days3 span.on{color:var(--pink-core);text-shadow:0 0 1px #fff,0 0 4px var(--pink),0 0 11px var(--pink),0 0 24px var(--pink),0 0 48px rgba(233,57,215,.55)}
+  .when{margin:0;text-align:center;color:var(--ink);font-size:17px;max-width:40ch}
+  .when b{color:var(--pink-core)}
+  .state .word{font-size:clamp(36px,8vw,50px)}
+  .state .word.off{color:#A887B0;text-shadow:0 0 1px rgba(255,255,255,.25),0 0 14px rgba(168,135,176,.18)}
+  .state .when{font:400 16px/1.4 var(--body);color:var(--ink-dim);text-align:center;max-width:30ch}
+  .cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    font:700 16px/1 var(--body);text-decoration:none;cursor:pointer;
+    padding:15px 20px;border-radius:999px;border:0;
+    transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out),background .25s;
+    min-height:48px;
+  }
+  .btn svg{width:19px;height:19px;flex:none}
+  .btn-pink{
+    background:var(--pink);color:#12040F;
+    box-shadow:0 8px 24px rgba(233,57,215,.38),0 0 0 1px rgba(255,255,255,.18) inset;
+  }
+  .btn-pink:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(233,57,215,.55),0 0 0 1px rgba(255,255,255,.25) inset}
+  .btn-line{
+    background:rgba(59,129,233,.08);color:var(--blue-core);
+    box-shadow:0 0 0 1.5px var(--blue) inset,0 0 16px rgba(59,129,233,.35),0 6px 18px rgba(0,0,0,.35);
+  }
+  .duo{display:inline-flex;gap:6px}
+  .btn-round{width:48px;padding:0;justify-content:center;background:rgba(59,129,233,.1);color:var(--blue-core);box-shadow:0 0 0 1.5px var(--blue) inset,0 0 14px rgba(59,129,233,.35)}
+  .btn-round:hover{transform:translateY(-2px);background:rgba(59,129,233,.2)}
+  .btn-line:hover{transform:translateY(-2px);background:rgba(59,129,233,.16)}
+  .btn:active{transform:translateY(0)}
+
+  /* ---------- sezioni ---------- */
+  section.band{position:relative;z-index:1;padding-block:clamp(76px,11vw,128px) 0}
+  .h2{font-size:clamp(40px,7.4vw,76px);margin:0 0 18px}
+  .lead{color:var(--ink-dim);max-width:60ch;margin:0 0 34px;font-size:18px}
+  .mono{font-family:var(--mono);letter-spacing:.04em}
+
+  .band-photo{isolation:isolate;padding-bottom:clamp(40px,6vw,70px)}
+  .nights-photo{background-position:80% 40%}
+  .nights-photo::after{background:linear-gradient(180deg,var(--wall) 0%,rgba(7,4,10,.72) 20%,rgba(7,4,10,.82) 80%,var(--wall) 100%)}
+  @media (min-width:900px){
+    .nights-photo{background-size:auto 115%;background-position:100% 30%}
+    .nights-photo::after{background:
+      linear-gradient(90deg,var(--wall) 38%,rgba(7,4,10,.6) 62%,rgba(7,4,10,.1) 100%),
+      linear-gradient(180deg,var(--wall) 0%,rgba(7,4,10,0) 18%,rgba(7,4,10,0) 82%,var(--wall) 100%)}
+    #notti .nights,#notti .note,#notti .lead{max-width:62%}
+  }
+  /* le notti */
+  .nights{display:grid;gap:0;border-top:1px solid var(--line)}
+  .night{
+    display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px 22px;
+    padding:22px 4px;border-bottom:1px solid var(--line);
+  }
+  .night .day{font-size:clamp(40px,9vw,88px)}
+  .night .hours{font:500 clamp(16px,2.4vw,22px)/1 var(--mono);color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .night .tag{
+    grid-column:1/-1;justify-self:start;
+    font:700 13px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;
+    padding:7px 10px;border-radius:999px;color:#08130E;background:var(--ok);
+    box-shadow:0 0 14px rgba(82,227,164,.45);
+  }
+  .night .tag.next{background:transparent;color:var(--pink-core);box-shadow:0 0 0 1.5px var(--pink) inset,0 0 12px rgba(233,57,215,.35)}
+  .night.dim .day{opacity:.78}
+  .note{
+    display:flex;gap:14px;align-items:flex-start;margin-top:26px;color:var(--ink-dim);max-width:62ch;
+  }
+  .note svg{flex:none;width:28px;height:28px;margin-top:2px}
+
+  /* serate a tema */
+  .events{display:grid;gap:22px}
+  @media (min-width:900px){.events{grid-template-columns:1.25fr 1fr;align-items:stretch}}
+  .feature{
+    position:relative;overflow:hidden;border-radius:26px;min-height:420px;
+    display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(22px,4vw,36px);
+    border:1px solid var(--line);isolation:isolate;
+    box-shadow:0 24px 60px rgba(0,0,0,.55);
+  }
+  .feature .art{position:absolute;inset:0;z-index:-1}
+  .feature .art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,4,10,0) 25%,rgba(7,4,10,.9) 78%)}
+  .feature .title{font-size:clamp(46px,8vw,84px);margin:10px 0 8px}
+  .feature p{margin:0 0 20px;color:var(--ink-dim);max-width:42ch}
+  .sample{
+    position:absolute;top:18px;left:18px;
+    font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;
+    background:rgba(7,4,10,.72);color:var(--ink-dim);padding:7px 9px;border-radius:999px;border:1px solid var(--line);
+  }
+  .elist{display:grid;align-content:start;border-top:1px solid var(--line)}
+  .erow{
+    display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 18px;align-items:center;
+    padding:20px 4px;border-bottom:1px solid var(--line);text-decoration:none;color:inherit;
+    transition:background .25s;
+  }
+  .erow:hover{background:linear-gradient(90deg,rgba(233,57,215,.07),transparent)}
+  .erow .d{font:500 13px/1.25 var(--mono);color:var(--ink-dim);text-transform:uppercase;letter-spacing:.06em;text-align:center;min-width:52px}
+  .erow .d b{display:block;font:400 30px/1 var(--neon);color:var(--blue-core);text-shadow:0 0 10px var(--blue)}
+  .erow .n{font:400 clamp(26px,3.6vw,34px)/1.1 var(--neon);color:var(--ink)}
+  .erow .dc{grid-column:2;color:var(--ink-dim);font-size:15px}
+  .erow svg{width:22px;height:22px;color:var(--pink);grid-row:1/span 2;grid-column:3}
+  .more{margin-top:22px}
+
+  /* il locale */
+  .club{display:grid;gap:40px}
+  @media (min-width:900px){.club{grid-template-columns:1fr 1fr;gap:64px;align-items:start}}
+  .club p{color:var(--ink-dim);max-width:56ch}
+  .club p strong{color:var(--ink)}
+  .feats{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
+  .feats li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:16px;align-items:start;padding:20px 0;border-bottom:1px solid var(--line)}
+  .feats h3{margin:2px 0 4px;font:700 18px/1.3 var(--body)}
+  .feats p{margin:0;font-size:15.5px}
+  .ico{width:48px;height:48px;color:var(--pink);filter:drop-shadow(0 0 4px var(--pink)) drop-shadow(0 0 10px rgba(233,57,215,.6))}
+  .ico.b{color:var(--blue);filter:drop-shadow(0 0 4px var(--blue)) drop-shadow(0 0 10px rgba(59,129,233,.6))}
+  .ico path,.ico circle,.ico rect,.ico line,.ico polyline{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* regole della casa */
+  .rules{
+    position:relative;overflow:hidden;border-radius:30px;border:1px solid var(--line);
+    padding:clamp(34px,6vw,70px) clamp(22px,5vw,64px);
+    background:
+      radial-gradient(70% 90% at 0% 0%, rgba(59,129,233,.16), transparent 60%),
+      radial-gradient(60% 80% at 100% 100%, rgba(233,57,215,.16), transparent 60%),
+      var(--panel);
+  }
+  .rules{isolation:isolate}
+  .rules-photo{background-position:70% 35%}
+  .rules-photo::after{background:linear-gradient(180deg,rgba(20,12,26,.78),rgba(20,12,26,.92))}
+  @media (min-width:900px){
+    .rules-photo{background-size:48% auto;background-position:104% 30%}
+    .rules-photo::after{background:linear-gradient(90deg,var(--panel) 42%,rgba(20,12,26,.55) 70%,rgba(20,12,26,.2) 100%)}
+    .rules .big,.rules ul{position:relative}
+    .rules ul{max-width:70%}
+  }
+  .rules .big{font-size:clamp(40px,7vw,78px);margin:0 0 30px;max-width:14ch}
+  .rules ul{list-style:none;margin:0;padding:0;display:grid;gap:22px}
+  @media (min-width:760px){.rules ul{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .rules li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;color:var(--ink-dim)}
+  .rules li strong{display:block;color:var(--ink);font-size:17px;margin-bottom:2px}
+
+  /* gallery */
+  .gal{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media (min-width:900px){.gal{grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:230px 230px}}
+  .shot{border-radius:18px;overflow:hidden;position:relative;aspect-ratio:4/5;border:1px solid var(--line);user-select:none;-webkit-user-select:none}
+  @media (min-width:900px){.shot{aspect-ratio:auto}.shot:first-child{grid-row:1/span 2}}
+  .shot .art{position:absolute;inset:0;transition:transform 1s var(--ease-out)}
+  .shot:hover .art{transform:scale(1.04)}
+  .shot::after{
+    content:"ZOO   ZOO   ZOO   ZOO   ZOO   ZOO   ZOO   ZOO";
+    position:absolute;inset:-40%;display:flex;align-items:center;justify-content:center;
+    font:400 34px/2.4 var(--neon);color:rgba(255,255,255,.06);transform:rotate(-24deg);
+    word-spacing:18px;text-align:center;pointer-events:none;
+  }
+  .gal-foot{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;margin-top:18px;color:var(--ink-faint);font-size:14px}
+
+  /* luci generate: sostituite dalle foto vere */
+  .art.a1{background:
+    radial-gradient(circle at 30% 28%, rgba(233,57,215,.95) 0 3%, transparent 14%),
+    radial-gradient(circle at 62% 20%, rgba(59,129,233,.85) 0 2%, transparent 11%),
+    radial-gradient(circle at 78% 46%, rgba(233,57,215,.6) 0 4%, transparent 16%),
+    radial-gradient(circle at 18% 70%, rgba(59,129,233,.55) 0 5%, transparent 18%),
+    conic-gradient(from 200deg at 50% -10%, transparent 0 40deg, rgba(233,57,215,.35) 48deg, transparent 58deg, transparent 80deg, rgba(59,129,233,.35) 90deg, transparent 100deg),
+    linear-gradient(180deg,#1A0A22,#07040A)}
+  .art.velvet{background:
+    conic-gradient(from 180deg at 50% -8%, transparent 0 158deg, rgba(255,210,240,.22) 170deg, rgba(255,160,220,.10) 180deg, rgba(255,210,240,.22) 190deg, transparent 202deg),
+    radial-gradient(45% 30% at 50% 100%, rgba(233,57,215,.45), transparent 70%),
+    repeating-linear-gradient(90deg, #3A0615 0 18px, #5E0B22 30px, #2A0410 44px, #4A0819 58px),
+    #1A0209}
+  .art.a2{background:
+    repeating-linear-gradient(90deg, transparent 0 22px, rgba(233,57,215,.07) 22px 24px),
+    radial-gradient(60% 50% at 50% 100%, rgba(233,57,215,.7), transparent 70%),
+    radial-gradient(circle at 50% 30%, rgba(255,230,250,.7) 0 1.5%, transparent 9%),
+    linear-gradient(180deg,#0D0612,#21071D)}
+  .art.a3{background:
+    conic-gradient(from 160deg at 50% 0%, transparent 0 10deg, rgba(59,129,233,.55) 14deg, transparent 22deg, transparent 38deg, rgba(233,57,215,.5) 44deg, transparent 52deg),
+    radial-gradient(circle at 70% 75%, rgba(59,129,233,.7) 0 3%, transparent 15%),
+    radial-gradient(circle at 25% 80%, rgba(233,57,215,.5) 0 4%, transparent 16%),
+    linear-gradient(180deg,#060A18,#0B0410)}
+  .art.a4{background:
+    radial-gradient(circle at 20% 30%, rgba(255,215,245,.8) 0 1%, transparent 5%),
+    radial-gradient(circle at 42% 58%, rgba(233,57,215,.8) 0 2.5%, transparent 12%),
+    radial-gradient(circle at 70% 36%, rgba(59,129,233,.8) 0 2.5%, transparent 12%),
+    radial-gradient(circle at 85% 80%, rgba(233,57,215,.6) 0 3%, transparent 14%),
+    radial-gradient(90% 60% at 50% 110%, rgba(59,129,233,.5), transparent 70%),
+    linear-gradient(180deg,#120817,#07040A)}
+  .art.a5{background:
+    radial-gradient(40% 60% at 50% 50%, rgba(233,57,215,.55), transparent 70%),
+    repeating-radial-gradient(circle at 50% 50%, transparent 0 18px, rgba(59,129,233,.10) 18px 20px),
+    linear-gradient(180deg,#0A0512,#150716)}
+
+  /* lavora con noi */
+  .jobs{display:grid;gap:30px;align-items:end}
+  @media (min-width:900px){.jobs{grid-template-columns:1.1fr .9fr;gap:64px}}
+  .roles{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 26px;padding:0;list-style:none}
+  .roles li{
+    font-size:15px;padding:10px 14px;border-radius:999px;color:var(--ink);
+    background:var(--panel);border:1px solid var(--line);
+  }
+
+  /* newsletter */
+  .news{
+    border-radius:30px;padding:clamp(28px,5vw,56px);
+    background:linear-gradient(135deg,rgba(233,57,215,.20),rgba(59,129,233,.14)),var(--panel);
+    border:1px solid rgba(233,57,215,.35);
+    box-shadow:0 0 40px rgba(233,57,215,.15),0 24px 60px rgba(0,0,0,.5);
+    display:grid;gap:26px;
+  }
+  @media (min-width:900px){.news{grid-template-columns:1fr 1fr;align-items:center;gap:48px}}
+  .news .h2{margin-bottom:10px}
+  .news p{margin:0;color:var(--ink-dim)}
+  form.nl{display:grid;gap:12px}
+  .field{display:flex;gap:10px;flex-wrap:wrap}
+  .field input{
+    flex:1 1 220px;min-width:0;min-height:52px;padding:0 18px;border-radius:999px;
+    background:rgba(7,4,10,.7);border:1.5px solid var(--line);color:var(--ink);font:400 16px var(--body);
+  }
+  .field input::placeholder{color:var(--ink-faint)}
+  .field input:focus{outline:none;border-color:var(--pink);box-shadow:0 0 0 4px rgba(233,57,215,.2)}
+  .consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-dim)}
+  .consent input{margin-top:3px;accent-color:var(--pink);width:18px;height:18px;flex:none}
+  .formmsg{font-size:15px;color:var(--ok);min-height:1.4em;margin:0}
+  .formmsg.err{color:#FF8FA3}
+
+  /* recensioni */
+  .reviews{overflow:hidden;padding-block:8px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 3%,#000 94%,transparent)}
+  .track{display:flex;gap:16px;width:max-content;animation:slide 60s linear infinite;padding-inline-start:max(var(--gutter),calc((100vw - var(--max))/2 + var(--gutter)))}
+  .reviews:hover .track{animation-play-state:paused}
+  @keyframes slide{to{transform:translateX(-50%)}}
+  .rev{
+    width:min(78vw,340px);flex:none;padding:22px;border-radius:20px;background:var(--panel);border:1px solid var(--line);
+    display:grid;gap:12px;align-content:start;
+  }
+  .stars{display:flex;gap:3px;color:var(--pink)}
+  .stars svg{width:17px;height:17px;fill:currentColor;filter:drop-shadow(0 0 4px var(--pink))}
+  .rev p{margin:0;color:var(--ink)}
+  .rev .who{font:400 14px/1 var(--body);color:var(--ink-faint);display:flex;gap:10px;align-items:center;justify-content:space-between}
+  .rev .who em{font-style:normal;border:1px solid var(--line);border-radius:999px;padding:5px 8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+  .rev-foot{margin-top:14px;font-size:15px}
+
+  /* footer */
+  footer{position:relative;z-index:1;margin-top:clamp(80px,12vw,130px);border-top:1px solid var(--line);background:linear-gradient(180deg,var(--wall-2),#040206)}
+  .fgrid{display:grid;gap:34px;padding-block:52px 34px}
+  @media (min-width:900px){.fgrid{grid-template-columns:1.1fr 1fr 1fr 1fr}}
+  .fgrid h3{font:700 13px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin:6px 0 14px}
+  .fgrid p,.fgrid li{margin:0;color:var(--ink-dim);font-size:15.5px}
+  .fgrid ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  .fgrid a{color:var(--ink);text-decoration:none}
+  .fgrid a:hover{color:var(--pink-core)}
+  .hours{font-family:var(--mono);font-size:14px;font-variant-numeric:tabular-nums}
+  .hours li{display:flex;justify-content:space-between;gap:14px;max-width:260px}
+  .hours li span:first-child{font-family:var(--body);font-size:15.5px}
+  .legal{border-top:1px solid var(--line);padding-block:24px 34px;display:grid;gap:14px;color:var(--ink-faint);font-size:13.5px;line-height:1.7}
+  .legal .row{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+  .legal a{color:var(--ink-dim)}
+  .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--ink-dim)}
+  .chip svg{width:16px;height:16px}
+  .ghostbtn{background:none;border:1px dashed var(--line);color:var(--ink-dim);font:inherit;border-radius:999px;padding:6px 12px;cursor:pointer}
+  .ghostbtn:hover{color:var(--ink);border-color:var(--ink-faint)}
+
+  /* pulsante flottante mobile */
+  .fab{
+    position:fixed;right:16px;bottom:16px;z-index:30;width:58px;height:58px;border-radius:50%;
+    display:grid;place-items:center;background:var(--pink);color:#12040F;text-decoration:none;
+    box-shadow:0 10px 26px rgba(233,57,215,.5),0 0 0 1px rgba(255,255,255,.2) inset;
+  }
+  .fab svg{width:26px;height:26px}
+  .fab{opacity:0;transform:translateY(12px) scale(.9);pointer-events:none;transition:opacity .35s var(--ease-out),transform .35s var(--ease-out)}
+  .fab.show{opacity:1;transform:none;pointer-events:auto}
+  @media (min-width:1060px){.fab{display:none}}
+
+  /* schermata 18+ */
+  .gate{
+    position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:24px;
+    background:radial-gradient(60% 50% at 50% 38%,rgba(233,57,215,.22),transparent 70%),rgba(4,2,6,.97);
+  }
+  .gate[hidden]{display:none!important}
+  .gate .box{text-align:center;max-width:430px;display:grid;justify-items:center;gap:18px}
+  
+  .gate .q{font-size:clamp(34px,8vw,46px);margin:0}
+  .gate .fine{font-size:14px;color:var(--ink-faint);margin:0}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  }
+</style>
+
+<!--
+THESIS: la home è l'insegna del locale accesa sul muro: la scritta al neon è la pagina, non un'immagine dentro un hero; rifiuta la foto a tutta pagina con "Scopri gli eventi".
+OWN-WORLD: muro nero-viola granuloso, luce magenta #E939D7 e blu #3B81E9 che bagna le zone, lettere in tubo (Tilt Neon) con anima bianca e alone, riflesso sul pavimento lucido, pannelli scuri con bordi sottili.
+STORY: il visitatore vede l'insegna accendersi, capisce se il locale è aperto adesso o quando riapre, chiama Diana o Alessia, poi scopre notti, serate a tema, locale e regole.
+FIRST VIEWPORT: insegna orizzontale ZOO SEXY DISCO a tutta larghezza (max 1120px) con il suo riflesso, su foto del locale scurita; tubo blu "Da oltre 25 anni, la notte è qui."; riga al neon Giovedì · Venerdì · Sabato con la serata di turno accesa e i pulsanti WhatsApp/chiamata subito sotto.
+FORM: Insegna al neon, posizione 1 della lista, scelta dall'utente come pick; seed 8a660702.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+-->
+
+<a class="skip" href="#main" style="position:absolute;left:-9999px">Vai al contenuto</a>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="ZOO Sexy Disco, home">
+      <span class="logo-sm" style="width:46px;height:46px;flex:none" aria-hidden="true"></span>
+      <span class="tube pink">ZOO Sexy Disco</span>
+    </a>
+    <nav class="nav" aria-label="Menu principale">
+      <a href="#notti" data-k="nav1">Le notti</a>
+      <a href="#serate" data-k="nav2">Serate a tema</a>
+      <a href="#locale" data-k="nav3">Il locale</a>
+      <a href="#gallery" data-k="nav4">Gallery</a>
+      <a href="#lavora" data-k="nav5">Lavora con noi</a>
+      <a href="#contatti" data-k="nav6">Contatti</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Lingua">
+      <button type="button" data-lang="it" aria-pressed="true">IT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <span class="badge18 only-wide" title="Solo maggiorenni">18+</span>
+    <button class="burger" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="menu" id="burger">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <button class="burger close" type="button" aria-label="Chiudi il menu" id="menuClose">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <a class="tube pink" href="#notti" data-k="nav1">Le notti</a>
+  <a class="tube pink" href="#serate" data-k="nav2">Serate a tema</a>
+  <a class="tube blue" href="#locale" data-k="nav3">Il locale</a>
+  <a class="tube blue" href="#gallery" data-k="nav4">Gallery</a>
+  <a class="tube pink" href="#lavora" data-k="nav5">Lavora con noi</a>
+  <a class="tube blue" href="#contatti" data-k="nav6">Contatti</a>
+  <div class="menu-foot">
+    <a class="btn btn-pink" href="https://wa.me/393475872376" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19l-4 1z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2z"/></svg><span data-k="waD">WhatsApp Diana</span></a>
+    <a class="btn btn-line" href="tel:+393475872376"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span data-k="callD">Chiama Diana</span></a>
+    <a class="btn btn-pink" href="https://wa.me/393338942087" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19l-4 1z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2z"/></svg><span data-k="waA">WhatsApp Alessia</span></a>
+    <a class="btn btn-line" href="tel:+393338942087"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span data-k="callA">Chiama Alessia</span></a>
+    <span><span class="badge18">18+</span> &nbsp;<span data-k="adults">Solo maggiorenni</span></span>
+  </div>
+</div>
+
+<main id="main">
+  <section class="sign" aria-labelledby="hero-t">
+    <div class="photo ph-pedana hero-photo" aria-hidden="true"></div>
+    <div class="wrap">
+      <h1 id="hero-t" style="position:absolute;left:-9999px">ZOO Sexy Disco — lap dance e night club a Madone, Bergamo</h1>
+      <div class="logo-stage">
+        <div class="sign-art" id="logoBig" role="img" aria-label="Insegna al neon ZOO Sexy Disco"></div>
+      </div>
+      <p class="since tube blue hum" id="since" data-k="since">Da oltre 25 anni, la notte è qui.</p>
+      <p class="hero-copy" data-k="heroCopy">Lap dance e night club a Madone, alle porte di Bergamo. Spettacoli, serate a tema, bar e privè.</p>
+
+      <div class="openbox" aria-live="polite">
+        <p class="days3 tube" id="days3"><span data-d="4" data-k="thu">Giovedì</span><i>·</i><span data-d="5" data-k="fri">Venerdì</span><i>·</i><span data-d="6" data-k="sat">Sabato</span></p>
+        <p class="when" id="stateWhen">—</p>
+        <div class="cta">
+          <span class="duo"><a class="btn btn-pink wa" href="https://wa.me/393475872376?text=Ciao%20Diana%2C%20vorrei%20prenotare%20un%20tavolo" target="_blank" rel="noopener" data-track="whatsapp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19l-4 1z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2z"/></svg><span data-k="waD">WhatsApp Diana</span></a><a class="btn btn-round" href="tel:+393475872376" aria-label="Chiama Diana" data-track="phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></a></span>
+          <span class="duo"><a class="btn btn-pink wa" href="https://wa.me/393338942087?text=Ciao%20Alessia%2C%20vorrei%20prenotare%20un%20tavolo" target="_blank" rel="noopener" data-track="whatsapp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19l-4 1z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2z"/></svg><span data-k="waA">WhatsApp Alessia</span></a><a class="btn btn-round" href="tel:+393338942087" aria-label="Chiama Alessia" data-track="phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></a></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-photo" id="notti" aria-labelledby="notti-t">
+    <div class="photo ph-perizoma nights-photo" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2 class="h2 tube pink" id="notti-t" data-k="nightsT">Le nostre notti</h2>
+      <p class="lead" data-k="nightsL">Siamo aperti solo il giovedì, il venerdì e il sabato, dalle 22 fino a notte fonda.</p>
+      <div class="nights" id="nights">
+        <div class="night" data-day="4">
+          <span class="day tube blue" data-k="thu">Giovedì</span>
+          <span class="hours">22:00 – 02:00</span>
+        </div>
+        <div class="night" data-day="5">
+          <span class="day tube blue" data-k="fri">Venerdì</span>
+          <span class="hours">22:00 – 03:30</span>
+        </div>
+        <div class="night" data-day="6">
+          <span class="day tube blue" data-k="sat">Sabato</span>
+          <span class="hours">22:00 – 03:30</span>
+        </div>
+      </div>
+      <div class="note">
+        <svg class="ico b" viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="7" width="22" height="20" rx="3"/><line x1="5" y1="13" x2="27" y2="13"/><line x1="11" y1="4" x2="11" y2="9"/><line x1="21" y1="4" x2="21" y2="9"/><circle cx="16" cy="20" r="2"/></svg>
+        <p style="margin:0" data-k="holidays">Nei giorni di festa apriamo anche in altre sere, e a dicembre siamo aperti più giorni. Le date extra le trovi qui e sul nostro Instagram man mano che si avvicinano.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="serate" aria-labelledby="serate-t">
+    <div class="wrap">
+      <h2 class="h2 tube pink" id="serate-t" data-k="eventsT">Serate a tema</h2>
+      <p class="lead" data-k="eventsL">Ogni serata a tema ha il suo dress code: le ragazze cambiano abiti, luci e atmosfera.</p>
+      <div class="events">
+        <article class="feature" id="evMain">
+          <div class="art velvet"></div>
+          <span class="sample" data-k="sample">Esempio</span>
+          <h3 class="title tube pink">Red Velvet</h3>
+          <p><strong id="evMainDate" style="color:var(--ink)">Sabato</strong> · <span data-k="ev1">Dress code rosso: velluto, pizzo e tacchi alti. Una notte tutta in rosso, dal palco al privè.</span></p>
+          <div><a class="btn btn-pink" href="https://wa.me/393475872376?text=Ciao%2C%20vorrei%20prenotare%20un%20tavolo%20per%20la%20Red%20Velvet" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19l-4 1z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2z"/></svg><span data-k="book">Prenota un tavolo</span></a></div>
+        </article>
+        <div>
+          <div class="elist" id="evList"></div>
+          <p class="more"><a href="#serate" data-k="allEvents">Tutte le serate e l'archivio</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="locale" aria-labelledby="locale-t">
+    <div class="wrap club">
+      <div>
+        <h2 class="h2 tube blue" id="locale-t" data-k="clubT">Il locale</h2>
+        <p data-k="club1"><strong>ZOO Sexy Disco è uno dei locali per adulti e night club più conosciuti della zona.</strong> Siamo a Madone, in via Vincenzo Bellini 43, dalla fine degli anni '90.</p>
+        <p data-k="club2">Spettacoli di ballerine, serate a tema durante tutto l'anno, il bar, i tavoli e il privè. [Qui va la storia del locale, per tappe: da completare con il proprietario.]</p>
+      </div>
+      <ul class="feats">
+        <li>
+          <svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 6h18l-9 11z"/><line x1="16" y1="17" x2="16" y2="26"/><line x1="11" y1="26" x2="21" y2="26"/><line x1="10" y1="10" x2="22" y2="10"/></svg>
+          <div><h3 data-k="f1t">Bar</h3><p data-k="f1">Cocktail, superalcolici e vino.</p></div>
+        </li>
+        <li>
+          <svg class="ico b" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4v24"/><path d="M11 9c3 2 7 2 10 0"/><path d="M10 19c4 3 8 3 12 0"/><circle cx="16" cy="4" r="1.2"/><line x1="10" y1="28" x2="22" y2="28"/></svg>
+          <div><h3 data-k="f2t">Spettacoli</h3><p data-k="f2">Ballerine sul palco e lap dance, con serate a tema durante l'anno.</p></div>
+        </li>
+        <li>
+          <svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="12" width="22" height="7" rx="2"/><line x1="8" y1="19" x2="8" y2="26"/><line x1="24" y1="19" x2="24" y2="26"/><path d="M9 12V9a7 7 0 0 1 14 0v3"/></svg>
+          <div><h3 data-k="f3t">Tavoli e privè</h3><p data-k="f3">Aree tavoli per il gruppo e spazi privè riservati.</p></div>
+        </li>
+        <li>
+          <svg class="ico b" viewBox="0 0 32 32" aria-hidden="true"><circle cx="15" cy="6" r="2.2"/><path d="M15 9v8h7l3 7"/><path d="M15 13h6"/><path d="M11 14a7 7 0 1 0 9 9"/></svg>
+          <div><h3 data-k="f4t">Accessibile</h3><p data-k="f4">Ingressi, parcheggio e servizi igienici accessibili anche in sedia a rotelle.</p></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="regole-t">
+    <div class="wrap">
+      <div class="rules">
+        <div class="photo ph-gambe rules-photo" aria-hidden="true"></div>
+        <h2 class="big tube pink" id="regole-t" data-k="rulesT">Qui dentro nessuno ti fotografa.</h2>
+        <ul>
+          <li>
+            <svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="10" width="24" height="16" rx="3"/><path d="M11 10l2-4h6l2 4"/><circle cx="16" cy="18" r="4.5"/><line x1="4" y1="4" x2="28" y2="28"/></svg>
+            <div><strong data-k="r1t">Niente foto e video</strong><span data-k="r1">In sala sono vietati a tutti. È la garanzia della tua riservatezza.</span></div>
+          </li>
+          <li>
+            <svg class="ico b" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M10 12h2v9"/><path d="M19 16.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5a2.8 2.8 0 1 1 0 5.6 2.8 2.8 0 0 1 0-5.6"/></svg>
+            <div><strong data-k="r2t">Solo maggiorenni</strong><span data-k="r2">L'ingresso è riservato a chi ha compiuto 18 anni.</span></div>
+          </li>
+          <li>
+            <svg class="ico" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4l10 4v7c0 7-4.5 11-10 13C10.5 26 6 22 6 15V8z"/><polyline points="11,16 15,20 22,12"/></svg>
+            <div><strong data-k="r3t">Rispetto per le ragazze</strong><span data-k="r3">Si guarda, ci si diverte, si rispettano le regole della sala.</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="gallery" aria-labelledby="gal-t">
+    <div class="wrap">
+      <h2 class="h2 tube blue" id="gal-t">Gallery</h2>
+      <div class="gal" id="gal">
+        <div class="shot"><div class="art a1"></div></div>
+        <div class="shot"><div class="art a3"></div></div>
+        <div class="shot"><div class="art a4"></div></div>
+        <div class="shot"><div class="art a5"></div></div>
+        <div class="shot"><div class="art a2"></div></div>
+      </div>
+      <div class="gal-foot">
+        <a href="#gallery" data-k="galPhotos">Foto</a>
+        <a href="#gallery" data-k="galVideos">Video degli spettacoli</a>
+        <span data-k="galNote">Immagini di esempio: verranno sostituite dalle foto del locale.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="lavora" aria-labelledby="job-t">
+    <div class="wrap jobs">
+      <div>
+        <h2 class="h2 tube pink" id="job-t" data-k="jobT">Lavora con noi</h2>
+        <p class="lead" style="margin-bottom:0" data-k="jobL">Cerchiamo persone serie per la sala e per il palco. La candidatura è riservata: non finisce mai sul sito.</p>
+      </div>
+      <div>
+        <ul class="roles">
+          <li data-k="j1">Ballerina</li><li data-k="j2">Cubista</li><li data-k="j3">Cameriera</li>
+          <li data-k="j4">Barman</li><li>PR</li><li data-k="j6">Sicurezza</li>
+        </ul>
+        <a class="btn btn-line" href="#lavora"><span data-k="apply">Invia la tua candidatura</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="nl-t">
+    <div class="wrap">
+      <div class="news">
+        <div>
+          <h2 class="h2 tube pink" id="nl-t" data-k="nlT">Entra in lista</h2>
+          <p data-k="nlL">Promozioni riservate, inviti alle serate e un regalo di benvenuto la prima volta che vieni.</p>
+        </div>
+        <form class="nl" id="nlForm" novalidate>
+          <div class="field">
+            <label for="nlEmail" style="position:absolute;left:-9999px">Email</label>
+            <input id="nlEmail" type="email" autocomplete="email" placeholder="La tua email" data-kp="nlPh">
+            <button class="btn btn-pink" type="submit"><span data-k="nlBtn">Iscriviti</span></button>
+          </div>
+          <label class="consent"><input type="checkbox" id="nlConsent"><span data-k="nlConsent">Accetto di ricevere promozioni via email. Posso cancellarmi quando voglio. <a href="#">Informativa privacy</a></span></label>
+          <p class="formmsg" id="nlMsg" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="rev-t">
+    <div class="wrap">
+      <h2 class="h2 tube blue" id="rev-t" data-k="revT">Dicono di noi</h2>
+    </div>
+    <div class="reviews"><div class="track" id="track"></div></div>
+    <div class="wrap"><p class="rev-foot" style="color:var(--ink-faint)" data-k="revNote">Recensioni di esempio: qui compariranno le recensioni vere del locale, con il link a Google.</p></div>
+  </section>
+</main>
+
+<footer id="contatti">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <span class="logo-sm" style="width:96px;height:96px;margin-bottom:12px" aria-hidden="true"></span>
+        <p>Via Vincenzo Bellini 43<br>24040 Madone (BG)</p>
+      </div>
+      <div>
+        <h3 data-k="fContacts">Contatti</h3>
+        <ul>
+          <li>Diana · <a href="tel:+393475872376">347 587 2376</a> · <a href="https://wa.me/393475872376" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li>Alessia · <a href="tel:+393338942087">333 894 2087</a> · <a href="https://wa.me/393338942087" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="mailto:info@zoosexydisco.it">info@zoosexydisco.it</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 data-k="fHours">Orari</h3>
+        <ul class="hours">
+          <li><span data-k="thu">Giovedì</span><span>22:00–02:00</span></li>
+          <li><span data-k="fri">Venerdì</span><span>22:00–03:30</span></li>
+          <li><span data-k="sat">Sabato</span><span>22:00–03:30</span></li>
+        </ul>
+        <p style="margin-top:10px;font-size:14px" data-k="fHol">Aperture extra nei giorni di festa e a dicembre.</p>
+      </div>
+      <div>
+        <h3>Instagram</h3>
+        <p data-k="fIg">[handle Instagram da completare] — qui andrà il QR code.</p>
+      </div>
+    </div>
+    <div class="legal">
+      <div class="row">
+        <span class="chip"><span class="badge18" style="padding:4px 6px;font-size:11px">18+</span><span data-k="adults">Solo maggiorenni</span></span>
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="2"/><circle cx="12" cy="13" r="3.2"/><line x1="3" y1="3" x2="21" y2="21"/></svg><span data-k="noPhoto">Vietato foto e video in sala</span></span>
+        <a href="#" data-k="privacy">Privacy e cookie</a>
+      </div>
+      <p style="margin:0">ZOO Sexy Disco <span data-k="managed">è un locale gestito da</span> Venera S.r.l.s. · <span data-k="seat">Sede legale</span>: Via Vincenzo Bellini 43, 24040 Madone (BG) · C.F. e P.IVA 04616100162 · <span data-k="reg">Registro Imprese di Bergamo n.</span> 04616100162 · REA BG-476301 · <span data-k="cap">Capitale sociale</span> € 500,00 i.v. · info@zoosexydisco.it · PEC venerasrls@arubapec.it · © <span id="yr">2026</span></p>
+    </div>
+  </div>
+</footer>
+
+<a class="fab" href="https://wa.me/393475872376" target="_blank" rel="noopener" aria-label="Scrivi su WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19l-4 1z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2z"/></svg></a>
+
+<div class="gate" id="gate" hidden role="dialog" aria-modal="true" aria-labelledby="gateQ">
+  <div class="box">
+    <div class="logo-art" style="width:min(62vw,260px);aspect-ratio:1" aria-hidden="true"></div>
+    <p class="q tube pink" id="gateQ" data-k="gateQ">Hai almeno 18 anni?</p>
+    <div class="cta">
+      <button class="btn btn-pink" type="button" id="gateYes"><span data-k="gateYes">Sì, entra</span></button>
+      <button class="btn btn-line" type="button" id="gateNo"><span data-k="gateNo">No</span></button>
+    </div>
+    <p class="fine" data-k="gateFine">Questo sito contiene materiale destinato a un pubblico adulto.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var EN = {
+    nav1:"Our nights",nav2:"Theme nights",nav3:"The club",nav4:"Gallery",nav5:"Work with us",nav6:"Contacts",
+    callD:"Call Diana",callA:"Call Alessia",waD:"WhatsApp Diana",waA:"WhatsApp Alessia",book:"Book a table",adults:"Adults only",
+    since:"For over 25 years, the night has lived here.",
+    heroCopy:"Lap dance and night club in Madone, just outside Bergamo. Shows, theme nights, bar and private rooms.",
+    nightsT:"Our nights",nightsL:"We\'re open on Thursdays, Fridays and Saturdays only, from 10 pm until late.",
+    thu:"Thursday",fri:"Friday",sat:"Saturday",
+    holidays:"On public holidays we open on other nights too, and in December we're open more days. Extra dates appear here and on our Instagram as they come up.",
+    eventsT:"Theme nights",eventsL:"Every theme night has its own dress code: the girls change outfits, lights and mood.",
+    sample:"Example",ev1:"Red dress code: velvet, lace and high heels. A night all in red, from the stage to the private rooms.",
+    allEvents:"All theme nights and past events",
+    clubT:"The club",
+    club1:"<strong>ZOO Sexy Disco is one of the best-known adult venues and night clubs in the area.</strong> We've been in Madone, at Via Vincenzo Bellini 43, since the late '90s.",
+    club2:"Dancer shows, theme nights all year round, the bar, tables and private rooms. [The club's story goes here, step by step: to be completed with the owner.]",
+    f1t:"Bar",f1:"Cocktails, spirits and wine.",f2t:"Shows",f2:"Dancers on stage and lap dance, with theme nights throughout the year.",
+    f3t:"Tables and private rooms",f3:"Table areas for groups and reserved private rooms.",
+    f4t:"Accessible",f4:"Wheelchair-accessible entrances, parking and restrooms.",
+    rulesT:"In here, nobody takes your picture.",
+    r1t:"No photos or videos",r1:"They're banned for everyone inside. That's how we guarantee your privacy.",
+    r2t:"Adults only",r2:"Entry is reserved for people aged 18 and over.",
+    r3t:"Respect for the girls",r3:"Watch, have fun, and follow the house rules.",
+    galPhotos:"Photos",galVideos:"Show videos",galNote:"Example images: they'll be replaced with photos of the club.",
+    jobT:"Work with us",jobL:"We're looking for reliable people for the floor and the stage. Applications are confidential and never appear on the site.",
+    j1:"Dancer",j2:"Podium dancer",j3:"Waitress",j4:"Bartender",j6:"Security",apply:"Send your application",
+    nlT:"Get on the list",nlL:"Members-only offers, invitations to our nights and a welcome gift on your first visit.",
+    nlBtn:"Sign up",nlConsent:"I agree to receive offers by email. I can unsubscribe at any time. <a href=\"#\">Privacy policy</a>",
+    revT:"What people say",revNote:"Example reviews: the club's 5-star reviews will appear here, with a link to Google.",
+    fContacts:"Contacts",fHours:"Opening hours",fHol:"Extra openings on public holidays and in December.",
+    fIg:"[Instagram handle to be completed] — the QR code goes here.",
+    noPhoto:"No photos or videos inside",privacy:"Privacy and cookies",gatePreview:"Preview the 18+ screen",
+    managed:"is a venue run by",seat:"Registered office",reg:"Bergamo Companies Register no.",cap:"Share capital",
+    gateQ:"Are you 18 or older?",gateYes:"Yes, enter",gateNo:"No",gateFine:"This website contains material intended for an adult audience."
+  };
+  var PH = {it:{nlPh:"La tua email"},en:{nlPh:"Your email"}};
+  var IT = {};
+  document.querySelectorAll('[data-k]').forEach(function(el){ if(!(el.dataset.k in IT)) IT[el.dataset.k]=el.innerHTML; });
+  var lang='it';
+  function t(k){ return (lang==='en'&&EN[k]) ? EN[k] : IT[k]; }
+  function applyLang(l){
+    lang=l;
+    document.documentElement.lang=l;
+    document.querySelectorAll('[data-k]').forEach(function(el){ var v=t(el.dataset.k); if(v!=null) el.innerHTML=v; });
+    document.querySelectorAll('[data-kp]').forEach(function(el){ el.placeholder=PH[l][el.dataset.kp]; });
+    document.querySelectorAll('.lang button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.lang===l)); });
+    renderState(); renderEvents(); renderReviews();
+    try{ localStorage.setItem('zoo-lang', l); }catch(e){}
+  }
+  document.querySelectorAll('.lang button').forEach(function(b){ b.addEventListener('click', function(){ applyLang(b.dataset.lang); }); });
+
+  /* ---- ora di Roma e stato aperto/chiuso ---- */
+  var DAYS = {it:["domenica","lunedì","martedì","mercoledì","giovedì","venerdì","sabato"], en:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]};
+  var MONTHS = {it:["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"], en:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]};
+  function romeParts(d){
+    var f=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Rome',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false,weekday:'short'});
+    var o={}; f.formatToParts(d).forEach(function(p){ o[p.type]=p.value; });
+    var wd={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[o.weekday];
+    return {y:+o.year,m:+o.month,d:+o.day,h:(+o.hour)%24,min:+o.minute,wd:wd};
+  }
+  // finestre di apertura in minuti della settimana (lunedì 00:00 = 0)
+  var WIN=[{day:4,start:3*1440+1320,end:4*1440+120,close:"02:00"},{day:5,start:4*1440+1320,end:5*1440+210,close:"03:30"},{day:6,start:5*1440+1320,end:6*1440+210,close:"03:30"}];
+  function openInfo(){
+    var p=romeParts(new Date());
+    var mow=((p.wd+6)%7)*1440+p.h*60+p.min;
+    for(var i=0;i<WIN.length;i++){ if(mow>=WIN[i].start && mow<WIN[i].end) return {open:true,win:WIN[i],p:p}; }
+    var best=null,delta=1e9;
+    WIN.forEach(function(w){ var dd=(w.start-mow+7*1440)%(7*1440); if(dd<delta){delta=dd;best=w;} });
+    return {open:false,win:best,p:p,delta:delta};
+  }
+  function renderState(){
+    var s=openInfo(), wh=document.getElementById('stateWhen');
+    var dayName=DAYS[lang][s.win.day];
+    document.querySelectorAll('#days3 span').forEach(function(sp){ sp.classList.toggle('on', +sp.dataset.d===s.win.day); });
+    if(s.open){
+      wh.innerHTML = lang==='en' ? ('<b>We\'re open tonight</b> until '+s.win.close+'. Come on in.') : ('<b>Stasera siamo aperti</b> fino alle '+s.win.close+'. Ti aspettiamo.');
+    }else{
+      var days=Math.floor((s.delta + s.p.h*60 + s.p.min)/1440);
+      var when = days===0 ? (lang==='en'?'tonight':'stasera') : days===1 ? (lang==='en'?'tomorrow':'domani') : dayName;
+      wh.innerHTML = lang==='en' ? ('Next night: <b>'+when+'</b>, from 10 pm. Book your table now.') : ('La prossima serata è <b>'+when+'</b>, dalle 22:00. Prenota il tuo tavolo.');
+    }
+    document.querySelectorAll('.night').forEach(function(n){
+      var old=n.querySelector('.tag'); if(old) old.remove();
+      var isThis = s.win && +n.dataset.day===s.win.day;
+      n.classList.toggle('dim', !isThis);
+      var dayEl=n.querySelector('.day'); dayEl.classList.toggle('pink', isThis); dayEl.classList.toggle('blue', !isThis);
+      if(isThis){
+        var tag=document.createElement('span');
+        tag.className='tag'+(s.open?'':' next');
+        tag.textContent = s.open ? (lang==='en'?'Open tonight':'Aperti stasera') : (lang==='en'?'Next night':'Prossima serata');
+        n.appendChild(tag);
+      }
+    });
+  }
+
+  /* ---- serate di esempio, date calcolate dai prossimi sabati ---- */
+  function nextSaturdays(n){
+    var p=romeParts(new Date()); var base=new Date(Date.UTC(p.y,p.m-1,p.d));
+    var add=(6-p.wd+7)%7; var out=[];
+    for(var i=0;i<n;i++){ out.push(new Date(base.getTime()+(add+7*i)*864e5)); }
+    return out;
+  }
+  var SAMPLE=[
+    {n:"Notte Bianca", dc:{it:"Dress code bianco: abiti e lingerie candidi.",en:"White dress code: all-white outfits and lingerie."}},
+    {n:"Gatsby '20s", dc:{it:"Frange, perle e piume, come negli anni Venti.",en:"Fringe, pearls and feathers, 1920s style."}},
+    {n:"Uniform Night", dc:{it:"Divise di ogni tipo: hostess, infermiere, poliziotte.",en:"Uniforms of every kind."}},
+    {n:"Halloween Night", dc:{it:"Costumi dark e trucco da brivido.",en:"Dark costumes and spooky make-up."}}
+  ];
+  function fmt(d){ return {dow:DAYS[lang][d.getUTCDay()], dd:d.getUTCDate(), mm:MONTHS[lang][d.getUTCMonth()]}; }
+  function renderEvents(){
+    var sats=nextSaturdays(8), main=fmt(sats[0]);
+    document.getElementById('evMainDate').textContent = main.dow.charAt(0).toUpperCase()+main.dow.slice(1)+' '+main.dd+' '+main.mm;
+    var list=document.getElementById('evList'); list.innerHTML='';
+    [2,4,6].forEach(function(k,i){
+      var d=fmt(sats[k]), s=SAMPLE[i];
+      var a=document.createElement('a'); a.className='erow'; a.href='#serate';
+      a.innerHTML='<span class="d"><b>'+d.dd+'</b>'+d.mm+'</span><span class="n">'+s.n+'</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="dc">'+s.dc[lang]+' · <em style="font-style:normal;color:var(--ink-faint)">'+(lang==='en'?'example':'esempio')+'</em></span>';
+      list.appendChild(a);
+    });
+  }
+
+  /* ---- recensioni di esempio ---- */
+  var REV=[
+    {it:"Locale storico, si vede. Serata a tema curatissima e personale gentile.",en:"A historic venue, and it shows. Beautifully done theme night and friendly staff."},
+    {it:"Ci torniamo ogni volta che siamo in zona. Discrezione totale.",en:"We come back every time we're in the area. Total discretion."},
+    {it:"Bar ben fornito e spettacoli fatti bene. Consigliato per un addio al celibato.",en:"Well-stocked bar and great shows. Recommended for a bachelor party."},
+    {it:"Atmosfera giusta, musica giusta, ragazze bravissime.",en:"Great vibe, great music, amazing dancers."},
+    {it:"Accessibile anche in carrozzina, cosa rara. Grazie!",en:"Wheelchair accessible, which is rare. Thank you!"}
+  ];
+  var star='<svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>';
+  function renderReviews(){
+    var tr=document.getElementById('track'); tr.innerHTML='';
+    var html=REV.map(function(r,i){ return '<figure class="rev" style="margin:0"><div class="stars" aria-label="5/5">'+star+star+star+star+star+'</div><p>'+r[lang]+'</p><figcaption class="who"><span>'+(lang==='en'?'Example':'Esempio')+' '+String.fromCharCode(65+i)+'.</span><em>'+(lang==='en'?'Example':'Esempio')+'</em></figcaption></figure>'; }).join('');
+    tr.innerHTML=html+html.replace(/<figure class="rev"/g,'<figure class="rev" aria-hidden="true"');
+  }
+
+  /* ---- header, menu, form, 18+ ---- */
+  var top=document.getElementById('top');
+  var fab=document.querySelector('.fab');
+  function onScroll(){ top.classList.toggle('solid', window.scrollY>60); fab.classList.toggle('show', window.scrollY>520); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  var menu=document.getElementById('menu'), burger=document.getElementById('burger');
+  function setMenu(open){ menu.hidden=!open; burger.setAttribute('aria-expanded',String(open)); document.body.style.overflow=open?'hidden':''; if(open) document.getElementById('menuClose').focus(); else burger.focus(); }
+  burger.addEventListener('click',function(){ setMenu(true); });
+  document.getElementById('menuClose').addEventListener('click',function(){ setMenu(false); });
+  menu.addEventListener('click',function(e){ if(e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ if(!menu.hidden) setMenu(false); if(!gate.hidden) gate.hidden=true; } });
+
+  document.getElementById('nlForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var em=document.getElementById('nlEmail'), c=document.getElementById('nlConsent'), m=document.getElementById('nlMsg');
+    m.classList.remove('err');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value)){ m.classList.add('err'); m.textContent= lang==='en'?'Enter a valid email address, like name@example.com.':'Scrivi un indirizzo email valido, tipo nome@esempio.it.'; em.focus(); return; }
+    if(!c.checked){ m.classList.add('err'); m.textContent= lang==='en'?'Tick the box to agree to receive our emails.':'Spunta la casella per accettare di ricevere le nostre email.'; c.focus(); return; }
+    m.textContent = lang==='en' ? 'Almost done: check your inbox and confirm. (Preview: nothing was sent.)' : 'Quasi fatto: controlla la posta e conferma l\'iscrizione. (Anteprima: nessun dato inviato.)';
+  });
+
+  var gate=document.getElementById('gate');
+  function openGate(){ gate.hidden=false; document.getElementById('gateYes').focus(); }
+  if(location.hash==='#18') openGate();
+  window.addEventListener('hashchange',function(){ if(location.hash==='#18') openGate(); });
+  document.getElementById('gateYes').addEventListener('click',function(){ gate.hidden=true; });
+  document.getElementById('gateNo').addEventListener('click',function(){ gate.querySelector('.fine').textContent = lang==='en'?'Sorry, this site is for adults only.':'Ci dispiace, il sito è riservato ai maggiorenni.'; });
+
+  /* ---- accensione dell'insegna ---- */
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce){
+    document.getElementById('logoBig').classList.add('lit-in');
+    setTimeout(function(){ document.getElementById('since').classList.add('flick'); }, 700);
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('flick'); io.unobserve(en.target); } });
+      },{threshold:.6});
+      document.querySelectorAll('section.band .h2.tube, .rules .big').forEach(function(h){ io.observe(h); });
+    }
+  }
+
+  document.getElementById('yr').textContent = romeParts(new Date()).y;
+  var saved=null; try{ saved=localStorage.getItem('zoo-lang'); }catch(e){}
+  applyLang(saved==='en'?'en':'it');
+  setInterval(renderState, 60000);
+})();
+</script>

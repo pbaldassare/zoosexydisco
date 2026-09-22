@@ -44,3 +44,10 @@ npm run placeholders   # rigenera immagini segnaposto, logo e og-image
 - `src/services/api.ts` unico punto di accesso ai dati: quando arriva Supabase cambia solo questo file
 - `src/components/sections/HeroMark.tsx` la firma grafica: «ZOO» come finestra sulla notte
 - Colori solo via token CSS (`src/styles/index.css`), mai hex nei componenti
+
+## Grafica (aggiornata il 22/09/2026)
+
+- La direzione visiva è **«Insegna al neon»**: `DESIGN.md` (token, font, componenti, regole) e `PRODUCT.md` sono la fonte di verità e sostituiscono la palette e la hero precedenti.
+- Riferimento visivo della home: `design/zoo-home.html` (apribile nel browser). Sorgente con segnaposto: `design/home.src.html`.
+- Asset del cliente: insegna e logo con fondo trasparente in `public/brand/` (`insegna-neon.webp`, `logo-zoo.webp`, `logo-zoo-192.webp`, più gli originali), foto per gli sfondi in `public/photos/`.
+- Contatti: Diana 347 587 2376 e Alessia 333 894 2087, entrambi su WhatsApp. Orari: gio 22–02, ven e sab 22–03:30, aperture extra a festività e dicembre. Mai la parola «Chiuso» in home.
