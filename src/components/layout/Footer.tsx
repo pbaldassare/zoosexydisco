@@ -1,112 +1,121 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Logo } from "@/components/brand/Logo";
-import { AdultsBadge, InstagramGlyph } from "@/components/ui/icons";
-import { useSettings } from "@/hooks/useData";
-import { useLang, useL } from "@/hooks/useLang";
+import { AdultsBadge, InstagramGlyph, NoPhotoGlyph } from "@/components/ui/icons";
+import { useContent, useSettings } from "@/hooks/useData";
+import { useLang } from "@/hooks/useLang";
 import { pathFor } from "@/lib/routes";
-import { isPlaceholder } from "@/lib/utils";
-import { MAIN_NAV } from "./nav";
-import { CameraOff } from "lucide-react";
+import { weekdayName } from "@/lib/opening";
+import { capitalize, isPlaceholder } from "@/lib/utils";
+import { telLink, waLink } from "@/lib/whatsapp";
+
+const colTitle = "mb-3.5 mt-1.5 label text-[13px] tracking-[0.1em] text-ink-faint";
+const chip = "inline-flex items-center gap-2 rounded-pill border border-line px-2.5 py-1.5 text-ink-dim";
 
 export function Footer() {
   const { t } = useTranslation();
+  const c = useContent();
   const lang = useLang();
-  const l = useL();
   const { data: s } = useSettings();
   if (!s) return null;
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-line bg-surface/40 pb-28 pt-16 md:pb-12">
-      <div className="container-site grid gap-12 md:grid-cols-12">
-        <div className="md:col-span-4">
-          <Logo className="w-36 text-ink" />
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <AdultsBadge />
-            <span className="label inline-flex items-center gap-2 text-[11px] text-ink-dim">
-              <CameraOff className="size-4" aria-hidden /> {t("badge.noPhoto")}
-            </span>
+    <footer className="relative z-[1] mt-[clamp(80px,12vw,130px)] border-t border-line bg-[linear-gradient(180deg,rgb(var(--wall-2)),#040206)]" id="contatti">
+      <div className="container-site">
+        <div className="grid gap-[34px] pb-[34px] pt-[52px] md:grid-cols-[1.1fr_1fr_1fr_1fr]">
+          <div>
+            <Logo className="mb-3 size-24" title="" />
+            <p className="m-0 text-[15.5px] text-ink-dim">
+              Via Vincenzo Bellini 43
+              <br />
+              24040 Madone (BG)
+            </p>
           </div>
-        </div>
 
-        <nav className="md:col-span-3" aria-label="Footer">
-          <ul className="grid grid-cols-2 gap-x-6 gap-y-1 md:grid-cols-1">
-            {MAIN_NAV.flatMap((i) => i.children ?? [i]).map((i) => (
-              <li key={i.key}>
-                <Link to={pathFor(i.key, lang)} className="inline-flex min-h-10 items-center text-xs text-ink-dim transition-colors hover:text-accent">
-                  {t(i.label)}
-                </Link>
+          <div>
+            <h3 className={colTitle}>{t("contacts.title")}</h3>
+            <ul className="m-0 grid list-none gap-2 p-0 text-[15.5px] text-ink-dim">
+              {s.contacts.map((p) => (
+                <li key={p.name}>
+                  {p.name} ·{" "}
+                  <a href={telLink(p.phone)} className="text-ink no-underline hover:text-pink-core">
+                    {p.phone}
+                  </a>{" "}
+                  ·{" "}
+                  <a href={waLink(p.phone, t("events.waGeneric"))} target="_blank" rel="noopener" className="text-ink no-underline hover:text-pink-core">
+                    WhatsApp
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href={`mailto:${s.email}`} className="text-ink no-underline hover:text-pink-core">
+                  {s.email}
+                </a>
               </li>
-            ))}
-            <li>
-              <Link to={pathFor("newsletter", lang)} className="inline-flex min-h-10 items-center text-xs text-ink-dim transition-colors hover:text-accent">
-                {t("nav.newsletter")}
-              </Link>
-            </li>
-            <li>
-              <Link to={pathFor("members", lang)} className="inline-flex min-h-10 items-center text-xs text-ink-dim transition-colors hover:text-accent">
-                {t("nav.members")}
-              </Link>
-            </li>
-          </ul>
-        </nav>
-
-        <div className="space-y-6 md:col-span-5">
-          <div>
-            <p className="label mb-2 text-accent">{t("footer.hours")}</p>
-            <p className="text-xs text-ink-dim">{l(s.opening_hours)}</p>
+            </ul>
           </div>
+
           <div>
-            <p className="label mb-3 text-accent">{t("footer.follow")}</p>
+            <h3 className={colTitle}>{t("contacts.hours")}</h3>
+            <ul className="tnum m-0 grid list-none gap-2 p-0 font-mono text-xs text-ink-dim">
+              {s.opening_windows.map((w) => (
+                <li key={w.day} className="flex max-w-[260px] justify-between gap-3.5">
+                  <span className="font-body text-[15.5px]">{capitalize(weekdayName(w.day, lang))}</span>
+                  <span>
+                    {w.open}–{w.close}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-2.5 text-xs text-ink-dim">{c("home.nights.holidays")}</p>
+          </div>
+
+          <div>
+            <h3 className={colTitle}>Instagram</h3>
             {isPlaceholder(s.instagram_handle) || !s.instagram_url ? (
-              <p className="inline-flex items-center gap-2 text-xs text-ink-dim">
-                <InstagramGlyph className="size-4" aria-hidden /> Instagram {s.instagram_handle}
+              <p className="m-0 inline-flex items-center gap-2 text-[15.5px] text-ink-dim">
+                <InstagramGlyph /> Instagram {s.instagram_handle}
               </p>
             ) : (
-              <a href={s.instagram_url} target="_blank" rel="noopener" className="inline-flex items-center gap-2 text-xs text-ink hover:text-accent">
-                <InstagramGlyph className="size-4" aria-hidden /> @{s.instagram_handle}
+              <a href={s.instagram_url} target="_blank" rel="noopener" className="inline-flex items-center gap-2 text-[15.5px] text-ink no-underline hover:text-pink-core">
+                <InstagramGlyph /> @{s.instagram_handle}
               </a>
             )}
           </div>
         </div>
-      </div>
 
-      <div className="container-site mt-14">
-        <div className="hairline" aria-hidden />
-        <address className="mt-8 grid gap-1 text-2xs not-italic leading-relaxed text-ink-dim md:max-w-3xl">
-          <span>
-            {t("footer.managedBy")} {s.company_name}
-          </span>
-          <span>
-            {t("footer.legalSeat")}: {s.legal_address}
-          </span>
-          <span>
-            {t("footer.vat")} {s.vat_number}
-          </span>
-          <span>
-            {s.registry} · REA {s.rea}
-          </span>
-          <span>
-            {t("footer.capital")} {s.share_capital}
-          </span>
-          <span>
-            <a className="hover:text-accent" href={`mailto:${s.email}`}>
+        <div className="grid gap-3.5 border-t border-line pb-[34px] pt-6 text-[13.5px] leading-[1.7] text-ink-faint">
+          <div className="flex flex-wrap items-center gap-x-[18px] gap-y-2.5">
+            <span className={chip}>
+              <AdultsBadge className="px-1.5 py-1 text-[11px]" /> {t("rules.adults")}
+            </span>
+            <span className={chip}>
+              <NoPhotoGlyph /> {t("badge.noPhoto")}
+            </span>
+            <Link to={pathFor("privacy", lang)} className="text-ink-dim">
+              {t("nav.privacy")}
+            </Link>
+            <Link to={pathFor("newsletter", lang)} className="text-ink-dim">
+              {t("nav.newsletter")}
+            </Link>
+            <Link to={pathFor("members", lang)} className="text-ink-dim">
+              {t("nav.members")}
+            </Link>
+          </div>
+
+          <address className="m-0 not-italic">
+            ZOO Sexy Disco {t("footer.managedByShort")} {s.company_name} · {t("footer.legalSeat")}: {s.legal_address} · {t("footer.vat")}{" "}
+            {s.vat_number} · {s.registry} · REA {s.rea} · {t("footer.capital")} {s.share_capital} ·{" "}
+            <a href={`mailto:${s.email}`} className="text-ink-dim">
               {s.email}
             </a>{" "}
             · PEC{" "}
-            <a className="hover:text-accent" href={`mailto:${s.pec}`}>
+            <a href={`mailto:${s.pec}`} className="text-ink-dim">
               {s.pec}
-            </a>
-          </span>
-        </address>
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 text-2xs text-ink-dim">
-          <span>
-            © {year} {s.company_name} · {t("footer.rights")}
-          </span>
-          <Link to={pathFor("privacy", lang)} className="inline-flex min-h-10 items-center underline-offset-4 hover:text-accent hover:underline">
-            {t("nav.privacy")}
-          </Link>
+            </a>{" "}
+            · © {year}
+          </address>
         </div>
       </div>
     </footer>

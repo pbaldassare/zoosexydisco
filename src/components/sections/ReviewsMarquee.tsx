@@ -1,16 +1,15 @@
 import { useTranslation } from "react-i18next";
-import { Star } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { IcoStar } from "@/components/ui/icons";
 import { useReviews, useSettings } from "@/hooks/useData";
 import { useL } from "@/hooks/useLang";
 
 /**
  * Fascia recensioni in fondo a ogni pagina pubblica. Solo 5 stelle visibili,
- * nessun voto medio calcolato. Si ferma al passaggio del mouse e con reduced-motion.
- * Dichiariamo che è una selezione (trasparenza verso il consumatore).
+ * nessun voto medio calcolato (DESIGN.md, Don'ts). Si ferma al passaggio del
+ * mouse e con reduced-motion. Dichiariamo che è una selezione.
  */
 export function ReviewsMarquee() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const l = useL();
   const { data: reviews } = useReviews();
   const { data: s } = useSettings();
@@ -18,45 +17,45 @@ export function ReviewsMarquee() {
   const loop = [...reviews, ...reviews];
 
   return (
-    <section aria-labelledby="reviews-title" className="overflow-hidden py-16">
-      <div className="container-site mb-8 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h2 id="reviews-title" className="text-xl">
-            {t("reviews.title")}
-          </h2>
-          <p className="mt-1 text-2xs text-ink-dim">{t("reviews.selection")}</p>
-        </div>
-        {s?.google_reviews_url ? (
-          <a href={s.google_reviews_url} target="_blank" rel="noopener" className="label text-2xs text-accent underline-offset-4 hover:underline">
+    <section aria-labelledby="reviews-title" className="relative z-[1] pt-section">
+      <div className="container-site mb-6 flex flex-wrap items-end justify-between gap-4">
+        <h2 id="reviews-title" className="h2 tube-blue mb-0">
+          {t("reviews.title")}
+        </h2>
+        {s?.google_reviews_url && (
+          <a href={s.google_reviews_url} target="_blank" rel="noopener" className="text-[15px]">
             {t("reviews.readAll")}
           </a>
-        ) : (
-          <span className="label text-2xs text-ink-dim">{t("reviews.readAll")} · {i18n.language === "en" ? "[URL to be completed]" : "[URL da completare]"}</span>
         )}
       </div>
-      <div className="group relative [mask-image:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)]">
-        <ul className="flex w-max animate-marquee gap-4 group-hover:[animation-play-state:paused] motion-reduce:animate-none">
+
+      <div className="group overflow-hidden py-2 [mask-image:linear-gradient(90deg,transparent,#000_3%,#000_94%,transparent)]">
+        <ul className="flex w-max animate-marquee list-none gap-4 pl-[max(theme(spacing.gutter),calc((100vw-theme(maxWidth.site))/2+theme(spacing.gutter)))] group-hover:[animation-play-state:paused] motion-reduce:animate-none">
           {loop.map((r, i) => (
             <li
               key={`${r.id}-${i}`}
               aria-hidden={i >= reviews.length}
-              className="flex w-[300px] shrink-0 flex-col justify-between border border-line bg-surface/60 p-6 sm:w-[360px]"
+              className="grid w-[min(78vw,340px)] flex-none content-start gap-3 rounded-[20px] border border-line bg-panel p-[22px]"
             >
-              <div>
-                <div className="mb-4 flex items-center justify-between">
-                  <span className="flex gap-0.5 text-accent" aria-label="5/5">
-                    {Array.from({ length: 5 }, (_, k) => (
-                      <Star key={k} className="size-3.5 fill-current" aria-hidden />
-                    ))}
-                  </span>
-                  {r.is_sample && <Badge tone="sample">{t("badge.sample")}</Badge>}
-                </div>
-                <p className="font-display text-lg italic leading-snug text-ink">“{l(r.text)}”</p>
-              </div>
-              <p className="label mt-6 text-2xs text-ink-dim">{r.author_name}</p>
+              <span className="flex gap-[3px] text-pink [&_svg]:drop-shadow-[0_0_4px_rgb(var(--pink))]" aria-label="5/5">
+                {Array.from({ length: 5 }, (_, k) => (
+                  <IcoStar key={k} />
+                ))}
+              </span>
+              <p className="m-0 text-ink">“{l(r.text)}”</p>
+              <p className="m-0 flex items-center justify-between gap-2.5 text-xs text-ink-faint">
+                {r.author_name}
+                {r.is_sample && (
+                  <em className="label rounded-pill border border-line px-2 py-[5px] text-[11px] not-italic tracking-[0.1em]">{t("badge.sample")}</em>
+                )}
+              </p>
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="container-site">
+        <p className="mt-3.5 text-[15px] text-ink-faint">{t("reviews.selection")}</p>
       </div>
     </section>
   );

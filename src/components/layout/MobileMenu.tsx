@@ -2,42 +2,40 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Phone, X } from "lucide-react";
-import { AdultsBadge, NoPhotoIcon, WhatsAppGlyph } from "@/components/ui/icons";
+import { ContactButtons } from "@/components/sections/ContactButtons";
+import { AdultsBadge } from "@/components/ui/icons";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useLang } from "@/hooks/useLang";
-import { useSettings } from "@/hooks/useData";
 import { pathFor } from "@/lib/routes";
-import { telLink, waLink } from "@/lib/whatsapp";
-import { LangSwitch } from "./LangSwitch";
+import { cn } from "@/lib/utils";
 import { MAIN_NAV } from "./nav";
 
-/** Overlay a tutto schermo: voci grandi in Bodoni, lingua e contatti rapidi in fondo. */
+const Burger = ({ close = false }: { close?: boolean }) => (
+  <svg viewBox="0 0 24 24" className="size-[22px]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+    {close ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h10" />}
+  </svg>
+);
+
+const burgerCls = "grid size-11 flex-none place-items-center rounded-xl border border-line bg-panel text-ink";
+
+/** Overlay a tutto schermo: le voci sono tubi grandi, alternati rosa e blu. */
 export function MobileMenu() {
   const { t } = useTranslation();
   const lang = useLang();
   const { pathname } = useLocation();
-  const { data: s } = useSettings();
   const [open, setOpen] = useState(false);
   const panel = useRef<HTMLDivElement>(null);
   useFocusTrap(panel, open, () => setOpen(false));
   useEffect(() => setOpen(false), [pathname]);
 
-  const items = MAIN_NAV.flatMap((i) => (i.children ? i.children.map((c) => ({ ...c, label: `${t(i.label)} · ${t(c.label)}` })) : [{ ...i, label: t(i.label) }]));
+  const items = MAIN_NAV.flatMap((i) =>
+    i.children ? i.children.map((c) => ({ ...c, label: `${t(i.label)} · ${t(c.label)}` })) : [{ ...i, label: t(i.label) }],
+  );
 
   return (
     <>
-      <button
-        type="button"
-        className="group grid size-11 place-items-center lg:hidden"
-        aria-label={t("nav.openMenu")}
-        aria-expanded={open}
-        onClick={() => setOpen(true)}
-      >
-        <span className="flex w-6 flex-col items-end gap-[6px]" aria-hidden>
-          <span className="h-px w-6 bg-ink transition-all group-hover:bg-accent" />
-          <span className="h-px w-4 bg-ink transition-all group-hover:w-6 group-hover:bg-accent" />
-        </span>
+      <button type="button" className={cn(burgerCls, "lg:hidden")} aria-label={t("nav.openMenu")} aria-expanded={open} onClick={() => setOpen(true)}>
+        <Burger />
       </button>
 
       {open &&
@@ -47,49 +45,27 @@ export function MobileMenu() {
             role="dialog"
             aria-modal="true"
             aria-label={t("nav.menu")}
-            className="fixed inset-0 z-[70] flex flex-col overflow-y-auto bg-bg duration-300 animate-in fade-in"
+            className="fixed inset-0 z-[60] flex flex-col gap-1.5 overflow-y-auto bg-wall/[0.97] px-gutter pb-8 pt-[88px] backdrop-blur-xl duration-300 animate-in fade-in"
           >
-            <div className="container-site flex h-[var(--header-h)] shrink-0 items-center justify-between">
-              <span className="label text-ink-dim">{t("nav.menu")}</span>
-              <button type="button" onClick={() => setOpen(false)} className="grid size-11 place-items-center text-ink hover:text-accent" aria-label={t("nav.closeMenu")}>
-                <X className="size-6" />
-              </button>
-            </div>
+            <button type="button" onClick={() => setOpen(false)} className={cn(burgerCls, "absolute right-gutter top-3")} aria-label={t("nav.closeMenu")}>
+              <Burger close />
+            </button>
 
-            <nav className="container-site flex-1 py-6" aria-label={t("nav.menu")}>
-              <ol className="space-y-1">
-                {items.map((item, i) => (
-                  <li key={item.key} className="animate-rise" style={{ animationDelay: `${60 + i * 40}ms` }}>
-                    <Link to={pathFor(item.key, lang)} className="group flex items-baseline gap-4 py-2">
-                      <span className="font-display text-[34px] leading-tight text-ink transition-colors group-hover:text-accent sm:text-2xl">{item.label}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ol>
-            </nav>
+            {items.map((item, i) => (
+              <Link
+                key={item.key + item.label}
+                to={pathFor(item.key, lang)}
+                className={cn("tube py-1.5 text-[clamp(34px,9vw,52px)] no-underline", i % 2 === 0 ? "tube-pink" : "tube-blue")}
+              >
+                {item.label}
+              </Link>
+            ))}
 
-            <div className="container-site shrink-0 border-t border-line py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-              <div className="flex items-center justify-between">
-                <LangSwitch />
-                <div className="flex items-center gap-2">
-                  <AdultsBadge />
-                  <NoPhotoIcon />
-                </div>
-              </div>
-              <div className="mt-4 grid grid-cols-2 gap-3">
-                <a href={waLink(s?.whatsapp ?? "", t("events.waGeneric"))} target="_blank" rel="noopener" className="label flex min-h-12 items-center justify-center gap-2 border border-line text-2xs text-ink">
-                  <WhatsAppGlyph className="size-4" /> WhatsApp
-                </a>
-                {telLink(s?.phone ?? "") ? (
-                  <a href={telLink(s?.phone ?? "")} className="label flex min-h-12 items-center justify-center gap-2 border border-line text-2xs text-ink">
-                    <Phone className="size-4" /> {t("cta.call")}
-                  </a>
-                ) : (
-                  <Link to={pathFor("contacts", lang)} className="label flex min-h-12 items-center justify-center gap-2 border border-line text-2xs text-ink">
-                    {t("nav.contacts")}
-                  </Link>
-                )}
-              </div>
+            <div className="mt-auto grid gap-2.5 pt-7 text-[15px] text-ink-dim">
+              <ContactButtons text={t("events.waGeneric")} stacked />
+              <span className="flex items-center gap-2">
+                <AdultsBadge /> {t("rules.adults")}
+              </span>
             </div>
           </div>,
           document.body,

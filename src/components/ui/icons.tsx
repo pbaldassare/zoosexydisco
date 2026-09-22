@@ -1,28 +1,57 @@
-import { CameraOff } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 
-/** Fotocamera sbarrata con tooltip: vale anche da promemoria della regola. */
-export function NoPhotoIcon({ className }: { className?: string }) {
-  const { t } = useTranslation();
+/* ---------- glifi dei contatti ---------- */
+
+export function WhatsAppGlyph({ className }: { className?: string }) {
   return (
-    <span className={cn("group relative inline-flex size-11 items-center justify-center", className)} tabIndex={0} aria-label={t("badge.noPhoto")}>
-      <CameraOff className="size-[18px] text-ink-dim transition-colors group-hover:text-ink" aria-hidden />
-      <span
-        role="tooltip"
-        className="label pointer-events-none absolute right-0 top-full z-10 mt-1 whitespace-nowrap bg-surface px-3 py-2 text-[11px] text-ink opacity-0 shadow-xl ring-1 ring-line transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
-      >
-        {t("badge.noPhoto")}
-      </span>
-    </span>
+    <svg viewBox="0 0 24 24" className={cn("size-[19px] shrink-0", className)} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M4 20l1.3-3.9A8 8 0 1 1 8 19l-4 1z" />
+      <path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-2-2l.8-1-1-2z" />
+    </svg>
   );
 }
 
+export function PhoneGlyph({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={cn("size-[19px] shrink-0", className)} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />
+    </svg>
+  );
+}
+
+export function InstagramGlyph({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={cn("size-4 shrink-0", className)} fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.9" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function NoPhotoGlyph({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={cn("size-4 shrink-0", className)} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <rect x="3" y="7" width="18" height="12" rx="2" />
+      <circle cx="12" cy="13" r="3.2" />
+      <line x1="3" y1="3" x2="21" y2="21" />
+    </svg>
+  );
+}
+
+/* ---------- distintivi della casa ---------- */
+
+/** 18+ come un piccolo tubo rosa acceso. */
 export function AdultsBadge({ className }: { className?: string }) {
   const { t } = useTranslation();
   return (
     <span
-      className={cn("label inline-flex h-7 items-center rounded-full border border-accent-hot px-2 text-[11px] leading-none text-accent-hot", className)}
+      className={cn(
+        "inline-flex items-center rounded-pill px-2 py-[7px] font-body text-[13px] font-bold leading-none text-pink-core",
+        "shadow-[0_0_10px_rgb(var(--pink)/0.45),inset_0_0_8px_rgb(var(--pink)/0.3)] ring-[1.5px] ring-pink",
+        className,
+      )}
       title={t("rules.adults")}
     >
       18+
@@ -30,20 +59,103 @@ export function AdultsBadge({ className }: { className?: string }) {
   );
 }
 
-export function WhatsAppGlyph({ className }: { className?: string }) {
+export function NoPhotoIcon({ className }: { className?: string }) {
+  const { t } = useTranslation();
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
-      <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.2-3.58.94.96-3.49-.23-.36a9.43 9.43 0 0 1-1.45-5.03c0-5.22 4.25-9.47 9.48-9.47 2.53 0 4.91.99 6.7 2.78a9.4 9.4 0 0 1 2.77 6.7c0 5.23-4.25 9.45-9.47 9.45m8.06-17.52A11.32 11.32 0 0 0 12.05.65C5.77.65.66 5.76.66 12.04c0 2 .52 3.96 1.52 5.69L.57 23.63l6.04-1.58a11.4 11.4 0 0 0 5.44 1.38h.01c6.28 0 11.39-5.11 11.39-11.39 0-3.04-1.18-5.9-3.34-8.06" />
-    </svg>
+    <span className={cn("group relative inline-flex size-11 items-center justify-center", className)} tabIndex={0} aria-label={t("badge.noPhoto")}>
+      <NoPhotoGlyph className="size-[18px] text-ink-faint transition-colors group-hover:text-ink" />
+      <span
+        role="tooltip"
+        className="pointer-events-none absolute right-0 top-full z-10 mt-1 whitespace-nowrap rounded-tile border border-line bg-panel px-3 py-2 text-[13px] text-ink opacity-0 shadow-xl transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+      >
+        {t("badge.noPhoto")}
+      </span>
+    </span>
   );
 }
 
-export function InstagramGlyph({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="0.9" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
+/* ---------- icone al neon delle sezioni ----------
+ * Tracciati nudi: colore e alone arrivano dalle classi .ico / .ico-blue. */
+
+const Ico = ({ className, children }: { className?: string; children: React.ReactNode }) => (
+  <svg viewBox="0 0 32 32" className={cn("ico", className)} aria-hidden>
+    {children}
+  </svg>
+);
+
+export const IcoCalendar = ({ className }: { className?: string }) => (
+  <Ico className={className}>
+    <rect x="5" y="7" width="22" height="20" rx="3" />
+    <line x1="5" y1="13" x2="27" y2="13" />
+    <line x1="11" y1="4" x2="11" y2="9" />
+    <line x1="21" y1="4" x2="21" y2="9" />
+    <circle cx="16" cy="20" r="2" />
+  </Ico>
+);
+
+export const IcoBar = ({ className }: { className?: string }) => (
+  <Ico className={className}>
+    <path d="M7 6h18l-9 11z" />
+    <line x1="16" y1="17" x2="16" y2="26" />
+    <line x1="11" y1="26" x2="21" y2="26" />
+    <line x1="10" y1="10" x2="22" y2="10" />
+  </Ico>
+);
+
+export const IcoShows = ({ className }: { className?: string }) => (
+  <Ico className={className}>
+    <path d="M16 4v24" />
+    <path d="M11 9c3 2 7 2 10 0" />
+    <path d="M10 19c4 3 8 3 12 0" />
+    <circle cx="16" cy="4" r="1.2" />
+    <line x1="10" y1="28" x2="22" y2="28" />
+  </Ico>
+);
+
+export const IcoTables = ({ className }: { className?: string }) => (
+  <Ico className={className}>
+    <rect x="5" y="12" width="22" height="7" rx="2" />
+    <line x1="8" y1="19" x2="8" y2="26" />
+    <line x1="24" y1="19" x2="24" y2="26" />
+    <path d="M9 12V9a7 7 0 0 1 14 0v3" />
+  </Ico>
+);
+
+export const IcoAccessible = ({ className }: { className?: string }) => (
+  <Ico className={className}>
+    <circle cx="15" cy="6" r="2.2" />
+    <path d="M15 9v8h7l3 7" />
+    <path d="M15 13h6" />
+    <path d="M11 14a7 7 0 1 0 9 9" />
+  </Ico>
+);
+
+export const IcoNoCamera = ({ className }: { className?: string }) => (
+  <Ico className={className}>
+    <rect x="4" y="10" width="24" height="16" rx="3" />
+    <path d="M11 10l2-4h6l2 4" />
+    <circle cx="16" cy="18" r="4.5" />
+    <line x1="4" y1="4" x2="28" y2="28" />
+  </Ico>
+);
+
+export const IcoAdults = ({ className }: { className?: string }) => (
+  <Ico className={className}>
+    <circle cx="16" cy="16" r="12" />
+    <path d="M10 12h2v9" />
+    <path d="M19 16.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5a2.8 2.8 0 1 1 0 5.6 2.8 2.8 0 0 1 0-5.6" />
+  </Ico>
+);
+
+export const IcoRespect = ({ className }: { className?: string }) => (
+  <Ico className={className}>
+    <path d="M16 4l10 4v7c0 7-4.5 11-10 13C10.5 26 6 22 6 15V8z" />
+    <polyline points="11,16 15,20 22,12" />
+  </Ico>
+);
+
+export const IcoStar = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={cn("size-[17px]", className)} fill="currentColor" aria-hidden>
+    <path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3-5.8 3 1.1-6.5L2.6 9.3l6.5-.9z" />
+  </svg>
+);

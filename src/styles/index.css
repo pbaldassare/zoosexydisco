@@ -1,71 +1,117 @@
-@import "@fontsource/bodoni-moda/700.css";
-@import "@fontsource/bodoni-moda/700-italic.css";
-@import "@fontsource/karla/400.css";
-@import "@fontsource/karla/500.css";
-@import "@fontsource/karla/700.css";
-@import "@fontsource/syne/600.css";
-@import "@fontsource/syne/700.css";
+@import "@fontsource/tilt-neon/400.css";
+@import "@fontsource/atkinson-hyperlegible/400.css";
+@import "@fontsource/atkinson-hyperlegible/700.css";
+@import "@fontsource/chivo-mono/400.css";
+@import "@fontsource/chivo-mono/500.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /*
- * Token del tema Default. Canali RGB separati da spazi, così Tailwind può
- * applicare l'opacità (bg-accent/20). Il tema attivo riscrive --accent e
- * --accent-hot su <html> a runtime: nessun colore scritto a mano nei componenti.
+ * «Insegna al neon» (DESIGN.md). Canali RGB separati da spazi, così Tailwind
+ * può applicare l'opacità (bg-pink/20). Il tema attivo riscrive --pink e --blue
+ * su <html> a runtime: nessun colore scritto a mano nei componenti.
+ *
+ * Le anime dei tubi (--pink-core, --blue-core) e i fondi restano fissi: un tema
+ * cambia il colore della luce, non il bianco del vetro acceso.
  */
 @layer base {
   :root {
-    --bg: 10 8 9; /* #0A0809 */
-    --surface: 21 16 18; /* #151012 */
-    --surface-2: 31 23 26; /* #1F171A */
-    --line: 46 34 38; /* #2E2226 */
-    --ink: 244 237 230; /* #F4EDE6 */
-    --ink-dim: 179 166 159; /* #B3A69F */
-    --accent: 200 164 93; /* #C8A45D */
-    --accent-hot: 230 36 107; /* #E6246B */
-    --danger: 229 72 77; /* #E5484D */
-    --ok: 63 182 139; /* #3FB68B */
-    --sample: 245 200 76; /* giallo «Esempio», solo per contenuti is_sample */
+    --wall: 7 4 10; /* #07040A */
+    --wall-2: 14 8 19; /* #0E0813 */
+    --panel: 20 12 26; /* #140C1A */
+    --panel-2: 28 18 36; /* #1C1224 */
+    --line: 45 31 54; /* #2D1F36 */
 
-    --header-h: 72px;
+    --ink: 246 237 247; /* #F6EDF7 */
+    --ink-dim: 189 170 196; /* #BDAAC4 */
+    --ink-faint: 140 120 148; /* #8C7894 */
+
+    --pink: 233 57 215; /* #E939D7 */
+    --pink-core: 255 230 251; /* #FFE6FB */
+    --pink-deep: 142 31 131; /* #8E1F83 */
+    --blue: 59 129 233; /* #3B81E9 */
+    --blue-core: 228 238 255; /* #E4EEFF */
+    --blue-deep: 28 63 120; /* #1C3F78 */
+
+    --ok: 82 227 164; /* #52E3A4, solo «Aperto adesso» */
+    --danger: 255 143 163; /* #FF8FA3, solo errori di modulo */
+    --sample: 189 170 196; /* chip «Esempio» */
+
+    --header-h: 68px;
     color-scheme: dark;
   }
 
   html {
-    background: rgb(var(--bg));
+    background: rgb(var(--wall));
     -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
     scroll-padding-top: calc(var(--header-h) + 16px);
+    scrollbar-color: rgb(var(--pink-deep)) rgb(var(--wall));
   }
 
   body {
-    @apply bg-bg font-body text-base text-ink antialiased;
+    @apply bg-wall font-body text-base text-ink antialiased;
     min-height: 100dvh;
     overflow-x: clip;
+    caret-color: rgb(var(--pink));
+  }
+
+  /* Il muro: grana viola leggerissima su tutta la pagina. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.045;
+    mix-blend-mode: screen;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .75  0 0 0 0 .35  0 0 0 0 .9  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
 
   ::selection {
-    background: rgb(var(--accent) / 0.35);
-    color: rgb(var(--ink));
+    background: rgb(var(--pink));
+    color: rgb(var(--wall));
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--wall));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--pink-deep));
+    border-radius: 10px;
+    border: 2px solid rgb(var(--wall));
+  }
+
+  a {
+    color: rgb(var(--pink-core));
+    text-decoration-color: rgb(var(--pink));
+    text-underline-offset: 4px;
   }
 
   :focus-visible {
-    outline: 2px solid rgb(var(--accent));
+    outline: 2px solid rgb(var(--pink));
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 6px;
+    box-shadow: 0 0 0 6px rgb(var(--pink) / 0.25);
   }
 
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* I titoli sono sempre tubi: il vetro. L'alone lo accende chi lo usa come
+   * titolo di sezione (.tube-pink / .tube-blue), così i sottotitoli minori
+   * restano leggibili senza bagliore. */
   h1,
   h2,
   h3 {
-    @apply font-display font-bold;
-    text-wrap: balance;
-  }
-
-  em.accent,
-  .accent-word {
-    @apply font-display italic text-accent;
+    @apply tube;
   }
 
   p {
@@ -74,20 +120,226 @@
 }
 
 @layer components {
-  .label {
-    @apply font-label text-2xs font-semibold uppercase tracking-label;
+  /* ---------- i tubi ---------- */
+
+  /* Solo titoli, nomi delle serate, voci del menu, giorni di apertura.
+   * Mai per il testo lungo (DESIGN.md, Don'ts). */
+  .tube {
+    @apply font-neon font-normal;
+    letter-spacing: 0.01em;
+    line-height: 1.02;
+    text-wrap: balance;
   }
+
+  .tube-pink {
+    color: rgb(var(--pink-core));
+    text-shadow:
+      0 0 1px #fff,
+      0 0 4px rgb(var(--pink)),
+      0 0 11px rgb(var(--pink)),
+      0 0 24px rgb(var(--pink)),
+      0 0 48px rgb(var(--pink) / 0.55),
+      0 4px 70px rgb(var(--pink) / 0.35);
+  }
+
+  .tube-blue {
+    color: rgb(var(--blue-core));
+    text-shadow:
+      0 0 1px #fff,
+      0 0 4px rgb(var(--blue)),
+      0 0 11px rgb(var(--blue)),
+      0 0 24px rgb(var(--blue)),
+      0 0 48px rgb(var(--blue) / 0.55),
+      0 4px 70px rgb(var(--blue) / 0.35);
+  }
+
+  /* ---------- impaginato ---------- */
 
   .container-site {
-    @apply mx-auto w-full max-w-site px-4 sm:px-8 lg:px-12;
+    @apply relative z-[1] mx-auto w-full max-w-site;
+    padding-inline: theme("spacing.gutter");
   }
 
-  .hairline {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgb(var(--accent) / 0.55), transparent);
+  .label {
+    @apply font-body text-2xs font-bold uppercase tracking-label;
   }
 
-  /* Grana leggera sopra le superfici fotografiche. */
+  /* Titolo di sezione. L'alone lo mette .tube-pink / .tube-blue. */
+  .h2 {
+    @apply tube text-3xl;
+    margin: 0 0 18px;
+  }
+
+  .lead {
+    @apply max-w-prose text-ink-dim;
+    font-size: 18px;
+    margin: 0 0 34px;
+  }
+
+  /* ---------- fotografia del locale ----------
+   * Sempre sullo sfondo, mai in primo piano: su desktop a destra e sfumata
+   * verso il muro, su mobile a tutta pagina e scurita (DESIGN.md, Colors). */
+  .photo {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    pointer-events: none;
+  }
+  .photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero-photo {
+    background-position: 50% 62%;
+    filter: saturate(1.05) contrast(1.05);
+  }
+  .hero-photo::after {
+    background:
+      radial-gradient(70% 40% at 50% 22%, rgb(var(--wall) / 0.55), rgb(var(--wall) / 0.2) 70%),
+      linear-gradient(180deg, rgb(var(--wall) / 0.6) 0%, rgb(var(--wall) / 0.28) 36%, rgb(var(--wall) / 0.5) 70%, rgb(var(--wall)) 100%);
+  }
+
+  .nights-photo {
+    background-position: 80% 40%;
+  }
+  .nights-photo::after {
+    background: linear-gradient(180deg, rgb(var(--wall)) 0%, rgb(var(--wall) / 0.72) 20%, rgb(var(--wall) / 0.82) 80%, rgb(var(--wall)) 100%);
+  }
+
+  .rules-photo {
+    background-position: 70% 35%;
+  }
+  .rules-photo::after {
+    background: linear-gradient(180deg, rgb(var(--panel) / 0.78), rgb(var(--panel) / 0.92));
+  }
+
+  @media (min-width: 900px) {
+    .hero-photo {
+      background-size: 52% auto;
+      background-position: 100% 45%;
+    }
+    .hero-photo::after {
+      background:
+        linear-gradient(90deg, rgb(var(--wall)) 30%, rgb(var(--wall) / 0.55) 62%, rgb(var(--wall) / 0.25) 100%),
+        linear-gradient(180deg, rgb(var(--wall) / 0.6) 0%, rgb(var(--wall) / 0) 30%, rgb(var(--wall) / 0.2) 75%, rgb(var(--wall)) 100%);
+    }
+    .nights-photo {
+      background-size: auto 115%;
+      background-position: 100% 30%;
+    }
+    .nights-photo::after {
+      background:
+        linear-gradient(90deg, rgb(var(--wall)) 38%, rgb(var(--wall) / 0.6) 62%, rgb(var(--wall) / 0.1) 100%),
+        linear-gradient(180deg, rgb(var(--wall)) 0%, rgb(var(--wall) / 0) 18%, rgb(var(--wall) / 0) 82%, rgb(var(--wall)) 100%);
+    }
+    .rules-photo {
+      background-size: 48% auto;
+      background-position: 104% 30%;
+    }
+    .rules-photo::after {
+      background: linear-gradient(90deg, rgb(var(--panel)) 42%, rgb(var(--panel) / 0.55) 70%, rgb(var(--panel) / 0.2) 100%);
+    }
+  }
+
+  /* ---------- icone al neon ---------- */
+  .ico {
+    width: 48px;
+    height: 48px;
+    color: rgb(var(--pink));
+    filter: drop-shadow(0 0 4px rgb(var(--pink))) drop-shadow(0 0 10px rgb(var(--pink) / 0.6));
+  }
+  .ico-blue {
+    color: rgb(var(--blue));
+    filter: drop-shadow(0 0 4px rgb(var(--blue))) drop-shadow(0 0 10px rgb(var(--blue) / 0.6));
+  }
+  .ico :is(path, circle, rect, line, polyline) {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ---------- aloni dei pulsanti ----------
+   * Le ombre vere solo sui pannelli sollevati e sui pulsanti rosa
+   * (DESIGN.md, Elevation & Depth). */
+  .glow-pink {
+    box-shadow:
+      0 8px 24px rgb(var(--pink) / 0.38),
+      0 0 0 1px rgb(255 255 255 / 0.18) inset;
+  }
+  .glow-pink:hover {
+    box-shadow:
+      0 12px 30px rgb(var(--pink) / 0.55),
+      0 0 0 1px rgb(255 255 255 / 0.25) inset;
+  }
+  /* Il pulsante secondario è un tubo blu: bordo interno 1,5px + alone. */
+  .glow-tube {
+    box-shadow:
+      0 0 0 1.5px rgb(var(--blue)) inset,
+      0 0 16px rgb(var(--blue) / 0.35),
+      0 6px 18px rgb(0 0 0 / 0.35);
+  }
+
+  /* ---------- pannelli ---------- */
+  .panel-raised {
+    background: linear-gradient(180deg, rgb(var(--panel) / 0.86), rgb(var(--wall-2) / 0.92));
+    @apply rounded-panel border border-line;
+    box-shadow:
+      0 18px 50px rgb(0 0 0 / 0.55),
+      0 0 0 1px rgb(var(--pink) / 0.06) inset;
+  }
+
+  /* Luce a zone sul muro, mai tinta piatta di un blocco. */
+  .wash-sign {
+    background:
+      radial-gradient(55% 45% at 50% 34%, rgb(var(--pink) / 0.3), transparent 70%),
+      radial-gradient(40% 40% at 28% 55%, rgb(var(--blue) / 0.2), transparent 70%),
+      radial-gradient(40% 40% at 72% 55%, rgb(var(--blue) / 0.14), transparent 70%);
+  }
+
+  .wash-panel {
+    background:
+      radial-gradient(70% 90% at 0% 0%, rgb(var(--blue) / 0.16), transparent 60%),
+      radial-gradient(60% 80% at 100% 100%, rgb(var(--pink) / 0.16), transparent 60%),
+      rgb(var(--panel));
+  }
+
+  /* ---------- media ---------- */
+
+  /* Protezione deterrente dei media (sezione 12). */
+  .protected {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  /* Filigrana «ZOO» ripetuta in diagonale al 6% (DESIGN.md, Components). */
+  .watermark::after {
+    content: "ZOO   ZOO   ZOO   ZOO   ZOO   ZOO   ZOO   ZOO";
+    position: absolute;
+    inset: -40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 400 34px/2.4 theme("fontFamily.neon");
+    color: rgb(255 255 255 / 0.06);
+    transform: rotate(-24deg);
+    word-spacing: 18px;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .gallery-veiled {
+    filter: blur(24px);
+    transition: filter 0s;
+  }
+
+  /* Grana sopra le superfici fotografiche. */
   .grain::after {
     content: "";
     position: absolute;
@@ -98,28 +350,7 @@
     mix-blend-mode: overlay;
   }
 
-  /* Protezione deterrente dei media (sezione 12). */
-  .protected {
-    -webkit-user-select: none;
-    user-select: none;
-    -webkit-touch-callout: none;
-  }
-
-  /* Filigrana «ZOO» ripetuta in diagonale, 7% di opacità. */
-  .watermark {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.07;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='140'%3E%3Ctext x='20' y='90' transform='rotate(-24 110 70)' font-family='Georgia,serif' font-weight='700' font-size='44' letter-spacing='6' fill='%23F4EDE6'%3EZOO%3C/text%3E%3C/svg%3E");
-  }
-
-  .gallery-veiled {
-    filter: blur(24px);
-    transition: filter 0s;
-  }
-
-  /* Elenco «da carta dei drink»: voce ........ valore */
+  /* Elenco «voce ........ valore» */
   .leader {
     @apply flex items-baseline gap-3;
   }
@@ -136,11 +367,32 @@
 }
 
 @layer utilities {
-  .text-shadow-soft {
-    text-shadow: 0 2px 30px rgb(0 0 0 / 0.6);
+  /* Una parola del titolo passata al secondo tubo. */
+  .accent-word {
+    @apply tube-blue;
   }
+
+  /* Entrata delle testate interne: una sola salita, 420ms. */
+  .hero-step {
+    animation: rise 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   .pause-on-hover:hover {
     animation-play-state: paused;
+  }
+  .tnum {
+    font-variant-numeric: tabular-nums;
   }
 }
 
@@ -148,66 +400,8 @@
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition: none !important;
     scroll-behavior: auto !important;
-  }
-}
-
-/* Entrata della hero: unico momento orchestrato, 900ms in tutto. */
-@layer utilities {
-  .hero-stroke {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    animation: hero-draw 900ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-  .hero-fill {
-    animation: hero-fill 700ms cubic-bezier(0.16, 1, 0.3, 1) 200ms both;
-  }
-  .hero-spot {
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: hero-spot 16s ease-in-out infinite alternate;
-  }
-  .hero-step {
-    animation: rise 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-}
-
-@keyframes hero-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes hero-fill {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes hero-spot {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(190%);
-  }
-}
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@layer utilities {
-  .hero-sub {
-    animation: hero-fill 500ms cubic-bezier(0.16, 1, 0.3, 1) 420ms both;
   }
 }

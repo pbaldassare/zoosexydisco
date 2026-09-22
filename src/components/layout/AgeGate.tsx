@@ -36,15 +36,16 @@ export function AgeGate() {
       aria-modal="true"
       aria-labelledby="age-q"
       aria-describedby="age-note"
-      className="fixed inset-0 z-[100] grid place-items-center overflow-y-auto bg-bg/85 px-6 py-10 backdrop-blur-2xl"
+      className="fixed inset-0 z-[80] grid place-items-center overflow-y-auto p-6 bg-[radial-gradient(60%_50%_at_50%_38%,rgb(var(--pink)/0.22),transparent_70%),rgb(4_2_6/0.97)]"
     >
-      <div className="flex w-full max-w-md flex-col items-center text-center">
-        <Logo className="w-44 text-ink duration-700 animate-in fade-in sm:w-52" />
-        <div className="hairline my-10 w-40" aria-hidden />
-        <h2 id="age-q" className="text-xl sm:text-2xl">
+      <div className="grid max-w-[430px] justify-items-center gap-[18px] text-center">
+        <Logo large className="w-[min(62vw,260px)] duration-700 animate-in fade-in" title="" />
+
+        <p id="age-q" className="tube tube-pink m-0 text-[clamp(34px,8vw,46px)]">
           {t("age.question")}
-        </h2>
-        <div className="mt-8 grid w-full grid-cols-2 gap-3">
+        </p>
+
+        <div className="flex flex-wrap justify-center gap-2.5">
           <Button
             onClick={() => {
               safeStorage.set(KEY, String(Date.now()));
@@ -57,7 +58,8 @@ export function AgeGate() {
             {t("age.no")}
           </Button>
         </div>
-        <p id="age-note" className="mt-8 max-w-xs text-xs text-ink-dim">
+
+        <p id="age-note" className="m-0 text-xs text-ink-faint">
           {t("age.note")}
         </p>
       </div>

@@ -41,6 +41,10 @@ const it = {
     subscribe: "Iscriviti",
     loadMore: "Carica altre",
     back: "Indietro",
+    waWith: "WhatsApp {{name}}",
+    callWith: "Chiama {{name}}",
+    apply: "Invia la tua candidatura",
+    allNights: "Tutte le serate e l'archivio",
   },
   badge: {
     tonight: "Stasera",
@@ -69,6 +73,18 @@ const it = {
     drinks: "Consumazione",
     hours: "Orari",
     story: "La storia",
+    sign: "Insegna al neon ZOO Sexy Disco",
+    seoTitle: "ZOO Sexy Disco — lap dance e night club a Madone, Bergamo",
+    state: {
+      openStrong: "Stasera siamo aperti",
+      openRest: " fino alle {{close}}. Ti aspettiamo.",
+      nextLead: "La prossima serata è ",
+      nextRest: ", dalle {{open}}. Prenota il tuo tavolo.",
+      tonight: "stasera",
+      tomorrow: "domani",
+      openNow: "Aperti stasera",
+      nextNight: "Prossima serata",
+    },
   },
   events: {
     title: "Serate a tema",
@@ -128,6 +144,7 @@ const it = {
   newsletter: {
     page: "Newsletter",
     placeholder: "La tua email",
+    consentHint: "Promozioni via email, cancellabili quando vuoi. Leggi l'",
     confirmTitle: "Iscrizione confermata",
     confirmBody: "Sei in lista. Ti abbiamo mandato un'email con il regalo di benvenuto.",
     confirmPending: "Controlla la posta: ti abbiamo inviato un link per confermare l'iscrizione.",
@@ -194,6 +211,7 @@ const it = {
   },
   footer: {
     managedBy: "ZOO Sexy Disco è un locale gestito da",
+    managedByShort: "è un locale gestito da",
     legalSeat: "Sede legale",
     vat: "C.F. e P.IVA",
     capital: "Capitale sociale",

@@ -27,6 +27,9 @@ export const safeStorage = {
   },
 };
 
+/** Intl restituisce i giorni in minuscolo in italiano: in pagina vanno maiuscoli. */
+export const capitalize = (s: string) => (s ? s[0]!.toUpperCase() + s.slice(1) : s);
+
 export function hexToChannels(hex: string): string | null {
   const m = /^#?([0-9a-f]{6})$/i.exec(hex.trim());
   if (!m?.[1]) return null;

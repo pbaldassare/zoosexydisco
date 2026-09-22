@@ -1,7 +1,10 @@
 import { PLACEHOLDER } from "@/lib/utils";
 import type { SiteSettings } from "./types";
 
-/** Riga unica di site_settings. Dati societari reali; il resto è segnaposto. */
+/**
+ * Riga unica di site_settings. Dati societari, contatti e orari sono quelli
+ * reali forniti dal cliente; restano segnaposto solo prezzi e Instagram.
+ */
 export const settings: SiteSettings = {
   company_name: "Venera S.r.l.s.",
   legal_address: "Via Vincenzo Bellini 43, 24040 Madone (BG)",
@@ -11,17 +14,32 @@ export const settings: SiteSettings = {
   share_capital: "€ 500,00 i.v.",
   pec: "venerasrls@arubapec.it",
   email: "info@zoosexydisco.it",
-  phone: PLACEHOLDER,
-  whatsapp: PLACEHOLDER,
+  phone: "347 587 2376",
+  whatsapp: "347 587 2376",
+  // Il contatto è a un tocco da ogni schermata (PRODUCT.md, principio 2).
+  contacts: [
+    { name: "Diana", phone: "347 587 2376" },
+    { name: "Alessia", phone: "333 894 2087" },
+  ],
+  // Giovedì 22–02, venerdì e sabato 22–03:30. Le aperture extra di festività
+  // e dicembre si pubblicano di volta in volta come serate.
+  opening_windows: [
+    { day: 4, open: "22:00", close: "02:00" },
+    { day: 5, open: "22:00", close: "03:30" },
+    { day: 6, open: "22:00", close: "03:30" },
+  ],
   instagram_handle: PLACEHOLDER,
   instagram_url: "",
   google_reviews_url: "",
-  address_venue: `Madone (BG) · ${PLACEHOLDER}`,
+  address_venue: "Via Vincenzo Bellini 43, 24040 Madone (BG)",
   maps_query: "ZOO Sexy Disco Madone BG",
-  opening_hours: { it: PLACEHOLDER, en: PLACEHOLDER },
+  opening_hours: {
+    it: "Giovedì 22:00–02:00 · Venerdì e sabato 22:00–03:30",
+    en: "Thursday 10 pm–2 am · Friday and Saturday 10 pm–3:30 am",
+  },
   entry_prices: { it: PLACEHOLDER, en: PLACEHOLDER },
   drink_prices: { it: PLACEHOLDER, en: PLACEHOLDER },
-  logo_path: "/brand/logo-placeholder.svg",
+  logo_path: "/brand/logo-zoo.webp",
   upload_video_max_mb: 50,
   upload_video_max_seconds: 90,
 };

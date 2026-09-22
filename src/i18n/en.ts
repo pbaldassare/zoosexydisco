@@ -43,6 +43,10 @@ const en: Dict = {
     subscribe: "Subscribe",
     loadMore: "Load more",
     back: "Back",
+    waWith: "WhatsApp {{name}}",
+    callWith: "Call {{name}}",
+    apply: "Send your application",
+    allNights: "All theme nights and past events",
   },
   badge: {
     tonight: "Tonight",
@@ -71,6 +75,18 @@ const en: Dict = {
     drinks: "Drinks",
     hours: "Hours",
     story: "The story",
+    sign: "ZOO Sexy Disco neon sign",
+    seoTitle: "ZOO Sexy Disco — lap dance and night club in Madone, Bergamo",
+    state: {
+      openStrong: "We're open tonight",
+      openRest: " until {{close}}. Come on in.",
+      nextLead: "Next night: ",
+      nextRest: ", from {{open}}. Book your table now.",
+      tonight: "tonight",
+      tomorrow: "tomorrow",
+      openNow: "Open tonight",
+      nextNight: "Next night",
+    },
   },
   events: {
     title: "Theme nights",
@@ -130,6 +146,7 @@ const en: Dict = {
   newsletter: {
     page: "Newsletter",
     placeholder: "Your email",
+    consentHint: "Offers by email, unsubscribe whenever you like. Read the",
     confirmTitle: "Subscription confirmed",
     confirmBody: "You're on the list. We've sent you an email with your welcome gift.",
     confirmPending: "Check your inbox: we've sent you a link to confirm your subscription.",
@@ -196,6 +213,7 @@ const en: Dict = {
   },
   footer: {
     managedBy: "ZOO Sexy Disco is a venue run by",
+    managedByShort: "is a venue run by",
     legalSeat: "Registered office",
     vat: "Tax code and VAT no.",
     capital: "Share capital",

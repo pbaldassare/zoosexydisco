@@ -1,21 +1,19 @@
-import paths from "./logo-paths.json";
 import { cn } from "@/lib/utils";
 
 /**
- * Logo provvisorio: «ZOO» in Bodoni Moda e «SEXY DISCO» in Syne, convertiti in
- * tracciati da scripts/generate-placeholders.ts. Eredita il colore (currentColor).
- * Quando arriva il logo del cliente, site_settings.logo_path lo sostituisce.
+ * Il logo del cliente: cerchio al neon con la scritta ad arco e la ballerina
+ * al palo, fondo già trasparente. Quadrato 1:1.
+ * La versione grande serve solo dove il cerchio è protagonista (schermata 18+).
  */
-export function Logo({ className, compact = false, title = "ZOO Sexy Disco" }: { className?: string; compact?: boolean; title?: string }) {
-  const [, , w, h] = paths.viewBox.split(" ").map(Number);
-  const vb = compact ? `0 0 ${w} ${Math.round(h! * 0.72)}` : paths.viewBox;
+export function Logo({ className, large = false, title = "ZOO Sexy Disco" }: { className?: string; large?: boolean; title?: string }) {
+  const size = large ? 720 : 192;
   return (
-    <svg viewBox={vb} className={cn("block", className)} role="img" aria-label={title} fill="currentColor">
-      <path transform={paths.zoo.transform} d={paths.zoo.d} />
-      {!compact && <path transform={paths.sub.transform} d={paths.sub.d} />}
-    </svg>
+    <img
+      src={large ? "/brand/logo-zoo.webp" : "/brand/logo-zoo-192.webp"}
+      width={size}
+      height={size}
+      alt={title}
+      className={cn("block aspect-square object-contain", className)}
+    />
   );
 }
-
-/** La sola parola ZOO, usata come maschera nella hero. */
-export const logoPaths = paths;

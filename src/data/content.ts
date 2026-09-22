@@ -21,6 +21,87 @@ export const content: Record<string, L> = {
   },
   "home.gallery.title": { it: "Dalla sala", en: "From the floor" },
 
+  /* home «insegna al neon»: la prima schermata */
+  "home.since": { it: "Da oltre 25 anni, la notte è qui.", en: "For over 25 years, the night has lived here." },
+  "home.heroCopy": {
+    it: "Lap dance e night club a Madone, alle porte di Bergamo. Spettacoli, serate a tema, bar e privè.",
+    en: "Lap dance and night club in Madone, just outside Bergamo. Shows, theme nights, bar and private rooms.",
+  },
+
+  /* le notti */
+  "home.nights.title": { it: "Le nostre notti", en: "Our nights" },
+  "home.nights.lead": {
+    it: "Siamo aperti solo il giovedì, il venerdì e il sabato, dalle 22 fino a notte fonda.",
+    en: "We're open on Thursdays, Fridays and Saturdays only, from 10 pm until late.",
+  },
+  "home.nights.holidays": {
+    it: "Nei giorni di festa apriamo anche in altre sere, e a dicembre siamo aperti più giorni. Le date extra le trovi qui e sul nostro Instagram man mano che si avvicinano.",
+    en: "On public holidays we open on other nights too, and in December we're open more days. Extra dates appear here and on our Instagram as they come up.",
+  },
+
+  /* serate a tema */
+  "home.events.title": { it: "Serate a tema", en: "Theme nights" },
+  "home.events.lead": {
+    it: "Ogni serata a tema ha il suo dress code: le ragazze cambiano abiti, luci e atmosfera.",
+    en: "Every theme night has its own dress code: the girls change outfits, lights and mood.",
+  },
+
+  /* il locale, in home */
+  "home.club.p1": {
+    it: "ZOO Sexy Disco è uno dei locali per adulti e night club più conosciuti della zona. Siamo a Madone, in via Vincenzo Bellini 43, dalla fine degli anni '90.",
+    en: "ZOO Sexy Disco is one of the best-known adult venues and night clubs in the area. We've been in Madone, at Via Vincenzo Bellini 43, since the late '90s.",
+  },
+  "home.club.p2": {
+    it: "Spettacoli di ballerine, serate a tema durante tutto l'anno, il bar, i tavoli e il privè. [Qui va la storia del locale, per tappe: da completare con il proprietario.]",
+    en: "Dancer shows, theme nights all year round, the bar, tables and private rooms. [The club's story goes here, step by step: to be completed with the owner.]",
+  },
+  "home.feat.bar.title": { it: "Bar", en: "Bar" },
+  "home.feat.bar.body": { it: "Cocktail, superalcolici e vino.", en: "Cocktails, spirits and wine." },
+  "home.feat.shows.title": { it: "Spettacoli", en: "Shows" },
+  "home.feat.shows.body": {
+    it: "Ballerine sul palco e lap dance, con serate a tema durante l'anno.",
+    en: "Dancers on stage and lap dance, with theme nights throughout the year.",
+  },
+  "home.feat.tables.title": { it: "Tavoli e privè", en: "Tables and private rooms" },
+  "home.feat.tables.body": {
+    it: "Aree tavoli per il gruppo e spazi privè riservati.",
+    en: "Table areas for groups and reserved private rooms.",
+  },
+  "home.feat.access.title": { it: "Accessibile", en: "Accessible" },
+  "home.feat.access.body": {
+    it: "Ingressi, parcheggio e servizi igienici accessibili anche in sedia a rotelle.",
+    en: "Wheelchair-accessible entrances, parking and restrooms.",
+  },
+
+  /* regole della casa */
+  "home.rules.title": { it: "Qui dentro nessuno ti fotografa.", en: "In here, nobody takes your picture." },
+  "home.rules.photo.title": { it: "Niente foto e video", en: "No photos or videos" },
+  "home.rules.photo.body": {
+    it: "In sala sono vietati a tutti. È la garanzia della tua riservatezza.",
+    en: "They're banned for everyone inside. That's how we guarantee your privacy.",
+  },
+  "home.rules.age.title": { it: "Solo maggiorenni", en: "Adults only" },
+  "home.rules.age.body": {
+    it: "L'ingresso è riservato a chi ha compiuto 18 anni.",
+    en: "Entry is reserved for people aged 18 and over.",
+  },
+  "home.rules.respect.title": { it: "Rispetto per le ragazze", en: "Respect for the girls" },
+  "home.rules.respect.body": {
+    it: "Si guarda, ci si diverte, si rispettano le regole della sala.",
+    en: "Watch, have fun, and follow the house rules.",
+  },
+
+  /* gallery e lavoro, in home */
+  "home.gallery.note": {
+    it: "Immagini di esempio: verranno sostituite dalle foto del locale.",
+    en: "Example images: they'll be replaced with photos of the club.",
+  },
+  "home.job.title": { it: "Lavora con noi", en: "Work with us" },
+  "home.job.lead": {
+    it: "Cerchiamo persone serie per la sala e per il palco. La candidatura è riservata: non finisce mai sul sito.",
+    en: "We're looking for reliable people for the floor and the stage. Applications are confidential and never appear on the site.",
+  },
+
   /* il locale */
   "club.intro": {
     it: "ZOO non è un posto dove si passa: è un posto dove si resta. Tre ambienti, un'unica regola: ognuno vive la notte come vuole, nessuno la racconta.",

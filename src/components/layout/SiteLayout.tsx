@@ -6,24 +6,34 @@ import { ReviewsMarquee } from "@/components/sections/ReviewsMarquee";
 import { WhatsAppGlyph } from "@/components/ui/icons";
 import { useSettings } from "@/hooks/useData";
 import { useLang } from "@/hooks/useLang";
+import { useScrollY } from "@/hooks/useScrollY";
 import { useThemeVars } from "@/hooks/useThemeVars";
+import { cn } from "@/lib/utils";
 import { waLink } from "@/lib/whatsapp";
 import { AgeGate } from "./AgeGate";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 
+/** Pulsante flottante: compare solo dopo 520px di scroll, e solo da telefono. */
 function WhatsAppFab() {
   const { t } = useTranslation();
   const { data: s } = useSettings();
+  const show = useScrollY() > 520;
+
   return (
     <a
       href={waLink(s?.whatsapp ?? "", t("events.waGeneric"))}
       target="_blank"
       rel="noopener"
       aria-label={t("cta.whatsapp")}
-      className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-40 grid size-14 place-items-center rounded-full bg-accent text-bg shadow-[0_10px_40px_-8px_rgb(var(--accent)/0.6)] transition-transform hover:scale-105 md:hidden"
+      tabIndex={show ? 0 : -1}
+      className={cn(
+        "fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-30 grid size-[58px] place-items-center rounded-full bg-pink text-[#12040F] no-underline lg:hidden",
+        "shadow-[0_10px_26px_rgb(var(--pink)/0.5),inset_0_0_0_1px_rgb(255_255_255/0.2)] transition-[opacity,transform] duration-[350ms] ease-expo",
+        show ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none translate-y-3 scale-90 opacity-0",
+      )}
     >
-      <WhatsAppGlyph className="size-6" />
+      <WhatsAppGlyph className="size-[26px]" />
     </a>
   );
 }

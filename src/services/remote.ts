@@ -4,7 +4,7 @@
  * da dove arrivano i dati. Le RLS decidono cosa è visibile: qui non si filtra
  * per sicurezza, solo per ordine e comodità.
  */
-import type { EventItem, JobRole, L, Media, Promotion, Review, Show, SiteSettings, Theme, TimelineStep } from "@/data/types";
+import type { Contact, EventItem, JobRole, L, Media, OpeningWindow, Promotion, Review, Show, SiteSettings, Theme, TimelineStep } from "@/data/types";
 import { publicUrl, supabase } from "@/lib/supabase";
 
 type Row = Record<string, unknown>;
@@ -33,6 +33,9 @@ export const toSettings = (r: Row): SiteSettings => ({
   email: s(r.email),
   phone: s(r.phone),
   whatsapp: s(r.whatsapp),
+  // Colonne jsonb: l'admin gestisce le persone da contattare e le finestre di apertura.
+  contacts: Array.isArray(r.contacts) ? (r.contacts as Contact[]) : [],
+  opening_windows: Array.isArray(r.opening_windows) ? (r.opening_windows as OpeningWindow[]) : [],
   instagram_handle: s(r.instagram_handle),
   instagram_url: s(r.instagram_url),
   google_reviews_url: s(r.google_reviews_url),
@@ -41,7 +44,7 @@ export const toSettings = (r: Row): SiteSettings => ({
   opening_hours: l(r, "opening_hours"),
   entry_prices: l(r, "entry_prices"),
   drink_prices: l(r, "drink_prices"),
-  logo_path: r.logo_path ? publicUrl("theme-assets", s(r.logo_path)) : "/brand/logo-placeholder.svg",
+  logo_path: r.logo_path ? publicUrl("theme-assets", s(r.logo_path)) : "/brand/logo-zoo.webp",
   upload_video_max_mb: Number(r.upload_video_max_mb ?? 50),
   upload_video_max_seconds: Number(r.upload_video_max_seconds ?? 90),
 });

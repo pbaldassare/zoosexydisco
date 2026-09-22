@@ -1,25 +1,28 @@
-import { useTranslation } from "react-i18next";
-import { CameraOff, EyeOff, ShieldCheck } from "lucide-react";
+import { IcoAdults, IcoNoCamera, IcoRespect } from "@/components/ui/icons";
+import { useContent } from "@/hooks/useData";
+import { cn } from "@/lib/utils";
 
-export function HouseRules({ className = "" }: { className?: string }) {
-  const { t } = useTranslation();
-  const items = [
-    { icon: ShieldCheck, label: t("rules.adults"), mark: "18+" },
-    { icon: CameraOff, label: t("rules.noPhoto") },
-    { icon: EyeOff, label: t("rules.privacy") },
-  ];
+const RULES = [
+  { key: "photo", Icon: IcoNoCamera, blue: false },
+  { key: "age", Icon: IcoAdults, blue: true },
+  { key: "respect", Icon: IcoRespect, blue: false },
+] as const;
+
+/**
+ * Le tre regole della casa. Il divieto di foto non è un vincolo da nascondere:
+ * è la promessa di riservatezza del locale (PRODUCT.md, principio 3).
+ */
+export function HouseRules({ className }: { className?: string }) {
+  const c = useContent();
   return (
-    <ul className={`flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-10 ${className}`}>
-      {items.map(({ icon: Icon, label, mark }) => (
-        <li key={label} className="label flex items-center gap-3 text-2xs text-ink-dim">
-          {mark ? (
-            <span className="grid size-9 place-items-center rounded-full border border-accent-hot text-[11px] text-accent-hot">{mark}</span>
-          ) : (
-            <span className="grid size-9 place-items-center rounded-full border border-line">
-              <Icon className="size-4 text-ink" aria-hidden />
-            </span>
-          )}
-          {label}
+    <ul className={cn("m-0 grid list-none gap-[22px] p-0 sm:grid-cols-3", className)}>
+      {RULES.map(({ key, Icon, blue }) => (
+        <li key={key} className="grid grid-cols-[44px_minmax(0,1fr)] gap-3.5 text-ink-dim">
+          <Icon className={cn("size-11", blue && "ico-blue")} />
+          <div>
+            <strong className="mb-0.5 block text-base font-bold text-ink">{c(`home.rules.${key}.title`)}</strong>
+            <span>{c(`home.rules.${key}.body`)}</span>
+          </div>
         </li>
       ))}
     </ul>

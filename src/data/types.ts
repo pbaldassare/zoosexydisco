@@ -5,6 +5,15 @@
  */
 export type L = { it: string; en: string };
 
+/** Una persona da contattare: il telefono è sempre anche WhatsApp. */
+export type Contact = { name: string; phone: string };
+
+/**
+ * Una finestra di apertura. `day` segue Date.getDay() (domenica = 0);
+ * `close` può cadere dopo la mezzanotte, quindi il giorno successivo.
+ */
+export type OpeningWindow = { day: number; open: string; close: string };
+
 export type SiteSettings = {
   company_name: string;
   legal_address: string;
@@ -16,6 +25,8 @@ export type SiteSettings = {
   email: string;
   phone: string;
   whatsapp: string;
+  contacts: Contact[];
+  opening_windows: OpeningWindow[];
   instagram_handle: string;
   instagram_url: string;
   google_reviews_url: string;

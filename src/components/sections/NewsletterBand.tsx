@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { useContent } from "@/hooks/useData";
 import { useLang } from "@/hooks/useLang";
 import { pathFor } from "@/lib/routes";
 
-/** Fascia globale: porta alla pagina newsletter con l'email già compilata. */
+/**
+ * Fascia globale, prima del footer. Porta alla pagina newsletter con l'email
+ * già compilata: il consenso vero si raccoglie là, non qui.
+ */
 export function NewsletterBand() {
   const { t } = useTranslation();
   const c = useContent();
@@ -15,45 +18,51 @@ export function NewsletterBand() {
   const [email, setEmail] = useState("");
 
   return (
-    <section aria-labelledby="nl-band" className="relative overflow-hidden border-y border-line">
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-60"
-        style={{ background: "radial-gradient(60% 120% at 85% 50%, rgb(var(--accent) / 0.16), transparent 70%)" }}
-      />
-      <div className="container-site relative grid gap-8 py-16 md:grid-cols-12 md:items-end md:py-20">
-        <div className="md:col-span-6">
-          <p className="label mb-4 text-accent">{t("nav.newsletter")}</p>
-          <h2 id="nl-band" className="text-2xl md:text-3xl">
-            {c("newsletter.title")}
-          </h2>
-          <p className="mt-4 max-w-prose text-ink-dim">{c("newsletter.gift")}</p>
-        </div>
-        <form
-          className="md:col-span-6 md:pl-8"
-          onSubmit={(e) => {
-            e.preventDefault();
-            navigate(`${pathFor("newsletter", lang)}?email=${encodeURIComponent(email)}`);
-          }}
+    <section aria-labelledby="nl-band" className="relative z-[1] pt-section">
+      <div className="container-site">
+        <div
+          className="grid gap-[26px] rounded-band border border-pink/35 p-[clamp(28px,5vw,56px)] md:grid-cols-2 md:items-center md:gap-12
+            bg-[linear-gradient(135deg,rgb(var(--pink)/0.2),rgb(var(--blue)/0.14)),rgb(var(--panel))]
+            shadow-[0_0_40px_rgb(var(--pink)/0.15),0_24px_60px_rgb(0_0_0/0.5)]"
         >
-          <label htmlFor="nl-band-email" className="sr-only">
-            {t("form.email")}
-          </label>
-          <div className="flex border-b border-ink/40 transition-colors focus-within:border-accent">
-            <input
-              id="nl-band-email"
-              type="email"
-              autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder={t("newsletter.placeholder")}
-              className="min-h-14 w-full bg-transparent text-lg text-ink placeholder:text-ink-dim/70 focus:outline-none"
-            />
-            <button type="submit" className="label flex min-h-14 shrink-0 items-center gap-2 pl-4 text-xs text-accent hover:text-ink">
-              {t("cta.subscribe")} <ArrowRight className="size-4" aria-hidden />
-            </button>
+          <div>
+            <h2 id="nl-band" className="h2 tube-pink mb-2.5">
+              {c("newsletter.title")}
+            </h2>
+            <p className="m-0 text-ink-dim">{c("newsletter.gift")}</p>
           </div>
-        </form>
+
+          <form
+            className="grid gap-3"
+            onSubmit={(e) => {
+              e.preventDefault();
+              navigate(`${pathFor("newsletter", lang)}?email=${encodeURIComponent(email)}`);
+            }}
+          >
+            <div className="flex flex-wrap gap-2.5">
+              <label htmlFor="nl-band-email" className="sr-only">
+                {t("form.email")}
+              </label>
+              <input
+                id="nl-band-email"
+                type="email"
+                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder={t("newsletter.placeholder")}
+                className="min-h-[52px] min-w-0 flex-1 basis-[220px] rounded-pill border-[1.5px] border-line bg-wall/70 px-[18px] font-body text-base text-ink placeholder:text-ink-faint focus:border-pink focus:outline-none focus:ring-4 focus:ring-pink/20"
+              />
+              <Button type="submit">{t("cta.subscribe")}</Button>
+            </div>
+            <p className="m-0 text-xs text-ink-dim">
+              {t("newsletter.consentHint")}{" "}
+              <Link to={pathFor("privacy", lang)} className="text-pink-core">
+                {t("form.consentLink")}
+              </Link>
+              .
+            </p>
+          </form>
+        </div>
       </div>
     </section>
   );
