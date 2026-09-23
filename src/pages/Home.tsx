@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { HeroLogo } from "@/components/brand/HeroLogo";
+import { Sign } from "@/components/brand/Sign";
 import { ContactButtons } from "@/components/sections/ContactButtons";
 import { HeroBackdrop } from "@/components/sections/HeroBackdrop";
 import { NightsList, OpenPanel } from "@/components/sections/OpenPanel";
@@ -31,20 +31,23 @@ function SignHero() {
   const video = theme?.hero_video_path ?? heroBackground.video;
 
   return (
-    <section className="wash-sign relative isolate z-[1] overflow-hidden pb-14 pt-[calc(var(--header-h)+clamp(4px,1.5vw,28px))]" aria-labelledby="hero-t">
+    <section className="wash-sign relative isolate z-[1] overflow-hidden pb-14 pt-[calc(var(--header-h)+clamp(4px,1.5vw,28px))] [@media(max-height:700px)]:pb-5 [@media(max-height:700px)]:pt-[calc(var(--header-h)+4px)]" aria-labelledby="hero-t">
       <HeroBackdrop video={video} />
 
       <h1 id="hero-t" className="sr-only">
         {t("home.seoTitle")}
       </h1>
 
-      <div className="container-site flex flex-col items-center text-center">
-        {/* il marchio: grande e al centro, sopra il video */}
-        <HeroLogo />
+      {/* l'insegna esce dal contenitore: si prende quasi tutta la finestra */}
+      <Sign />
 
+      <div className="container-site flex flex-col items-center text-center">
         {/* la riga al neon: il claim, non un occhiello */}
         <p className="tube tube-blue relative m-0 mt-2 animate-hum text-[clamp(26px,5vw,48px)]">{c("home.since")}</p>
-        <p className="mx-auto mt-4 max-w-[34ch] text-[clamp(19px,2.3vw,26px)] leading-snug text-ink [text-shadow:0_2px_20px_rgb(var(--wall)),0_0_40px_rgb(var(--wall))]">
+        {/* Sui telefoni bassi rientra di 3px e si stringe il margine: è l'ultimo
+            spazio che serve per tenere entrambi i contatti nella prima
+            schermata. Su ogni telefono moderno resta alla misura piena. */}
+        <p className="mx-auto mt-4 max-w-[34ch] text-[clamp(19px,2.3vw,26px)] leading-snug text-ink [text-shadow:0_2px_20px_rgb(var(--wall)),0_0_40px_rgb(var(--wall))] [@media(max-height:700px)]:mt-2 [@media(max-height:700px)]:text-[16px]">
           {c("home.heroCopy")}
         </p>
 
