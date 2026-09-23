@@ -36,7 +36,13 @@ export function AgeGate() {
       aria-modal="true"
       aria-labelledby="age-q"
       aria-describedby="age-note"
-      className="fixed inset-0 z-[80] grid place-items-center overflow-y-auto p-6 bg-[radial-gradient(60%_50%_at_50%_38%,rgb(var(--pink)/0.22),transparent_70%),rgb(4_2_6/0.97)]"
+      className="fixed inset-0 z-[80] grid place-items-center overflow-y-auto p-6 backdrop-blur-xl"
+      /* Fondo come scorciatoia CSS: il colore pieno è l'ultimo livello. In
+       * classe Tailwind i due livelli separati da virgola non vengono generati
+       * e la schermata resta trasparente sopra la home. */
+      style={{
+        background: "radial-gradient(60% 50% at 50% 38%, rgb(var(--pink) / 0.22), transparent 70%), rgb(4 2 6 / 0.985)",
+      }}
     >
       <div className="grid max-w-[430px] justify-items-center gap-[18px] text-center">
         <Logo large className="w-[min(62vw,260px)] duration-700 animate-in fade-in" title="" />
