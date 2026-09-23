@@ -4,13 +4,15 @@ import type { RouteKey } from "@/lib/routes";
 export type NavItem = { key: RouteKey; label: string; hash?: string };
 
 /**
- * Menu principale: le sei voci del riferimento di design, in quell'ordine.
- * «Le notti» non è una pagina, è la sezione degli orari in home.
+ * Menu principale: le sei voci del riferimento di design, riordinate per
+ * accompagnare la visita — prima quando siamo aperti, poi dov'è il locale,
+ * poi cosa ci si trova. «Le notti» non è una pagina: è la sezione degli
+ * orari in home.
  */
 export const MAIN_NAV: NavItem[] = [
   { key: "home", label: "nav.nights", hash: "#notti" },
-  { key: "events", label: "nav.events" },
   { key: "club", label: "nav.club" },
+  { key: "events", label: "nav.events" },
   { key: "photos", label: "nav.gallery" },
   { key: "work", label: "nav.work" },
   { key: "contacts", label: "nav.contacts" },
