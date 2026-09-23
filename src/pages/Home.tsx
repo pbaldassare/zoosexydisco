@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Sign } from "@/components/brand/Sign";
 import { ContactButtons } from "@/components/sections/ContactButtons";
+import { HeroBackdrop } from "@/components/sections/HeroBackdrop";
 import { NightsList, OpenPanel } from "@/components/sections/OpenPanel";
 import { HouseRules } from "@/components/sections/HouseRules";
 import { ProtectedImage } from "@/components/media/ProtectedImage";
@@ -9,7 +10,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Seo } from "@/components/ui/seo";
 import { IcoBar, IcoCalendar, IcoShows, IcoTables, IcoAccessible, WhatsAppGlyph } from "@/components/ui/icons";
-import { useContent, useEvents, useJobRoles, useMedia, useNextEvent, useSettings } from "@/hooks/useData";
+import { heroBackground } from "@/data/hero";
+import { useActiveTheme, useContent, useEvents, useJobRoles, useMedia, useNextEvent, useSettings } from "@/hooks/useData";
 import { useLang, useL } from "@/hooks/useLang";
 import { fmt } from "@/lib/format";
 import { nightClubJsonLd } from "@/lib/jsonld";
@@ -22,20 +24,29 @@ import { waLink } from "@/lib/whatsapp";
 function SignHero() {
   const { t } = useTranslation();
   const c = useContent();
+  const { data: theme } = useActiveTheme();
+
+  // Il video del tema attivo ha la precedenza: è la via che userà il cliente
+  // dal pannello admin. Senza tema, quello indicato in src/data/hero.ts.
+  const video = theme?.hero_video_path ?? heroBackground.video;
 
   return (
-    <section className="wash-sign relative isolate z-[1] overflow-hidden pb-14 pt-[clamp(96px,14vw,150px)]" aria-labelledby="hero-t">
-      <div className="photo hero-photo bg-[url('/photos/foto-pedana.webp')]" aria-hidden />
+    <section className="wash-sign relative isolate z-[1] overflow-hidden pb-14 pt-[clamp(88px,12vw,132px)]" aria-labelledby="hero-t">
+      <HeroBackdrop video={video} />
+
+      <h1 id="hero-t" className="sr-only">
+        {t("home.seoTitle")}
+      </h1>
+
+      {/* l'insegna esce dal contenitore: si prende quasi tutta la finestra */}
+      <Sign />
+
       <div className="container-site flex flex-col items-center text-center">
-        <h1 id="hero-t" className="sr-only">
-          {t("home.seoTitle")}
-        </h1>
-
-        <Sign />
-
         {/* la riga al neon: il claim, non un occhiello */}
         <p className="tube tube-blue relative m-0 mt-[-2%] animate-hum text-[clamp(26px,5vw,48px)]">{c("home.since")}</p>
-        <p className="mx-auto mt-3 max-w-[40ch] text-base text-ink-dim">{c("home.heroCopy")}</p>
+        <p className="mx-auto mt-4 max-w-[34ch] text-[clamp(19px,2.3vw,26px)] leading-snug text-ink [text-shadow:0_2px_20px_rgb(var(--wall)),0_0_40px_rgb(var(--wall))]">
+          {c("home.heroCopy")}
+        </p>
 
         <OpenPanel />
       </div>
