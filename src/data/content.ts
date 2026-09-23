@@ -56,7 +56,7 @@ export const content: Record<string, L> = {
     en: "Dancer shows, theme nights all year round, the bar, tables and private rooms. [The club's story goes here, step by step: to be completed with the owner.]",
   },
   "home.feat.bar.title": { it: "Bar", en: "Bar" },
-  "home.feat.bar.body": { it: "Cocktail, superalcolici e vino.", en: "Cocktails, spirits and wine." },
+  "home.feat.bar.body": { it: "Cocktail, superalcolici, champagne e molto altro.", en: "Cocktails, spirits, champagne and much more." },
   "home.feat.shows.title": { it: "Spettacoli", en: "Shows" },
   "home.feat.shows.body": {
     it: "Ballerine sul palco e lap dance, con serate a tema durante l'anno.",
@@ -118,22 +118,6 @@ export const content: Record<string, L> = {
   "club.room.prive": {
     it: "Il privé: più raccolto, separato dalla sala, pensato per chi cerca riservatezza.",
     en: "The private room: more intimate, set apart from the main room, for those who want discretion.",
-  },
-  "club.rules.photo": {
-    it: "Qui dentro nessuno ti fotografa. Per questo foto e video in sala sono vietati a tutti.",
-    en: "In here, nobody takes your picture. That's why photos and videos are forbidden for everyone.",
-  },
-  "club.rules.age": {
-    it: "Si entra solo dai 18 anni compiuti, con documento alla porta.",
-    en: "Entry from age 18 only, with ID at the door.",
-  },
-  "club.rules.privacy": {
-    it: "Quello che succede in sala resta in sala. Lo staff è il primo a garantirlo.",
-    en: "What happens in the room stays in the room. The staff are the first to guarantee it.",
-  },
-  "club.rules.respect": {
-    it: "Si guarda, non si tocca. Chi non rispetta le artiste e lo staff viene accompagnato all'uscita.",
-    en: "Look, don't touch. Anyone who disrespects the performers or staff is shown the door.",
   },
   "club.directions": {
     it: "Come arrivare e parcheggio: [da completare].",

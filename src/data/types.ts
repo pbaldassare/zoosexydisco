@@ -72,7 +72,8 @@ export type EventItem = {
 
 export type EventStatus = "upcoming" | "tonight" | "archived";
 
-export type Placement = "gallery" | "home" | "members";
+/** Dove un media compare. «club» sono le foto dei tre ambienti. */
+export type Placement = "gallery" | "home" | "members" | "club";
 
 export type Media = {
   id: string;

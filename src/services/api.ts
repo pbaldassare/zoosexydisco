@@ -47,7 +47,7 @@ const local = {
     ),
 
   /** Media pubblici: visibili e non riservati agli iscritti. */
-  media: (opts: { kind?: Media["kind"]; placement?: "gallery" | "home"; eventId?: string } = {}) =>
+  media: (opts: { kind?: Media["kind"]; placement?: Media["placement"][number]; eventId?: string } = {}) =>
     delay(
       media
         .filter((m) => m.visible && !m.placement.includes("members"))

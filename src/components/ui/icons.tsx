@@ -93,31 +93,38 @@ export const IcoCalendar = ({ className }: { className?: string }) => (
   </Ico>
 );
 
+/** Coppa da champagne, con le bollicine che salgono. */
 export const IcoBar = ({ className }: { className?: string }) => (
   <Ico className={className}>
-    <path d="M7 6h18l-9 11z" />
-    <line x1="16" y1="17" x2="16" y2="26" />
-    <line x1="11" y1="26" x2="21" y2="26" />
-    <line x1="10" y1="10" x2="22" y2="10" />
+    <path d="M9 11.5h14" />
+    <path d="M9 11.5q7 10 14 0" />
+    <path d="M16 19v5.5" />
+    <path d="M11.5 24.5h9" />
+    <circle cx="12.5" cy="6" r="1" />
+    <circle cx="17" cy="3.2" r="1.3" />
+    <circle cx="20.5" cy="7" r="0.9" />
   </Ico>
 );
 
+/** Una stella sul palco: lo spettacolo, senza nulla di esplicito. */
 export const IcoShows = ({ className }: { className?: string }) => (
   <Ico className={className}>
-    <path d="M16 4v24" />
-    <path d="M11 9c3 2 7 2 10 0" />
-    <path d="M10 19c4 3 8 3 12 0" />
-    <circle cx="16" cy="4" r="1.2" />
-    <line x1="10" y1="28" x2="22" y2="28" />
+    <path d="M16 4.5 17.9 9.4 23.1 9.7 19 13 20.4 18.1 16 15.2 11.6 18.1 13 13 8.9 9.7 14.1 9.4z" />
+    <path d="M4 25h24" />
+    <path d="M9 21.5 7 25" />
+    <path d="M23 21.5 25 25" />
   </Ico>
 );
 
+/** Tavolo tondo del privè, con il suo calice. */
 export const IcoTables = ({ className }: { className?: string }) => (
   <Ico className={className}>
-    <rect x="5" y="12" width="22" height="7" rx="2" />
-    <line x1="8" y1="19" x2="8" y2="26" />
-    <line x1="24" y1="19" x2="24" y2="26" />
-    <path d="M9 12V9a7 7 0 0 1 14 0v3" />
+    <ellipse cx="16" cy="15" rx="11" ry="3.6" />
+    <path d="M16 18.6V26" />
+    <path d="M10.5 26h11" />
+    <path d="M19.5 11.4V6" />
+    <path d="M17.5 6h4" />
+    <path d="M19.5 11.4a2.6 2.6 0 0 1-2.6-2.6h5.2a2.6 2.6 0 0 1-2.6 2.6z" />
   </Ico>
 );
 

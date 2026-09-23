@@ -25,6 +25,22 @@ export const media: Media[] = [
       is_sample: true,
     };
   }),
+  // I tre ambienti del locale. L'ordine (`sort`) decide quale foto va a quale
+  // ambiente: sala, tavoli, privè. Dall'admin si sostituiscono senza toccare il codice.
+  ...["locale-02", "locale-03", "locale-04"].map(
+    (f, i): Media => ({
+      id: `m-club-${i}`,
+      kind: "image",
+      path: ph(`${f}.webp`),
+      thumb_path: ph(`${f}-480.webp`),
+      width: 1600,
+      height: 1067,
+      placement: ["club"],
+      visible: true,
+      sort: i,
+      is_sample: true,
+    }),
+  ),
   // Contenuti per iscritti: visibili solo nell'area riservata.
   ...[3, 8].map(
     (n, i): Media => ({

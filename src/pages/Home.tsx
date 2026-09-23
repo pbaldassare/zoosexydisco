@@ -4,12 +4,12 @@ import { Sign } from "@/components/brand/Sign";
 import { ContactButtons } from "@/components/sections/ContactButtons";
 import { HeroBackdrop } from "@/components/sections/HeroBackdrop";
 import { NightsList, OpenPanel } from "@/components/sections/OpenPanel";
-import { HouseRules } from "@/components/sections/HouseRules";
+import { ClubFeatures, RulesPanel } from "@/components/sections/ClubBits";
 import { ProtectedImage } from "@/components/media/ProtectedImage";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Seo } from "@/components/ui/seo";
-import { IcoBar, IcoCalendar, IcoShows, IcoTables, IcoAccessible, WhatsAppGlyph } from "@/components/ui/icons";
+import { IcoCalendar, WhatsAppGlyph } from "@/components/ui/icons";
 import { heroBackground } from "@/data/hero";
 import { useActiveTheme, useContent, useEvents, useJobRoles, useMedia, useNextEvent, useSettings } from "@/hooks/useData";
 import { useLang, useL } from "@/hooks/useLang";
@@ -173,13 +173,6 @@ function ThemeNights() {
 
 /* ---------- il locale ---------- */
 
-const FEATS = [
-  { key: "bar", Icon: IcoBar, blue: false },
-  { key: "shows", Icon: IcoShows, blue: true },
-  { key: "tables", Icon: IcoTables, blue: false },
-  { key: "access", Icon: IcoAccessible, blue: true },
-] as const;
-
 function Club() {
   const { t } = useTranslation();
   const c = useContent();
@@ -201,38 +194,7 @@ function Club() {
           </Button>
         </div>
 
-        <ul className="m-0 grid list-none border-t border-line p-0">
-          {FEATS.map(({ key, Icon, blue }) => (
-            <li key={key} className="grid grid-cols-[48px_minmax(0,1fr)] items-start gap-4 border-b border-line py-5">
-              <Icon className={cn(blue && "ico-blue")} />
-              <div>
-                <h3 className="mb-1 mt-0.5 font-body text-lg font-bold leading-[1.3]">{c(`home.feat.${key}.title`)}</h3>
-                <p className="m-0 text-[15.5px] text-ink-dim">{c(`home.feat.${key}.body`)}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- regole della casa ---------- */
-
-function Rules() {
-  const c = useContent();
-  return (
-    <section className="relative z-[1] pt-section" aria-labelledby="regole-t">
-      <div className="container-site">
-        <div className="wash-panel relative isolate overflow-hidden rounded-band border border-line px-[clamp(22px,5vw,64px)] py-[clamp(34px,6vw,70px)]">
-          <div className="photo rules-photo bg-[url('/photos/foto-gambe.webp')]" aria-hidden />
-          <h2 className="tube tube-pink relative m-0 mb-[30px] max-w-[14ch] text-[clamp(40px,7vw,78px)]" id="regole-t">
-            {c("home.rules.title")}
-          </h2>
-          <div className="relative md:max-w-[70%]">
-            <HouseRules />
-          </div>
-        </div>
+        <ClubFeatures />
       </div>
     </section>
   );
@@ -330,7 +292,7 @@ export default function Home() {
       <Nights />
       <ThemeNights />
       <Club />
-      <Rules />
+      <RulesPanel />
       <Gallery />
       <Work />
       {/* Il contatto torna a portata di pollice prima della newsletter. */}

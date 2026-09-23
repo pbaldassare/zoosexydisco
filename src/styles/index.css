@@ -256,7 +256,7 @@
     color: rgb(var(--blue));
     filter: drop-shadow(0 0 4px rgb(var(--blue))) drop-shadow(0 0 10px rgb(var(--blue) / 0.6));
   }
-  .ico :is(path, circle, rect, line, polyline) {
+  .ico :is(path, circle, ellipse, rect, line, polyline) {
     fill: none;
     stroke: currentColor;
     stroke-width: 2.2;

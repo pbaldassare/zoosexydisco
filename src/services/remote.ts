@@ -187,7 +187,7 @@ export const remote = {
       return q.select("*").eq("published", true).eq("audience", audience).lte("valid_from", now).gt("valid_to", now);
     })).map(toPromotion);
   },
-  async media(opts: { kind?: Media["kind"]; placement?: "gallery" | "home"; eventId?: string }) {
+  async media(opts: { kind?: Media["kind"]; placement?: Media["placement"][number]; eventId?: string }) {
     const data = await rows("media", (q) => {
       let x = q.select("*").eq("visible", true).not("placement", "cs", "{members}").order("sort");
       if (opts.kind) x = x.eq("kind", opts.kind);
