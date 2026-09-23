@@ -10,8 +10,6 @@ export const ROUTES = {
   club: { it: "il-locale", en: "the-club" },
   events: { it: "eventi", en: "events" },
   event: { it: "eventi/:slug", en: "events/:slug" },
-  shows: { it: "spettacoli", en: "shows" },
-  parties: { it: "feste-private", en: "private-parties" },
   photos: { it: "gallery/foto", en: "gallery/photos" },
   videos: { it: "gallery/video", en: "gallery/videos" },
   work: { it: "lavora-con-noi", en: "work-with-us" },

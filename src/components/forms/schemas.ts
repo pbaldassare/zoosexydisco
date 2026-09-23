@@ -16,18 +16,6 @@ export const contactSchema = (t: TFunction) =>
     consent: z.literal(true, { message: t("form.consentRequired") }),
   });
 
-export const partySchema = (t: TFunction) =>
-  z.object({
-    name: z.string().trim().min(2, t("form.required")),
-    phone: z.string().trim().regex(phoneRe, t("form.invalidPhone")),
-    email: z.string().trim().email(t("form.invalidEmail")),
-    party_type: z.enum(["celibato", "compleanno", "aziendale", "altro"], { message: t("form.required") }),
-    party_date: z.string().min(1, t("form.required")),
-    guests: z.string().regex(/^[1-9]\d{0,2}$/, t("form.required")),
-    notes: z.string().trim().optional(),
-    consent: z.literal(true, { message: t("form.consentRequired") }),
-  });
-
 export const newsletterSchema = (t: TFunction) =>
   z.object({
     name: z.string().trim().min(2, t("form.required")),

@@ -161,36 +161,11 @@ function smoke(w: number, h: number, seed: number, opacity = 0.35) {
   <rect width="${w}" height="${h}" filter="url(#smokeF)" opacity="${opacity}"/>`;
 }
 
-function confetti(w: number, h: number, p: Palette, rnd: () => number, count = 70) {
-  let s = "";
-  const cols = [p.a, p.b, p.c];
-  for (let i = 0; i < count; i++) {
-    const x = rnd() * w;
-    const y = rnd() * h * 0.9;
-    const sz = w * (0.004 + rnd() * 0.008);
-    const rot = rnd() * 180;
-    s += `<rect x="${x}" y="${y}" width="${sz}" height="${sz * 2.4}" fill="${cols[i % 3]}" opacity="${0.35 + rnd() * 0.5}" transform="rotate(${rot} ${x} ${y})"/>`;
-  }
-  return s;
-}
-
-/** Due coppe da champagne stilizzate, tratto sottile. */
-function toast(w: number, h: number, p: Palette) {
-  const s = Math.min(w, h) / 900;
-  const glass = (cx: number, tilt: number) => `
-    <g transform="translate(${cx} ${h * 0.58}) rotate(${tilt}) scale(${s})" stroke="${p.a}" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.8">
-      <path d="M -120 -150 Q -110 -40 0 -30 Q 110 -40 120 -150 Z" fill="${p.a}" fill-opacity="0.08"/>
-      <line x1="0" y1="-30" x2="0" y2="140"/>
-      <path d="M -70 150 Q 0 132 70 150"/>
-    </g>`;
-  return `<g filter="url(#glow)" opacity="0.6">${glass(w * 0.44, -14)}${glass(w * 0.56, 14)}</g>${glass(w * 0.44, -14)}${glass(w * 0.56, 14)}`;
-}
-
 function finish(w: number, h: number) {
   return `<rect width="${w}" height="${h}" fill="url(#vignette)"/><rect width="${w}" height="${h}" filter="url(#grain)"/>`;
 }
 
-type Recipe = "stage" | "velvet" | "mix" | "event" | "show" | "party" | "themeBg";
+type Recipe = "stage" | "velvet" | "mix" | "event" | "show" | "themeBg";
 
 function compose(recipe: Recipe, w: number, h: number, p: Palette, seed: number) {
   const rnd = mulberry32(seed);
@@ -214,9 +189,6 @@ function compose(recipe: Recipe, w: number, h: number, p: Palette, seed: number)
       break;
     case "show":
       body += beams(w, h, p, rnd, 7) + smoke(w, h, seed, 0.25) + bokeh(w, h, p, rnd, 18, [0.7, 1]);
-      break;
-    case "party":
-      body += bokeh(w, h, p, rnd, 30) + confetti(w, h, p, rnd) + toast(w, h, p);
       break;
     case "themeBg":
       body += velvet(w, h, p, seed) + smoke(w, h, seed, 0.15) + beams(w, h, p, rnd, 3) + bokeh(w, h, p, rnd, 30, [0.5, 1]);
@@ -285,11 +257,6 @@ async function main() {
     jobs.push([`event-${t}.webp`, "event", 1600, 900, t, 400 + i]),
   );
   ["default", "neon", "gatsby", "red-velvet"].forEach((pal, i) => jobs.push([`show-0${i + 1}.webp`, "show", 1600, 1067, pal, 500 + i]));
-  [
-    ["celibato", "neon"],
-    ["compleanni", "default"],
-    ["aziendali", "gatsby"],
-  ].forEach(([name, pal], i) => jobs.push([`party-${name}.webp`, "party", 1600, 1067, pal!, 600 + i]));
   ["notte-bianca", "red-velvet", "halloween", "gatsby"].forEach((t, i) => jobs.push([`theme-bg-${t}.webp`, "themeBg", 2400, 1350, t, 700 + i]));
 
   for (const job of jobs) await render(...job);

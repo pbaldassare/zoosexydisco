@@ -7,7 +7,7 @@ import { settings } from "@/data/settings";
 import { content } from "@/data/content";
 import { themes, resolveActiveTheme } from "@/data/themes";
 import { events, eventStatus } from "@/data/events";
-import { jobRoles, media, promotions, reviews, shows, timeline } from "@/data/catalog";
+import { jobRoles, media, promotions, reviews, timeline } from "@/data/catalog";
 import type { EventItem, Media } from "@/data/types";
 import { DATA_SOURCE } from "@/lib/supabase";
 import { remote } from "./remote";
@@ -36,7 +36,6 @@ const local = {
         .sort((a, b) => Date.parse(a.starts_at) - Date.parse(b.starts_at))[0] ?? null,
     ),
 
-  shows: () => delay(shows.filter((s) => s.published).sort((a, b) => a.sort - b.sort)),
   timeline: () => delay(timeline),
   jobRoles: () => delay(jobRoles.filter((r) => r.active).sort((a, b) => a.sort - b.sort)),
   reviews: () => delay(reviews.filter((r) => r.visible && r.rating === 5).sort((a, b) => a.sort - b.sort)),

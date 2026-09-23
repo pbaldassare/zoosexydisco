@@ -8,7 +8,6 @@ export const useActiveTheme = () => useQuery({ queryKey: ["active-theme"], query
 export const useEvents = () => useQuery({ queryKey: ["events"], queryFn: api.events });
 export const useEvent = (slug: string) => useQuery({ queryKey: ["event", slug], queryFn: () => api.event(slug) });
 export const useNextEvent = () => useQuery({ queryKey: ["next-event"], queryFn: api.nextEvent });
-export const useShows = () => useQuery({ queryKey: ["shows"], queryFn: api.shows });
 export const useTimeline = () => useQuery({ queryKey: ["timeline"], queryFn: api.timeline });
 export const useJobRoles = () => useQuery({ queryKey: ["job-roles"], queryFn: api.jobRoles });
 export const useReviews = () => useQuery({ queryKey: ["reviews"], queryFn: api.reviews });

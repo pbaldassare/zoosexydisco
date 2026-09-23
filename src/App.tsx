@@ -9,8 +9,6 @@ const pages: Record<Exclude<RouteKey, "home">, React.LazyExoticComponent<React.C
   club: lazy(() => import("@/pages/Club")),
   events: lazy(() => import("@/pages/Events")),
   event: lazy(() => import("@/pages/EventDetail")),
-  shows: lazy(() => import("@/pages/Shows")),
-  parties: lazy(() => import("@/pages/Parties")),
   photos: lazy(() => import("@/pages/GalleryPhotos")),
   videos: lazy(() => import("@/pages/GalleryVideos")),
   work: lazy(() => import("@/pages/Work")),

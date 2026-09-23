@@ -4,7 +4,7 @@
  * da dove arrivano i dati. Le RLS decidono cosa è visibile: qui non si filtra
  * per sicurezza, solo per ordine e comodità.
  */
-import type { Contact, EventItem, JobRole, L, Media, OpeningWindow, Promotion, Review, Show, SiteSettings, Theme, TimelineStep } from "@/data/types";
+import type { Contact, EventItem, JobRole, L, Media, OpeningWindow, Promotion, Review, SiteSettings, Theme, TimelineStep } from "@/data/types";
 import { publicUrl, supabase } from "@/lib/supabase";
 
 type Row = Record<string, unknown>;
@@ -75,17 +75,6 @@ export const toEvent = (r: Row): EventItem => ({
   entry: l(r, "entry"),
   theme_id: (r.theme_id as string) ?? undefined,
   members_only: !!r.members_only,
-  published: !!r.published,
-  is_sample: !!r.is_sample,
-});
-
-const toShow = (r: Row): Show => ({
-  id: s(r.id),
-  title: l(r, "title"),
-  description: l(r, "description"),
-  schedule: l(r, "schedule"),
-  cover_path: publicUrl("public-media", s(r.cover_path)),
-  sort: Number(r.sort ?? 0),
   published: !!r.published,
   is_sample: !!r.is_sample,
 });
@@ -185,9 +174,7 @@ export const remote = {
     const [r] = await rows("events", (q) => q.select(EVENT_COLS).eq("published", true).eq("members_only", false).gt("ends_at", new Date().toISOString()).order("starts_at").limit(1));
     return r ? toEvent(r) : null;
   },
-  async shows() {
-    return (await rows("shows", (q) => q.select("*").eq("published", true).order("sort"))).map(toShow);
-  },
+
   async jobRoles() {
     return (await rows("job_roles", (q) => q.select("*").eq("active", true).order("sort"))).map(toJobRole);
   },

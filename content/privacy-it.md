@@ -10,7 +10,7 @@ Venera S.r.l.s., Via Vincenzo Bellini 43, 24040 Madone (BG), C.F. e P.IVA 046161
 
 ## Quali dati trattiamo e perché
 
-- **Moduli di contatto e richieste di feste private**: nome, email, telefono, messaggio. Servono a rispondere alla richiesta. Conservati 12 mesi.
+- **Modulo di contatto**: nome, email, telefono, messaggio. Servono a rispondere alla richiesta. Conservati 12 mesi.
 - **Candidature**: dati anagrafici, recapiti, foto, curriculum e documenti facoltativi. Servono a valutare la candidatura. Conservati 12 mesi, poi cancellati automaticamente. Non raccogliamo documenti d'identità online.
 - **Newsletter**: nome ed email, con doppia conferma. Puoi cancellarti in qualsiasi momento dal link in ogni email o dall'area riservata. [da completare: misurazione delle aperture]
 - **Statistiche di visita**: pagina visitata, lingua, sito di provenienza (solo il dominio), tipo di dispositivo. Nessun indirizzo IP, nessun identificativo, nessun cookie.

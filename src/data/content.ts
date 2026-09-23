@@ -146,34 +146,6 @@ export const content: Record<string, L> = {
     en: "Every Saturday has its theme. Here you'll find upcoming nights, the dress code and how to book a table.",
   },
 
-  /* spettacoli */
-  "shows.intro": {
-    it: "Gli spettacoli sono il ritmo della notte. Cambiano con la serata, ma hanno sempre la stessa cura.",
-    en: "The shows set the rhythm of the night. They change with each theme, but the care is always the same.",
-  },
-  "shows.difference": {
-    it: "Cosa distingue ZOO: [da completare con il proprietario].",
-    en: "What sets ZOO apart: [to be completed with the owner].",
-  },
-
-  /* feste private */
-  "parties.intro": {
-    it: "Una festa qui si organizza con una telefonata: tavolo, bottiglie, orario e tutto quello che serve. Voi pensate a esserci.",
-    en: "A party here is organised with one call: table, bottles, timing and everything else. You just show up.",
-  },
-  "parties.celibato": {
-    it: "L'ultima notte da scapolo merita un tavolo in prima fila. Pensiamo noi all'accoglienza e a una sorpresa per lo sposo.",
-    en: "The last night as a single man deserves a front-row table. We take care of the welcome and a surprise for the groom.",
-  },
-  "parties.compleanni": {
-    it: "Candeline, brindisi e un tavolo tutto per voi. Diteci quanti siete, al resto pensiamo noi.",
-    en: "Candles, a toast and a table all to yourselves. Tell us how many you are, we'll handle the rest.",
-  },
-  "parties.aziendali": {
-    it: "Cene di fine anno, premiazioni, serate con i clienti: riservatezza garantita e conto chiaro.",
-    en: "End-of-year dinners, awards, nights out with clients: guaranteed discretion and a clear bill.",
-  },
-
   /* lavora con noi */
   "work.intro": {
     it: "Cerchiamo persone serie. La candidatura è riservata: la leggono solo i responsabili del locale e non finisce mai sul sito.",

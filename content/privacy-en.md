@@ -11,7 +11,7 @@ Venera S.r.l.s., Via Vincenzo Bellini 43, 24040 Madone (BG), Italy, tax code and
 
 ## What data we process and why
 
-- **Contact forms and private party requests**: name, email, phone, message. Used to answer your request. Kept for 12 months.
+- **Contact form**: name, email, phone, message. Used to answer your request. Kept for 12 months.
 - **Job applications**: personal details, contact details, photos, CV and optional documents. Used to assess the application. Kept for 12 months, then deleted automatically. We don't collect ID documents online.
 - **Newsletter**: name and email, with double opt-in. You can unsubscribe at any time from the link in every email or from the members' area. [to be completed: open tracking]
 - **Visit statistics**: page visited, language, referring site (domain only), device type. No IP address, no identifier, no cookies.

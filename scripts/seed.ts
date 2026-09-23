@@ -16,7 +16,7 @@ import { settings } from "../src/data/settings";
 import { content } from "../src/data/content";
 import { themes } from "../src/data/themes";
 import { events } from "../src/data/events";
-import { jobRoles, media, promotions, reviews, shows, timeline } from "../src/data/catalog";
+import { jobRoles, media, promotions, reviews, timeline } from "../src/data/catalog";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -155,23 +155,6 @@ async function seed() {
   }
   await upsert("events", eventRows, "slug");
 
-  const showRows = [];
-  for (const s of shows) {
-    showRows.push({
-      id: stableId(s.id),
-      title_it: s.title.it,
-      title_en: s.title.en,
-      description_it: s.description.it,
-      description_en: s.description.en,
-      schedule_it: s.schedule.it,
-      schedule_en: s.schedule.en,
-      cover_path: await upload("public-media", s.cover_path),
-      sort: s.sort,
-      published: s.published,
-      is_sample: true,
-    });
-  }
-  await upsert("shows", showRows);
 
   // Solo immagini: i video di esempio richiedono ffmpeg e arriveranno dall'admin.
   const mediaRows = [];
@@ -248,7 +231,7 @@ async function clean() {
   }
   for (const [bucket, list] of byBucket) await db.storage.from(bucket).remove(list);
 
-  for (const table of ["media", "events", "shows", "reviews", "promotions"]) {
+  for (const table of ["media", "events", "reviews", "promotions"]) {
     const { error: e, count } = await db.from(table).delete({ count: "exact" }).eq("is_sample", true);
     if (e) throw new Error(`${table}: ${e.message}`);
     console.log(`  ${table}: ${count ?? 0}`);

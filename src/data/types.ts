@@ -72,17 +72,6 @@ export type EventItem = {
 
 export type EventStatus = "upcoming" | "tonight" | "archived";
 
-export type Show = {
-  id: string;
-  title: L;
-  description: L;
-  schedule: L;
-  cover_path: string;
-  sort: number;
-  published: boolean;
-  is_sample: boolean;
-};
-
 export type Placement = "gallery" | "home" | "members";
 
 export type Media = {

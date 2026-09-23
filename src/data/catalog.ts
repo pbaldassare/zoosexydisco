@@ -1,4 +1,4 @@
-import type { JobRole, Media, Promotion, Review, Show, TimelineStep } from "./types";
+import type { JobRole, Media, Promotion, Review, TimelineStep } from "./types";
 
 const ph = (f: string) => `/placeholders/${f}`;
 
@@ -62,62 +62,6 @@ export const media: Media[] = [
       is_sample: true,
     }),
   ),
-];
-
-/* ---------- spettacoli ---------- */
-export const shows: Show[] = [
-  {
-    id: "s-apertura",
-    title: { it: "Apertura di sala", en: "Opening set" },
-    description: {
-      it: "La prima uscita della notte: luci che salgono piano, musica che cambia passo, il palco che si accende.",
-      en: "The first set of the night: lights rising slowly, the music changing pace, the stage coming alive.",
-    },
-    schedule: { it: "Poco dopo l'apertura", en: "Shortly after opening" },
-    cover_path: ph("show-01.webp"),
-    sort: 1,
-    published: true,
-    is_sample: true,
-  },
-  {
-    id: "s-palco",
-    title: { it: "Palco centrale", en: "Centre stage" },
-    description: {
-      it: "Esibizioni a rotazione sul palco centrale, con coreografie studiate per la serata.",
-      en: "Rotating performances on the centre stage, with choreography built for the night.",
-    },
-    schedule: { it: "Per tutta la notte, a rotazione", en: "All night, in rotation" },
-    cover_path: ph("show-02.webp"),
-    sort: 2,
-    published: true,
-    is_sample: true,
-  },
-  {
-    id: "s-tema",
-    title: { it: "Show a tema", en: "Theme show" },
-    description: {
-      it: "Nelle serate a tema lo spettacolo principale segue il dress code: costumi, luci e musica dedicati.",
-      en: "On theme nights the main show follows the dress code: dedicated costumes, lights and music.",
-    },
-    schedule: { it: "Nel cuore della notte", en: "At the heart of the night" },
-    cover_path: ph("show-03.webp"),
-    sort: 3,
-    published: true,
-    is_sample: true,
-  },
-  {
-    id: "s-prive",
-    title: { it: "Privé", en: "Private room" },
-    description: {
-      it: "Uno spazio più raccolto, lontano dalla sala. Riservatezza prima di tutto.",
-      en: "A more intimate space, away from the main room. Discretion above all.",
-    },
-    schedule: { it: "Su richiesta, in serata", en: "On request, during the night" },
-    cover_path: ph("show-04.webp"),
-    sort: 4,
-    published: true,
-    is_sample: true,
-  },
 ];
 
 /* ---------- recensioni (esempi, mai in produzione) ---------- */
