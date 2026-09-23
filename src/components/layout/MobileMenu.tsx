@@ -8,7 +8,7 @@ import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useLang } from "@/hooks/useLang";
 import { pathFor } from "@/lib/routes";
 import { cn } from "@/lib/utils";
-import { MAIN_NAV } from "./nav";
+import { MAIN_NAV, navHref } from "./nav";
 
 const Burger = ({ close = false }: { close?: boolean }) => (
   <svg viewBox="0 0 24 24" className="size-[22px]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
@@ -28,9 +28,6 @@ export function MobileMenu() {
   useFocusTrap(panel, open, () => setOpen(false));
   useEffect(() => setOpen(false), [pathname]);
 
-  const items = MAIN_NAV.flatMap((i) =>
-    i.children ? i.children.map((c) => ({ ...c, label: `${t(i.label)} · ${t(c.label)}` })) : [{ ...i, label: t(i.label) }],
-  );
 
   return (
     <>
@@ -51,13 +48,13 @@ export function MobileMenu() {
               <Burger close />
             </button>
 
-            {items.map((item, i) => (
+            {MAIN_NAV.map((item, i) => (
               <Link
-                key={item.key + item.label}
-                to={pathFor(item.key, lang)}
+                key={item.label}
+                to={navHref(item, pathFor(item.key, lang))}
                 className={cn("tube py-1.5 text-[clamp(34px,9vw,52px)] no-underline", i % 2 === 0 ? "tube-pink" : "tube-blue")}
               >
-                {item.label}
+                {t(item.label)}
               </Link>
             ))}
 

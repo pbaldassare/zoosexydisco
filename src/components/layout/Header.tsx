@@ -1,16 +1,14 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ChevronDown } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { AdultsBadge } from "@/components/ui/icons";
 import { useLang } from "@/hooks/useLang";
 import { useScrollY } from "@/hooks/useScrollY";
-import { matchPath, pathFor } from "@/lib/routes";
+import { pathFor } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import { LangSwitch } from "./LangSwitch";
 import { MobileMenu } from "./MobileMenu";
-import { MAIN_NAV, type NavItem } from "./nav";
+import { MAIN_NAV, navHref } from "./nav";
 
 /** Voce di menu: si accende come un tubo al passaggio del mouse. */
 const linkCls = ({ isActive }: { isActive: boolean }) =>
@@ -19,52 +17,6 @@ const linkCls = ({ isActive }: { isActive: boolean }) =>
     "hover:text-pink-core hover:[text-shadow:0_0_12px_rgb(var(--pink))]",
     isActive ? "text-pink-core [text-shadow:0_0_12px_rgb(var(--pink))]" : "text-ink-dim",
   );
-
-function GalleryMenu({ item }: { item: NavItem }) {
-  const { t } = useTranslation();
-  const lang = useLang();
-  const { pathname } = useLocation();
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLLIElement>(null);
-  const active = item.children?.some((c) => matchPath(pathname)?.key === c.key);
-
-  useEffect(() => setOpen(false), [pathname]);
-  useEffect(() => {
-    if (!open) return;
-    const close = (e: MouseEvent | KeyboardEvent) => {
-      if (e instanceof KeyboardEvent ? e.key === "Escape" : !ref.current?.contains(e.target as Node)) setOpen(false);
-    };
-    document.addEventListener("mousedown", close);
-    document.addEventListener("keydown", close);
-    return () => {
-      document.removeEventListener("mousedown", close);
-      document.removeEventListener("keydown", close);
-    };
-  }, [open]);
-
-  return (
-    <li ref={ref} className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-      <button type="button" aria-expanded={open} aria-haspopup="true" onClick={() => setOpen((o) => !o)} className={cn(linkCls({ isActive: !!active }), "gap-1")}>
-        {t(item.label)}
-        <ChevronDown className={cn("size-3.5 transition-transform", open && "rotate-180")} aria-hidden />
-      </button>
-      <ul
-        className={cn(
-          "absolute left-1/2 top-full min-w-40 -translate-x-1/2 rounded-tile border border-line bg-panel/95 p-2 backdrop-blur-md transition-[opacity,transform] duration-200",
-          open ? "visible translate-y-0 opacity-100" : "invisible -translate-y-1 opacity-0",
-        )}
-      >
-        {item.children?.map((c) => (
-          <li key={c.key}>
-            <NavLink to={pathFor(c.key, lang)} className={({ isActive }) => cn(linkCls({ isActive }), "w-full")}>
-              {t(c.label)}
-            </NavLink>
-          </li>
-        ))}
-      </ul>
-    </li>
-  );
-}
 
 export function Header() {
   const { t } = useTranslation();
@@ -90,17 +42,13 @@ export function Header() {
 
         <nav aria-label={t("nav.menu")} className="hidden lg:block">
           <ul className="flex gap-1">
-            {MAIN_NAV.map((item) =>
-              item.children ? (
-                <GalleryMenu key={item.label} item={item} />
-              ) : (
-                <li key={item.key}>
-                  <NavLink to={pathFor(item.key, lang)} className={linkCls}>
-                    {t(item.label)}
-                  </NavLink>
-                </li>
-              ),
-            )}
+            {MAIN_NAV.map((item) => (
+              <li key={item.label}>
+                <NavLink to={navHref(item, pathFor(item.key, lang))} end className={linkCls}>
+                  {t(item.label)}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </nav>
 

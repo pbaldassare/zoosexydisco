@@ -2,8 +2,9 @@ import type { Dict } from "./it";
 
 const en: Dict = {
   nav: {
+    nights: "Our nights",
     club: "The club",
-    events: "Events",
+    events: "Theme nights",
     shows: "Shows",
     parties: "Private parties",
     gallery: "Gallery",

@@ -1,7 +1,8 @@
 const it = {
   nav: {
+    nights: "Le notti",
     club: "Il locale",
-    events: "Eventi",
+    events: "Serate a tema",
     shows: "Spettacoli",
     parties: "Feste private",
     gallery: "Gallery",

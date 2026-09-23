@@ -41,16 +41,25 @@ function WhatsAppFab() {
 export function SiteLayout() {
   const lang = useLang();
   const { i18n } = useTranslation();
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useThemeVars();
 
   useEffect(() => {
     if (i18n.language !== lang) void i18n.changeLanguage(lang);
   }, [lang, i18n]);
 
+  // Cambio pagina: si torna in cima. Con un'ancora (#notti) si va invece alla
+  // sezione — anche quando si è già sulla pagina, dove il percorso non cambia.
   useEffect(() => {
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+    }
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, hash]);
 
   return (
     <>
