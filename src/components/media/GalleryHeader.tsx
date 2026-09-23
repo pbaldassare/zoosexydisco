@@ -11,25 +11,28 @@ export function GalleryHeader({ active, events, value, onChange }: { active: "ph
   const l = useL();
   return (
     <header className="container-site pb-10 pt-[calc(var(--header-h)+3rem)] md:pt-[calc(var(--header-h)+5rem)]">
-      <p className="label mb-5 text-accent">{t("nav.gallery")}</p>
       <div className="flex flex-wrap items-end justify-between gap-8">
-        <h1 className="flex items-baseline gap-5 text-[52px] leading-none sm:text-3xl md:text-4xl">
+        {/* I due tubi dicono da soli qual è la sezione accesa: niente occhiello sopra. */}
+        <h1 className="flex flex-wrap items-baseline gap-5 text-3xl">
           {(["photos", "videos"] as const).map((k) =>
             k === active ? (
-              <span key={k}>{t(`gallery.${k}`)}</span>
+              <span key={k} className="tube tube-pink">
+                {t(`gallery.${k}`)}
+              </span>
             ) : (
-              <Link key={k} to={pathFor(k, lang)} className="font-display text-xl italic text-ink-dim transition-colors hover:text-accent md:text-2xl">
+              <Link key={k} to={pathFor(k, lang)} className="tube tube-blue text-xl no-underline opacity-70 transition-opacity hover:opacity-100">
                 {t(`gallery.${k}`)}
               </Link>
             ),
           )}
         </h1>
+
         <label className="flex flex-col gap-2">
-          <span className="label text-2xs text-ink-dim">{t("gallery.filter")}</span>
+          <span className="label text-ink-faint">{t("gallery.filter")}</span>
           <select
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            className="min-h-12 min-w-56 cursor-pointer border-0 border-b border-ink/30 bg-transparent px-0 text-ink focus:border-accent focus:ring-0 [&>option]:bg-surface"
+            className="min-h-[52px] min-w-56 cursor-pointer rounded-pill border-[1.5px] border-line bg-wall/70 px-[18px] font-body text-base text-ink transition-colors focus:border-pink focus:outline-none focus:ring-4 focus:ring-pink/20 [&>option]:bg-panel"
           >
             <option value="">{t("gallery.all")}</option>
             {events.map((e) => (

@@ -47,14 +47,14 @@ export default function EventDetail() {
 
       <section className="relative min-h-[88svh] overflow-hidden">
         <img src={e.cover_path} alt="" width={1600} height={900} {...{ fetchpriority: "high" }} className="absolute inset-0 h-full w-full object-cover brightness-[0.55]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/50 to-transparent" aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-t from-wall via-wall/50 to-transparent" aria-hidden />
         <div className="grain absolute inset-0" aria-hidden />
         <div className="container-site relative flex min-h-[88svh] flex-col justify-end pb-12 pt-[calc(var(--header-h)+2rem)]">
-          <Link to={pathFor("events", lang)} className="label mb-auto inline-flex min-h-11 items-center gap-2 self-start text-2xs text-ink-dim hover:text-accent">
+          <Link to={pathFor("events", lang)} className="label mb-auto inline-flex min-h-11 items-center gap-2 self-start text-ink-faint no-underline transition-colors hover:text-pink-core">
             <ArrowLeft className="size-4" aria-hidden /> {t("cta.allEvents")}
           </Link>
           <EventBadges e={e} />
-          <h1 className="hero-step mt-5 max-w-5xl text-[52px] leading-[0.95] sm:text-3xl md:text-4xl">{l(e.title)}</h1>
+          <h1 className="tube tube-pink hero-step mt-5 max-w-5xl text-4xl">{l(e.title)}</h1>
           <div className="hero-step mt-8 flex flex-wrap items-end gap-x-12 gap-y-6 [animation-delay:150ms]">
             <DateStamp iso={e.starts_at} size="lg" />
             {!archived && (
@@ -70,13 +70,13 @@ export default function EventDetail() {
 
       <section className="container-site grid gap-12 py-16 md:grid-cols-12 md:py-24">
         <div className="md:col-span-7">
-          <p className="font-display text-xl italic leading-snug text-ink md:text-2xl">{l(e.description)}</p>
+          <p className="text-lg leading-relaxed text-ink md:text-xl">{l(e.description)}</p>
         </div>
         <dl className="space-y-8 md:col-span-4 md:col-start-9">
           <div className="flex gap-4">
-            <Clock className="mt-0.5 size-5 shrink-0 text-accent" aria-hidden />
+            <Clock className="mt-0.5 size-5 shrink-0 text-pink" aria-hidden />
             <div>
-              <dt className="label text-2xs text-ink-dim">{t("events.when")}</dt>
+              <dt className="label text-ink-faint">{t("events.when")}</dt>
               <dd className="mt-1 text-ink first-letter:uppercase">
                 {fmt.long(start, lang)}
                 <br />
@@ -85,16 +85,16 @@ export default function EventDetail() {
             </div>
           </div>
           <div className="flex gap-4">
-            <Shirt className="mt-0.5 size-5 shrink-0 text-accent" aria-hidden />
+            <Shirt className="mt-0.5 size-5 shrink-0 text-blue" aria-hidden />
             <div>
-              <dt className="label text-2xs text-ink-dim">{t("home.dressCode")}</dt>
+              <dt className="label text-ink-faint">{t("home.dressCode")}</dt>
               <dd className="mt-1 text-ink">{l(e.dress_code)}</dd>
             </div>
           </div>
           <div className="flex gap-4">
-            <Ticket className="mt-0.5 size-5 shrink-0 text-accent" aria-hidden />
+            <Ticket className="mt-0.5 size-5 shrink-0 text-pink" aria-hidden />
             <div>
-              <dt className="label text-2xs text-ink-dim">{t("events.entry")}</dt>
+              <dt className="label text-ink-faint">{t("events.entry")}</dt>
               <dd className="mt-1 text-ink">{l(e.entry)}</dd>
             </div>
           </div>
@@ -102,7 +102,7 @@ export default function EventDetail() {
       </section>
 
       <section className="container-site pb-24" aria-labelledby="ev-gal">
-        <h2 id="ev-gal" className="mb-8 text-2xl md:text-3xl">
+        <h2 id="ev-gal" className="h2 tube-blue text-2xl">
           {t("events.gallery")}
         </h2>
         {media.length === 0 ? (
@@ -113,7 +113,7 @@ export default function EventDetail() {
               {photos.map((m, i) => (
                 <li key={m.id}>
                   <button type="button" onClick={() => setOpen(i)} className="block w-full" aria-label={`${l(e.title)} · ${i + 1}`}>
-                    <ProtectedImage src={m.thumb_path} width={m.width} height={m.height} alt="" className="aspect-square" />
+                    <ProtectedImage src={m.thumb_path} width={m.width} height={m.height} alt="" className="aspect-square rounded-tile border border-line" />
                   </button>
                 </li>
               ))}

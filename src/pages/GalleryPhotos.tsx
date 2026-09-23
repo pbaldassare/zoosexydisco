@@ -55,6 +55,7 @@ export default function GalleryPhotos() {
                     height={m.height}
                     alt={l(m.alt) || titleOf(m.event_id)}
                     sizes="(min-width: 1400px) 25vw, (min-width: 860px) 33vw, 50vw"
+                    className="rounded-tile border border-line"
                     imgClassName="transition-transform duration-700 ease-expo group-hover:scale-[1.03]"
                   />
                 </button>

@@ -36,7 +36,7 @@ export function ProtectedImage({
   const long = Math.max(width, height);
   const srcSet = thumb ? `${thumb} ${Math.round((480 / long) * width)}w, ${src} ${width}w` : undefined;
   return (
-    <div className={cn("protected relative overflow-hidden bg-surface", className)} onContextMenu={block}>
+    <div className={cn("protected relative overflow-hidden bg-panel", className)} onContextMenu={block}>
       <img
         src={src}
         srcSet={srcSet}

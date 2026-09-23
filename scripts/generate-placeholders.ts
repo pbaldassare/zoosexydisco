@@ -6,7 +6,7 @@
  *
  * Output:
  *   public/placeholders/*.webp   immagini di esempio (in seguito caricate su Supabase dal seed)
- *   public/brand/logo-placeholder.svg   logo provvisorio, testo convertito in tracciati
+ *   public/brand/favicon.svg            la «Z» al neon
  *   public/brand/favicon.svg
  *   public/og-image.webp / og-image.jpg
  */
@@ -37,14 +37,15 @@ function mulberry32(seed: number) {
 type Palette = { base: string; deep: string; a: string; b: string; c: string };
 
 const palettes: Record<string, Palette> = {
-  default: { base: "#0A0809", deep: "#1F171A", a: "#C8A45D", b: "#E6246B", c: "#F4EDE6" },
-  "notte-bianca": { base: "#0C0C0E", deep: "#2A2A30", a: "#F4EDE6", b: "#B9C6DA", c: "#FFFFFF" },
-  "red-velvet": { base: "#0B0506", deep: "#3A0A12", a: "#B3142C", b: "#D4A373", c: "#F4EDE6" },
-  halloween: { base: "#07050A", deep: "#1E0D2B", a: "#E8751A", b: "#7B35C1", c: "#F2C14E" },
-  gatsby: { base: "#080A0A", deep: "#0F2624", a: "#C8A45D", b: "#E9D8A6", c: "#1F4E4A" },
-  uniform: { base: "#07090C", deep: "#16222E", a: "#5A7FA3", b: "#C8A45D", c: "#DCE3EA" },
-  carnevale: { base: "#08050B", deep: "#26103A", a: "#8E2BC0", b: "#D4AF37", c: "#14928E" },
-  neon: { base: "#050507", deep: "#140B1C", a: "#E6246B", b: "#3FC6E0", c: "#C8A45D" },
+  // I due tubi del logo sono sempre «a» e «b»; «c» è l'anima accesa.
+  default: { base: "#07040A", deep: "#1C1224", a: "#E939D7", b: "#3B81E9", c: "#F6EDF7" },
+  "notte-bianca": { base: "#0A070E", deep: "#241B2C", a: "#E8B7F0", b: "#7FB2FF", c: "#FFFFFF" },
+  "red-velvet": { base: "#0B040A", deep: "#3A0A28", a: "#FF2E83", b: "#8E1F83", c: "#FFE6FB" },
+  halloween: { base: "#07050A", deep: "#1E0D2B", a: "#F06A2A", b: "#A34BE8", c: "#F6EDF7" },
+  gatsby: { base: "#080609", deep: "#221A0F", a: "#E9C349", b: "#3B81E9", c: "#F6EDF7" },
+  uniform: { base: "#06080C", deep: "#141F2E", a: "#3B81E9", b: "#E939D7", c: "#E4EEFF" },
+  carnevale: { base: "#08050B", deep: "#26103A", a: "#8E2BC0", b: "#E939D7", c: "#F6EDF7" },
+  neon: { base: "#050507", deep: "#140B1C", a: "#E939D7", b: "#3B81E9", c: "#FFE6FB" },
 };
 
 /* ---------- mattoni SVG ---------- */
@@ -236,91 +237,40 @@ async function render(file: string, recipe: Recipe, w: number, h: number, palett
   process.stdout.write(".");
 }
 
-/* ---------- logo: testo convertito in tracciati ---------- */
+/* ---------- favicon: la sola «Z», nel font dei tubi ---------- */
 function loadFont(pkg: string, file: string) {
   const buf = readFileSync(path.join(root, "node_modules", "@fontsource", pkg, "files", file));
   return opentype.parse(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength));
 }
 
-async function buildLogo() {
-  const bodoni = loadFont("bodoni-moda", "bodoni-moda-latin-700-normal.woff");
-  const syne = loadFont("syne", "syne-latin-700-normal.woff");
-
-  const W = 600;
-  const zooSize = 220;
-  const zoo = bodoni.getPath("ZOO", 0, 0, zooSize);
-  const zb = zoo.getBoundingBox();
-  const zooW = zb.x2 - zb.x1;
-
-  // «SEXY DISCO» spaziato: tracciamo lettera per lettera con tracking.
-  const subSize = 34;
-  const tracking = subSize * 0.42;
-  const letters = "SEXY DISCO".split("");
-  let x = 0;
-  const glyphPaths: string[] = [];
-  for (const ch of letters) {
-    const g = syne.getPath(ch, x, 0, subSize);
-    glyphPaths.push(g.toPathData(2));
-    x += syne.getAdvanceWidth(ch, subSize) + tracking;
-  }
-  const subW = x - tracking;
-
-  const zooX = (W - zooW) / 2 - zb.x1;
-  const zooY = -zb.y1 + 10;
-  const subY = zooY + zb.y2 + 70;
-  const subX = (W - subW) / 2;
-  const H = Math.ceil(subY + 16);
-
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="ZOO Sexy Disco">
-  <g fill="currentColor">
-    <path transform="translate(${zooX.toFixed(1)} ${zooY.toFixed(1)})" d="${zoo.toPathData(2)}"/>
-    <g transform="translate(${subX.toFixed(1)} ${subY.toFixed(1)})">${glyphPaths.map((d) => `<path d="${d}"/>`).join("")}</g>
-  </g>
-</svg>
-`;
-  // currentColor → il colore lo decide il CSS (--ink). Per <img> serve un colore fisso: versione avorio.
-  writeFileSync(path.join(brandDir, "logo-placeholder.svg"), svg.replace('fill="currentColor"', 'fill="#F4EDE6"'));
-  writeFileSync(path.join(root, "src", "components", "brand", "logo-paths.json"), JSON.stringify({
-    viewBox: `0 0 ${W} ${H}`,
-    zoo: { transform: `translate(${zooX.toFixed(1)} ${zooY.toFixed(1)})`, d: zoo.toPathData(2) },
-    sub: { transform: `translate(${subX.toFixed(1)} ${subY.toFixed(1)})`, d: glyphPaths.join(" ") },
-  }));
-
-  // Favicon: la sola «Z».
-  const z = bodoni.getPath("Z", 0, 0, 52);
+async function buildFavicon() {
+  const neon = loadFont("tilt-neon", "tilt-neon-latin-400-normal.woff");
+  const z = neon.getPath("Z", 0, 0, 46);
   const b = z.getBoundingBox();
   const fx = (64 - (b.x2 - b.x1)) / 2 - b.x1;
   const fy = (64 - (b.y2 - b.y1)) / 2 - b.y1;
   writeFileSync(
     path.join(brandDir, "favicon.svg"),
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#0A0809"/><path transform="translate(${fx.toFixed(1)} ${fy.toFixed(1)})" fill="#C8A45D" d="${z.toPathData(2)}"/></svg>\n`,
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#07040A"/><path transform="translate(${fx.toFixed(1)} ${fy.toFixed(1)})" fill="#E939D7" d="${z.toPathData(2)}"/></svg>\n`,
   );
-
-  return { svg, W, H };
 }
 
-async function buildOg(logo: { svg: string; W: number; H: number }) {
+async function buildOg() {
   const w = 1200;
   const h = 630;
-  const bg = compose("stage", w, h, palettes.default!, 4242);
-  const lw = 560;
-  const lh = (logo.H / logo.W) * lw;
-  const inner = logo.svg
-    .replace(/<svg[^>]*>/, "")
-    .replace("</svg>", "")
-    .replace('fill="currentColor"', 'fill="#F4EDE6"');
-  const svg = bg.replace(
-    "</svg>",
-    `<svg x="${(w - lw) / 2}" y="${(h - lh) / 2}" width="${lw}" height="${lh}" viewBox="0 0 ${logo.W} ${logo.H}">${inner}</svg></svg>`,
-  );
-  await sharp(Buffer.from(svg)).webp({ quality: 85 }).toFile(path.join(root, "public", "og-image.webp"));
-  await sharp(Buffer.from(svg)).jpeg({ quality: 86 }).toFile(path.join(root, "public", "og-image.jpg"));
+  const bg = await sharp(Buffer.from(compose("stage", w, h, palettes.default!, 4242))).png().toBuffer();
+  const signW = Math.round(w * 0.74);
+  const sign = await sharp(path.join(brandDir, "insegna-neon.webp")).resize(signW).png().toBuffer();
+  const signH = Math.round((signW * 352) / 1600);
+  const out = sharp(bg).composite([{ input: sign, left: Math.round((w - signW) / 2), top: Math.round((h - signH) / 2) }]);
+  await out.clone().webp({ quality: 85 }).toFile(path.join(root, "public", "og-image.webp"));
+  await out.clone().jpeg({ quality: 86 }).toFile(path.join(root, "public", "og-image.jpg"));
 }
 
 async function main() {
   mkdirSync(path.join(root, "src", "components", "brand"), { recursive: true });
-  const logo = await buildLogo();
-  await buildOg(logo);
+  await buildFavicon();
+  await buildOg();
 
   const jobs: Array<Parameters<typeof render>> = [];
   ["default", "gatsby", "red-velvet"].forEach((pal, i) => jobs.push([`hero-0${i + 1}.webp`, "stage", 2400, 1350, pal, 100 + i]));
@@ -343,7 +293,7 @@ async function main() {
   ["notte-bianca", "red-velvet", "halloween", "gatsby"].forEach((t, i) => jobs.push([`theme-bg-${t}.webp`, "themeBg", 2400, 1350, t, 700 + i]));
 
   for (const job of jobs) await render(...job);
-  process.stdout.write(`\n${jobs.length} immagini in public/placeholders, logo e og-image aggiornati.\n`);
+  process.stdout.write(`\n${jobs.length} immagini in public/placeholders, favicon e og-image aggiornate.\n`);
 }
 
 main().catch((err) => {

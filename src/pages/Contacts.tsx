@@ -24,7 +24,7 @@ function ClickToMap({ query }: { query: string }) {
   const { t } = useTranslation();
   const [on, setOn] = useState(false);
   return (
-    <div className="relative aspect-[4/3] overflow-hidden border border-line bg-surface md:aspect-auto md:h-full md:min-h-[420px]">
+    <div className="relative aspect-[4/3] overflow-hidden rounded-card border border-line bg-panel md:aspect-auto md:h-full md:min-h-[420px]">
       {on ? (
         <iframe
           title="Google Maps"
@@ -34,13 +34,13 @@ function ClickToMap({ query }: { query: string }) {
           referrerPolicy="no-referrer"
         />
       ) : (
-        <div className="absolute inset-0 grid place-items-center p-6 text-center" style={{ background: "radial-gradient(circle at 50% 45%, rgb(var(--accent)/0.12), transparent 60%)" }}>
+        <div className="absolute inset-0 grid place-items-center p-6 text-center" style={{ background: "radial-gradient(circle at 50% 45%, rgb(var(--pink)/0.14), transparent 60%)" }}>
           <div className="flex max-w-xs flex-col items-center">
-            <MapPin className="size-8 text-accent" aria-hidden />
+            <MapPin className="size-8 text-pink" aria-hidden />
             <Button variant="outline" className="mt-5" onClick={() => setOn(true)}>
               {t("cta.showMap")}
             </Button>
-            <p className="mt-4 text-2xs text-ink-dim">{t("contacts.mapNote")}</p>
+            <p className="mt-4 text-xs text-ink-dim">{t("contacts.mapNote")}</p>
           </div>
         </div>
       )}
@@ -62,17 +62,17 @@ export default function Contacts() {
   return (
     <>
       <Seo title={t("contacts.title")} description={c("contacts.intro")} jsonLd={nightClubJsonLd(s)} />
-      <PageHero label={t("nav.contacts")} title={t("contacts.title")} intro={c("contacts.intro")} image="/placeholders/locale-03.webp" compact>
+      <PageHero title={t("contacts.title")} intro={c("contacts.intro")} image="/placeholders/locale-03.webp" compact>
         <div className="hero-step mt-8 flex flex-wrap gap-3 [animation-delay:300ms]">
           <Button asChild>
             <a href={waLink(s.whatsapp, t("events.waGeneric"))} target="_blank" rel="noopener">
-              <WhatsAppGlyph className="size-4" /> WhatsApp
+              <WhatsAppGlyph /> WhatsApp
             </a>
           </Button>
           {tel && (
             <Button asChild variant="outline">
               <a href={tel}>
-                <Phone className="size-4" aria-hidden /> {t("cta.call")}
+                <Phone className="size-[19px]" aria-hidden /> {t("cta.call")}
               </a>
             </Button>
           )}
@@ -90,20 +90,20 @@ export default function Contacts() {
             const I = Icon as React.ComponentType<{ className?: string }>;
             return (
               <div key={k as string} className="flex gap-4">
-                <I className="mt-1 size-5 shrink-0 text-accent" />
+                <I className="mt-1 size-5 shrink-0 text-pink" />
                 <div>
-                  <dt className="label text-2xs text-ink-dim">{k as string}</dt>
-                  <dd className="mt-1 text-lg text-ink">{k === t("contacts.email") ? <a href={`mailto:${v}`} className="hover:text-accent">{v as string}</a> : (v as string)}</dd>
+                  <dt className="label text-ink-faint">{k as string}</dt>
+                  <dd className="mt-1 text-lg text-ink">{k === t("contacts.email") ? <a href={`mailto:${v}`}>{v as string}</a> : (v as string)}</dd>
                 </div>
               </div>
             );
           })}
           <div className="border-t border-line pt-8">
-            <dt className="label text-2xs text-ink-dim">{t("contacts.hours")}</dt>
+            <dt className="label text-ink-faint">{t("contacts.hours")}</dt>
             <dd className="mt-1 text-ink">{l(s.opening_hours)}</dd>
           </div>
           <div>
-            <dt className="label text-2xs text-ink-dim">{t("contacts.directions")}</dt>
+            <dt className="label text-ink-faint">{t("contacts.directions")}</dt>
             <dd className="mt-1 text-ink-dim">{c("club.directions")}</dd>
           </div>
         </dl>
@@ -112,12 +112,13 @@ export default function Contacts() {
         </div>
       </section>
 
-      <section className="border-t border-line bg-surface/30 py-20 md:py-28">
-        <div className="container-site grid gap-12 md:grid-cols-12">
+      <section className="pt-section">
+        <div className="container-site">
+          <div className="wash-panel grid gap-12 rounded-band border border-line p-[clamp(24px,5vw,56px)] md:grid-cols-12">
           <div className="md:col-span-4">
-            <h2 className="text-2xl md:text-3xl">{t("contacts.form")}</h2>
+            <h2 className="h2 tube-pink text-2xl">{t("contacts.form")}</h2>
             <div className="mt-10">
-              <p className="label mb-4 text-2xs text-ink-dim">{t("contacts.instagram")}</p>
+              <p className="label mb-4 text-ink-faint">{t("contacts.instagram")}</p>
               <InstagramQr url={s.instagram_url} handle={s.instagram_handle} size={148} />
             </div>
           </div>
@@ -148,7 +149,7 @@ export default function Contacts() {
                 <div className="sm:col-span-2">
                   <Checkbox label={<ConsentLabel />} aria-invalid={!!e.consent} {...register("consent")} />
                   {e.consent && (
-                    <p role="alert" className="mt-2 text-2xs text-danger">
+                    <p role="alert" className="mt-2 text-xs text-danger">
                       {e.consent.message}
                     </p>
                   )}
@@ -163,6 +164,7 @@ export default function Contacts() {
                 </div>
               </form>
             )}
+            </div>
           </div>
         </div>
       </section>

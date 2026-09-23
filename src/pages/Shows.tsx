@@ -15,23 +15,23 @@ export default function Shows() {
   return (
     <>
       <Seo title={t("shows.title")} description={c("shows.intro")} />
-      <PageHero label={t("nav.shows")} title={en ? "The rhythm of" : "Il ritmo della"} accent={en ? "the night" : "notte"} intro={c("shows.intro")} image="/placeholders/show-02.webp" />
+      <PageHero title={en ? "The rhythm of" : "Il ritmo della"} accent={en ? "the night" : "notte"} intro={c("shows.intro")} image="/placeholders/show-02.webp" />
 
-      <section className="container-site py-20 md:py-28">
+      <section className="container-site pt-section">
         <ul className="grid gap-x-8 gap-y-16 md:grid-cols-2">
           {shows.map((s, i) => (
             <li key={s.id} className={i % 2 ? "md:mt-24" : undefined}>
               <article className="group">
-                <div className="relative overflow-hidden">
-                  <img src={s.cover_path} alt="" width={1600} height={1067} loading="lazy" className="aspect-[4/3] w-full object-cover transition-transform duration-1000 ease-expo group-hover:scale-[1.03]" />
+                <div className="relative overflow-hidden rounded-card">
+                  <img src={s.cover_path} alt="" width={1600} height={1067} loading="lazy" className="aspect-[4/3] w-full rounded-card border border-line object-cover transition-transform duration-1000 ease-expo group-hover:scale-[1.03]" />
                   {s.is_sample && (
                     <Badge tone="sample" className="absolute left-3 top-3">
                       {t("badge.sample")}
                     </Badge>
                   )}
                 </div>
-                <p className="label mt-6 text-2xs text-accent">{l(s.schedule)}</p>
-                <h2 className="mt-2 text-2xl">{l(s.title)}</h2>
+                <p className="tnum label mt-6 font-mono text-ink-faint">{l(s.schedule)}</p>
+                <h2 className="tube tube-pink mt-2 text-2xl">{l(s.title)}</h2>
                 <p className="mt-3 max-w-prose text-ink-dim">{l(s.description)}</p>
               </article>
             </li>
@@ -39,14 +39,14 @@ export default function Shows() {
         </ul>
       </section>
 
-      <section className="border-t border-line py-20">
+      <section className="pt-section">
         <div className="container-site grid gap-8 md:grid-cols-12">
-          <h2 className="text-2xl md:col-span-4">{t("shows.typical")}</h2>
-          <ol className="grid gap-px bg-line md:col-span-8 md:grid-cols-4">
+          <h2 className="h2 tube-blue text-2xl md:col-span-4">{t("shows.typical")}</h2>
+          <ol className="m-0 grid list-none border-t border-line p-0 md:col-span-8">
             {shows.map((s) => (
-              <li key={s.id} className="bg-bg p-5">
-                <p className="label text-2xs text-accent">{l(s.schedule)}</p>
-                <p className="mt-2 font-display text-lg">{l(s.title)}</p>
+              <li key={s.id} className="grid grid-cols-[auto_minmax(0,1fr)] items-baseline gap-x-6 border-b border-line py-4">
+                <span className="tnum label min-w-[92px] font-mono text-ink-faint">{l(s.schedule)}</span>
+                <span className="tube text-xl text-ink">{l(s.title)}</span>
               </li>
             ))}
           </ol>

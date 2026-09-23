@@ -6,8 +6,9 @@ import { useLang } from "@/hooks/useLang";
 import { pathFor } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
+/** Vetro piegato anche nei moduli: pillole scure, bordo che si accende in rosa. */
 const control =
-  "w-full border-0 border-b border-ink/30 bg-transparent px-0 py-3 text-base text-ink placeholder:text-ink-dim/60 transition-colors focus:border-accent focus:outline-none focus:ring-0 aria-[invalid=true]:border-danger";
+  "w-full rounded-pill border-[1.5px] border-line bg-wall/70 px-[18px] font-body text-base text-ink transition-colors placeholder:text-ink-faint focus:border-pink focus:outline-none focus:ring-4 focus:ring-pink/20 aria-[invalid=true]:border-danger";
 
 type FieldProps = { label: string; error?: string; hint?: string; className?: string; children: (id: string, describedBy?: string) => React.ReactNode; required?: boolean };
 
@@ -16,19 +17,19 @@ export function Field({ label, error, hint, className, children, required }: Fie
   const id = useId();
   const describedBy = [hint && `${id}-hint`, error && `${id}-err`].filter(Boolean).join(" ") || undefined;
   return (
-    <div className={cn("flex flex-col", className)}>
-      <label htmlFor={id} className="label text-2xs text-ink-dim">
+    <div className={cn("flex flex-col gap-2", className)}>
+      <label htmlFor={id} className="label text-ink-faint">
         {label}
-        {required && <span className="text-accent"> *</span>}
+        {required && <span className="text-pink"> *</span>}
       </label>
       {children(id, describedBy)}
       {hint && (
-        <p id={`${id}-hint`} className="mt-2 text-2xs text-ink-dim">
+        <p id={`${id}-hint`} className="text-xs text-ink-dim">
           {hint}
         </p>
       )}
       {error && (
-        <p id={`${id}-err`} role="alert" className="mt-2 text-2xs text-danger">
+        <p id={`${id}-err`} role="alert" className="text-xs text-danger">
           {error}
         </p>
       )}
@@ -37,17 +38,26 @@ export function Field({ label, error, hint, className, children, required }: Fie
 }
 
 export const Input = forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(({ className, ...p }, ref) => (
-  <input ref={ref} className={cn(control, "min-h-12", className)} {...p} />
+  <input ref={ref} className={cn(control, "min-h-[52px]", className)} {...p} />
 ));
 Input.displayName = "Input";
 
+/* Il messaggio non può essere una pillola: raggio da riquadro. */
 export const Textarea = forwardRef<HTMLTextAreaElement, React.TextareaHTMLAttributes<HTMLTextAreaElement>>(({ className, ...p }, ref) => (
-  <textarea ref={ref} rows={4} className={cn(control, "resize-y", className)} {...p} />
+  <textarea ref={ref} rows={4} className={cn(control, "resize-y rounded-tile py-3.5", className)} {...p} />
 ));
 Textarea.displayName = "Textarea";
 
 export const Select = forwardRef<HTMLSelectElement, React.SelectHTMLAttributes<HTMLSelectElement>>(({ className, children, ...p }, ref) => (
-  <select ref={ref} className={cn(control, "min-h-12 cursor-pointer appearance-none bg-[length:12px] bg-[right_4px_center] bg-no-repeat [&>option]:bg-surface", className)} style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23B3A69F' fill='none' stroke-width='1.5'/%3E%3C/svg%3E\")" }} {...p}>
+  <select
+    ref={ref}
+    className={cn(control, "min-h-[52px] cursor-pointer appearance-none bg-[length:12px] bg-[right_18px_center] bg-no-repeat pr-11 [&>option]:bg-panel", className)}
+    style={{
+      backgroundImage:
+        "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23BDAAC4' fill='none' stroke-width='1.5'/%3E%3C/svg%3E\")",
+    }}
+    {...p}
+  >
     {children}
   </select>
 ));
@@ -55,9 +65,14 @@ Select.displayName = "Select";
 
 export const Checkbox = forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement> & { label: React.ReactNode }>(({ label, className, ...p }, ref) => (
   <label className={cn("flex cursor-pointer items-start gap-3 text-sm text-ink-dim", className)}>
-    <span className="relative mt-0.5 grid size-5 shrink-0 place-items-center">
-      <input ref={ref} type="checkbox" className="peer absolute inset-0 cursor-pointer appearance-none border border-ink/40 checked:border-accent checked:bg-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent" {...p} />
-      <Check className="pointer-events-none relative size-3.5 text-bg opacity-0 peer-checked:opacity-100" aria-hidden />
+    <span className="relative mt-0.5 grid size-[22px] shrink-0 place-items-center">
+      <input
+        ref={ref}
+        type="checkbox"
+        className="peer absolute inset-0 cursor-pointer appearance-none rounded-md border-[1.5px] border-line bg-wall/70 checked:border-pink checked:bg-pink checked:shadow-[0_0_12px_rgb(var(--pink)/0.45)]"
+        {...p}
+      />
+      <Check className="pointer-events-none relative size-3.5 text-[#12040F] opacity-0 peer-checked:opacity-100" aria-hidden />
     </span>
     <span>{label}</span>
   </label>
@@ -70,7 +85,7 @@ export function ConsentLabel() {
   return (
     <>
       {t("form.consentPre")}
-      <Link to={pathFor("privacy", lang)} target="_blank" className="text-ink underline underline-offset-4 hover:text-accent">
+      <Link to={pathFor("privacy", lang)} target="_blank" className="text-pink-core underline underline-offset-4">
         {t("form.consentLink")}
       </Link>
       {t("form.consentPost")}
@@ -85,8 +100,8 @@ export function ConsentLabel() {
 export function TurnstileSlot() {
   const { t } = useTranslation();
   return (
-    <div className="flex min-h-[65px] items-center gap-3 border border-dashed border-line px-4 text-2xs text-ink-dim">
-      <ShieldCheck className="size-4 shrink-0 text-accent" aria-hidden />
+    <div className="flex min-h-[65px] items-center gap-3 rounded-tile border border-dashed border-line px-5 text-xs text-ink-dim">
+      <ShieldCheck className="size-4 shrink-0 text-pink" aria-hidden />
       <span>
         {t("form.turnstile")} · {t("form.turnstilePending")}
       </span>
@@ -97,10 +112,10 @@ export function TurnstileSlot() {
 export function SentPanel({ title, body, demo }: { title: string; body: string; demo?: boolean }) {
   const { t } = useTranslation();
   return (
-    <div role="status" className="border border-ok/40 bg-ok/5 p-8">
-      <p className="label text-2xs text-ok">✓ {title}</p>
-      <p className="mt-3 font-display text-xl italic text-ink">{body}</p>
-      {demo && <p className="mt-4 text-2xs text-ink-dim">{t("form.demoNote")}</p>}
+    <div role="status" className="rounded-card border border-ok/40 bg-ok/5 p-8">
+      <p className="label text-ok">✓ {title}</p>
+      <p className="mt-3 text-lg text-ink">{body}</p>
+      {demo && <p className="mt-4 text-xs text-ink-dim">{t("form.demoNote")}</p>}
     </div>
   );
 }

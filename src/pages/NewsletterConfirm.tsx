@@ -21,7 +21,7 @@ export default function NewsletterConfirm() {
       <section className="container-site grid min-h-[80svh] place-items-center pb-16 pt-[calc(var(--header-h)+3rem)]">
         <div className="max-w-xl text-center">
           {ok ? <CircleCheck className="mx-auto size-10 text-ok" aria-hidden /> : <CircleAlert className="mx-auto size-10 text-danger" aria-hidden />}
-          <h1 className="mt-6 text-2xl md:text-3xl">{ok ? t("newsletter.confirmTitle") : t("newsletter.page")}</h1>
+          <h1 className="tube tube-pink mt-6 text-2xl">{ok ? t("newsletter.confirmTitle") : t("newsletter.page")}</h1>
           <p className="mt-5 text-lg text-ink-dim">{ok ? t("newsletter.confirmBody") : t("newsletter.confirmError")}</p>
           <Button asChild className="mt-10">
             <Link to={ok ? pathFor("members", lang) : pathFor("newsletter", lang)}>{ok ? t("nav.members") : t("cta.subscribe")}</Link>

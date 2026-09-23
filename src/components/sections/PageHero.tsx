@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
  * al secondo tubo (blu) per spezzare la riga.
  */
 export function PageHero({
-  label,
   title,
   accent,
   intro,
@@ -14,7 +13,6 @@ export function PageHero({
   compact = false,
   children,
 }: {
-  label: string;
   title: string;
   accent?: string;
   intro?: string;
@@ -31,7 +29,6 @@ export function PageHero({
       <div className="grain absolute inset-0 -z-[1]" aria-hidden />
 
       <div className="container-site pb-12 pt-[calc(var(--header-h)+3rem)] md:pb-16">
-        <p className="label mb-4 text-ink-faint">{label}</p>
         <h1 className="tube tube-pink max-w-5xl text-3xl">
           {title}
           {accent && (

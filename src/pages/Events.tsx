@@ -26,7 +26,7 @@ export default function Events() {
   return (
     <>
       <Seo title={t("events.title")} description={c("events.intro")} />
-      <PageHero label={t("nav.events")} title={t("events.title").split(" ")[0]!} accent={t("events.title").split(" ").slice(1).join(" ")} intro={c("events.intro")} image="/placeholders/hero-02.webp" compact />
+      <PageHero title={t("events.title").split(" ")[0]!} accent={t("events.title").split(" ").slice(1).join(" ")} intro={c("events.intro")} image="/placeholders/hero-02.webp" compact />
 
       <div className="container-site py-12 md:py-16">
         <div role="group" aria-label={t("events.filterLabel")} className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
@@ -40,8 +40,10 @@ export default function Events() {
                 setArchiveCount(ARCHIVE_PAGE);
               }}
               className={cn(
-                "label inline-flex min-h-11 shrink-0 items-center rounded-full border px-5 text-2xs transition-colors",
-                theme === th.id ? "border-accent bg-accent text-bg" : "border-line text-ink-dim hover:border-accent hover:text-accent",
+                "inline-flex min-h-11 shrink-0 items-center rounded-pill border px-5 font-body text-[15px] transition-colors",
+                theme === th.id
+                  ? "border-transparent bg-pink text-[#12040F] shadow-[0_0_14px_rgb(var(--pink)/0.4)]"
+                  : "border-line text-ink-dim hover:border-pink hover:text-pink-core",
               )}
             >
               {th.name}
@@ -50,7 +52,7 @@ export default function Events() {
         </div>
 
         <section aria-labelledby="up" className="mt-12">
-          <h2 id="up" className="label mb-8 text-accent">
+          <h2 id="up" className="h2 tube-pink text-2xl">
             {t("events.upcoming")}
           </h2>
           {upcoming.length ? (
@@ -66,7 +68,7 @@ export default function Events() {
 
         {archive.length > 0 && (
           <section aria-labelledby="arch" className="mt-24">
-            <h2 id="arch" className="text-2xl md:text-3xl">
+            <h2 id="arch" className="h2 tube-blue text-2xl">
               {t("events.archive")}
             </h2>
             <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">

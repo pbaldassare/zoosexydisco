@@ -16,7 +16,7 @@ export default function Privacy() {
     <>
       <Seo title={t("nav.privacy")} description={t("nav.privacy")} />
       <article
-        className="container-site max-w-3xl pb-24 pt-[calc(var(--header-h)+4rem)] [&_a]:text-accent [&_h1]:mb-10 [&_h1]:text-3xl [&_h2]:mb-4 [&_h2]:mt-12 [&_h2]:text-xl [&_li]:mb-2 [&_p]:mb-4 [&_p]:text-ink-dim [&_strong]:text-ink [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:text-ink-dim"
+        className="container-site max-w-3xl pb-24 pt-[calc(var(--header-h)+4rem)] [&_h1]:mb-10 [&_h1]:text-3xl [&_h1]:tube-pink [&_h2]:mb-4 [&_h2]:mt-12 [&_h2]:text-xl [&_h2]:tube-blue [&_li]:mb-2 [&_p]:mb-4 [&_p]:text-ink-dim [&_strong]:text-ink [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:text-ink-dim"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </>

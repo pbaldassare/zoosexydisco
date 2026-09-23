@@ -52,7 +52,7 @@ export function Lightbox({ items, index, onClose, onIndex, altFor }: Props) {
       role="dialog"
       aria-modal="true"
       aria-label={altFor(m)}
-      className="fixed inset-0 z-[80] flex flex-col bg-bg/95 backdrop-blur-md"
+      className="fixed inset-0 z-[80] flex flex-col bg-wall/95 backdrop-blur-md"
       onTouchStart={(e) => setTouchX(e.touches[0]?.clientX ?? null)}
       onTouchEnd={(e) => {
         if (touchX === null) return;
@@ -62,15 +62,15 @@ export function Lightbox({ items, index, onClose, onIndex, altFor }: Props) {
       }}
     >
       <div className="flex items-center justify-between px-4 py-3">
-        <span className="label text-ink-dim">
+        <span className="tnum label font-mono text-ink-dim">
           {index + 1} / {items.length}
         </span>
-        <button onClick={onClose} className="grid size-12 place-items-center text-ink hover:text-accent" aria-label={t("gallery.close")}>
+        <button onClick={onClose} className="grid size-12 place-items-center rounded-pill text-ink transition-colors hover:text-pink-core" aria-label={t("gallery.close")}>
           <X className="size-6" />
         </button>
       </div>
       <div className="relative flex min-h-0 flex-1 items-center justify-center px-2 pb-6 md:px-20">
-        <div className={cn("protected relative", veiled && "gallery-veiled")} onContextMenu={(e) => e.preventDefault()}>
+        <div className={cn("protected relative overflow-hidden rounded-tile", veiled && "gallery-veiled")} onContextMenu={(e) => e.preventDefault()}>
           <img
             key={m.id}
             src={m.path}
@@ -84,14 +84,14 @@ export function Lightbox({ items, index, onClose, onIndex, altFor }: Props) {
         </div>
         <button
           onClick={() => go(-1)}
-          className="absolute left-2 top-1/2 hidden size-12 -translate-y-1/2 place-items-center text-ink hover:text-accent md:grid"
+          className="absolute left-2 top-1/2 hidden size-12 -translate-y-1/2 place-items-center rounded-full text-ink transition-colors hover:text-pink-core md:grid"
           aria-label={t("gallery.prev")}
         >
           <ChevronLeft className="size-8" />
         </button>
         <button
           onClick={() => go(1)}
-          className="absolute right-2 top-1/2 hidden size-12 -translate-y-1/2 place-items-center text-ink hover:text-accent md:grid"
+          className="absolute right-2 top-1/2 hidden size-12 -translate-y-1/2 place-items-center rounded-full text-ink transition-colors hover:text-pink-core md:grid"
           aria-label={t("gallery.next")}
         >
           <ChevronRight className="size-8" />

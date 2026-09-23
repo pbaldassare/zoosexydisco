@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { WhatsAppGlyph } from "@/components/ui/icons";
 import { Seo } from "@/components/ui/seo";
 import { useContent, useSettings } from "@/hooks/useData";
+import { cn } from "@/lib/utils";
 import { waLink } from "@/lib/whatsapp";
 import { api } from "@/services/api";
 
@@ -37,30 +38,31 @@ export default function Parties() {
   return (
     <>
       <Seo title={t("parties.title")} description={c("parties.intro")} />
-      <PageHero label={t("nav.parties")} title={en ? "Your night," : "La vostra notte,"} accent={en ? "our table." : "il nostro tavolo."} intro={c("parties.intro")} image="/placeholders/party-compleanni.webp" />
+      <PageHero title={en ? "Your night," : "La vostra notte,"} accent={en ? "our table." : "il nostro tavolo."} intro={c("parties.intro")} image="/placeholders/party-compleanni.webp" />
 
-      <section className="container-site py-20 md:py-28">
-        <ul className="grid gap-12 md:grid-cols-3 md:gap-6">
+      <section className="container-site pt-section">
+        <ul className="grid list-none gap-12 p-0 md:grid-cols-3 md:gap-6">
           {KINDS.map((k, i) => (
             <li key={k.key} className={i === 1 ? "md:mt-16" : i === 2 ? "md:mt-32" : undefined}>
-              <img src={k.img} alt="" width={1600} height={1067} loading="lazy" className="aspect-[4/5] w-full object-cover" />
-              <h2 className="mt-6 text-2xl">{t(`parties.${k.key}`)}</h2>
+              <img src={k.img} alt="" width={1600} height={1067} loading="lazy" className="aspect-[4/5] w-full rounded-card border border-line object-cover" />
+              <h2 className={cn("tube mt-6 text-2xl", i === 1 ? "tube-blue" : "tube-pink")}>{t(`parties.${k.key}`)}</h2>
               <p className="mt-3 text-ink-dim">{c(`parties.${k.key}`)}</p>
             </li>
           ))}
         </ul>
       </section>
 
-      <section className="border-t border-line bg-surface/30 py-20 md:py-28" aria-labelledby="party-form">
-        <div className="container-site grid gap-12 md:grid-cols-12">
+      <section className="pt-section" aria-labelledby="party-form">
+        <div className="container-site">
+          <div className="wash-panel grid gap-12 rounded-band border border-line p-[clamp(24px,5vw,56px)] md:grid-cols-12">
           <div className="md:col-span-4">
-            <h2 id="party-form" className="text-2xl md:text-3xl">
+            <h2 id="party-form" className="h2 tube-pink text-2xl">
               {t("parties.formTitle")}
             </h2>
             <p className="mt-6 text-ink-dim">{t("parties.orWhatsapp")}</p>
             <Button asChild variant="outline" className="mt-4">
               <a href={waLink(s?.whatsapp ?? "", t("events.waGeneric"))} target="_blank" rel="noopener">
-                <WhatsAppGlyph className="size-4" /> WhatsApp
+                <WhatsAppGlyph /> WhatsApp
               </a>
             </Button>
           </div>
@@ -112,7 +114,7 @@ export default function Parties() {
                 <div className="sm:col-span-2">
                   <Checkbox label={<ConsentLabel />} aria-invalid={!!e.consent} {...register("consent")} />
                   {e.consent && (
-                    <p role="alert" className="mt-2 text-2xs text-danger">
+                    <p role="alert" className="mt-2 text-xs text-danger">
                       {e.consent.message}
                     </p>
                   )}
@@ -127,6 +129,7 @@ export default function Parties() {
                 </div>
               </form>
             )}
+            </div>
           </div>
         </div>
       </section>

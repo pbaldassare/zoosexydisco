@@ -10,14 +10,14 @@ export function InstagramQr({ url, handle, size = 120 }: { url: string; handle: 
 
   useEffect(() => {
     if (!ready) return;
-    void QRCode.toString(url, { type: "svg", margin: 0, color: { dark: "#F4EDE6", light: "#00000000" } }).then(setSvg);
+    void QRCode.toString(url, { type: "svg", margin: 0, color: { dark: "#F6EDF7", light: "#00000000" } }).then(setSvg);
   }, [url, ready]);
 
   if (!ready) {
     return (
-      <div className="grid place-items-center border border-dashed border-line text-center text-2xs text-ink-dim" style={{ width: size, height: size }}>
+      <div className="grid place-items-center rounded-tile border border-dashed border-line text-center text-xs text-ink-dim" style={{ width: size, height: size }}>
         <span className="flex flex-col items-center gap-2 px-2">
-          <InstagramGlyph className="size-5 text-accent" aria-hidden />
+          <InstagramGlyph className="size-5 text-pink" aria-hidden />
           QR Instagram
           <br />[da completare]
         </span>
@@ -27,7 +27,7 @@ export function InstagramQr({ url, handle, size = 120 }: { url: string; handle: 
   return (
     <a href={url} target="_blank" rel="noopener" className="inline-block" aria-label={`Instagram @${handle}`}>
       <span className="block" style={{ width: size, height: size }} dangerouslySetInnerHTML={{ __html: svg ?? "" }} />
-      <span className="label mt-3 block text-2xs text-ink">@{handle}</span>
+      <span className="label mt-3 block text-ink">@{handle}</span>
     </a>
   );
 }

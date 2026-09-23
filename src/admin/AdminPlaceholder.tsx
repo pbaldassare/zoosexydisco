@@ -16,7 +16,7 @@ export default function AdminPlaceholder() {
         </p>
         <ul className="mt-8 flex flex-wrap gap-2">
           {SECTIONS.map((s) => (
-            <li key={s} className="label border border-line px-3 py-2 text-2xs text-ink-dim">
+            <li key={s} className="label rounded-pill border border-line px-3 py-2 text-ink-dim">
               {s}
             </li>
           ))}

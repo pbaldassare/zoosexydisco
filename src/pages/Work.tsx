@@ -97,24 +97,24 @@ export default function Work() {
   return (
     <>
       <Seo title={t("work.title")} description={c("work.intro")} />
-      <PageHero label={t("nav.work")} title={t("work.title")} intro={c("work.intro")} image="/placeholders/show-04.webp" compact />
+      <PageHero title={t("work.title")} intro={c("work.intro")} image="/placeholders/show-04.webp" compact />
 
-      <section className="container-site grid gap-12 py-16 md:grid-cols-12 md:py-24">
+      <section className="container-site grid gap-12 pt-section md:grid-cols-12">
         <div className="md:col-span-5">
-          <h2 className="label mb-6 text-accent">{t("work.roles")}</h2>
+          <h2 className="h2 tube-blue text-2xl">{t("work.roles")}</h2>
           <ul className="divide-y divide-line border-y border-line">
             {roles.map((r) => (
-              <li key={r.id} className="py-4 font-display text-xl">
+              <li key={r.id} className="tube py-4 text-xl text-ink">
                 {l(r.name)}
               </li>
             ))}
           </ul>
-          <h2 className="label mb-4 mt-12 text-accent">{t("work.offer")}</h2>
+          <h2 className="h2 tube-blue mt-12 text-2xl">{t("work.offer")}</h2>
           <p className="text-ink-dim">{c("work.offer")}</p>
         </div>
 
         <div className="md:col-span-7">
-          <h2 className="mb-8 text-2xl md:text-3xl">{t("work.form")}</h2>
+          <h2 className="h2 tube-pink text-2xl">{t("work.form")}</h2>
           {sent ? (
             <SentPanel title={t("form.sentTitle")} body={t("form.appSentBody")} demo />
           ) : (
@@ -154,12 +154,12 @@ export default function Work() {
               </Field>
 
               <fieldset className="sm:col-span-2">
-                <legend className="label mb-3 text-2xs text-ink-dim">{t("form.days")}</legend>
+                <legend className="label mb-3 text-ink-faint">{t("form.days")}</legend>
                 <div className="flex flex-wrap gap-2">
                   {weekdays.map((d, i) => (
                     <label key={d} className="cursor-pointer">
                       <input type="checkbox" value={String(i + 1)} className="peer sr-only" {...register("days")} />
-                      <span className="label inline-flex min-h-11 min-w-14 items-center justify-center border border-line px-3 text-2xs text-ink-dim transition-colors peer-checked:border-accent peer-checked:bg-accent peer-checked:text-bg peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-accent">
+                      <span className="inline-flex min-h-11 min-w-14 items-center justify-center rounded-pill border border-line px-3 font-body text-[15px] text-ink-dim transition-colors peer-checked:border-transparent peer-checked:bg-pink peer-checked:text-[#12040F] peer-checked:shadow-[0_0_14px_rgb(var(--pink)/0.4)] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-pink">
                         {d}
                       </span>
                     </label>
@@ -168,7 +168,7 @@ export default function Work() {
               </fieldset>
               <Field label={t("form.period")}>{(id) => <Input id={id} {...register("period")} />}</Field>
               <fieldset>
-                <legend className="label mb-3 text-2xs text-ink-dim">{t("form.travel")}</legend>
+                <legend className="label mb-3 text-ink-faint">{t("form.travel")}</legend>
                 <div className="flex gap-6 pt-2">
                   {(["yes", "no"] as const).map((v) => (
                     <label key={v} className="flex min-h-11 cursor-pointer items-center gap-2 text-ink">
@@ -181,12 +181,12 @@ export default function Work() {
 
               {/* foto */}
               <div className="sm:col-span-2">
-                <p className="label text-2xs text-ink-dim">
-                  {t("form.photos")} <span className="text-accent">*</span>
+                <p className="label text-ink-faint">
+                  {t("form.photos")} <span className="text-pink">*</span>
                 </p>
                 <div className="mt-3 grid grid-cols-3 gap-3">
                   {photos.map((p, i) => (
-                    <div key={p.preview} className="relative aspect-[3/4] overflow-hidden bg-surface">
+                    <div key={p.preview} className="relative aspect-[3/4] overflow-hidden rounded-tile border border-line bg-panel">
                       <img src={p.preview} alt="" className="h-full w-full object-cover" />
                       <button
                         type="button"
@@ -194,7 +194,7 @@ export default function Work() {
                           URL.revokeObjectURL(p.preview);
                           setPhotos((x) => x.filter((_, k) => k !== i));
                         }}
-                        className="absolute right-1 top-1 grid size-9 place-items-center bg-bg/80 text-ink hover:text-danger"
+                        className="absolute right-1 top-1 grid size-9 place-items-center rounded-full bg-wall/80 text-ink transition-colors hover:text-danger"
                         aria-label={`${t("gallery.close")} ${i + 1}`}
                       >
                         <X className="size-4" />
@@ -202,16 +202,16 @@ export default function Work() {
                     </div>
                   ))}
                   {photos.length < 3 && (
-                    <label className={cn("flex aspect-[3/4] cursor-pointer flex-col items-center justify-center gap-2 border border-dashed border-line text-ink-dim transition-colors hover:border-accent hover:text-accent", busy && "opacity-50")}>
+                    <label className={cn("flex aspect-[3/4] cursor-pointer flex-col items-center justify-center gap-2 rounded-tile border border-dashed border-line text-ink-dim transition-colors hover:border-pink hover:text-pink-core", busy && "opacity-50")}>
                       <ImagePlus className="size-6" aria-hidden />
                       <span className="label text-[11px]">+ {3 - photos.length}</span>
                       <input type="file" accept=".jpg,.jpeg,.png,.webp,.heic,.heif,image/*" multiple className="sr-only" onChange={(ev) => void addPhotos(ev.target.files)} disabled={busy} />
                     </label>
                   )}
                 </div>
-                <p className="mt-2 text-2xs text-ink-dim">{t("form.photosHint")}</p>
+                <p className="mt-2 text-xs text-ink-dim">{t("form.photosHint")}</p>
                 {fileErr.photos && (
-                  <p role="alert" className="mt-2 text-2xs text-danger">
+                  <p role="alert" className="mt-2 text-xs text-danger">
                     {fileErr.photos}
                   </p>
                 )}
@@ -219,7 +219,7 @@ export default function Work() {
 
               {/* documenti */}
               <div className="sm:col-span-2">
-                <label className="label text-2xs text-ink-dim" htmlFor="cv">
+                <label className="label text-ink-faint" htmlFor="cv">
                   {t("form.cv")}
                 </label>
                 <FilePick
@@ -234,14 +234,14 @@ export default function Work() {
                     }
                   }}
                 />
-                {fileErr.cv && <p role="alert" className="mt-2 text-2xs text-danger">{fileErr.cv}</p>}
+                {fileErr.cv && <p role="alert" className="mt-2 text-xs text-danger">{fileErr.cv}</p>}
               </div>
               <div className="sm:col-span-2">
-                <label className="label text-2xs text-ink-dim" htmlFor="extra">
+                <label className="label text-ink-faint" htmlFor="extra">
                   {t("form.extra")}
                 </label>
-                <p className="mt-2 flex gap-2 border-l-2 border-accent-hot bg-accent-hot/5 px-3 py-2 text-2xs text-ink">
-                  <Info className="mt-px size-4 shrink-0 text-accent-hot" aria-hidden />
+                <p className="mt-2 flex gap-2 rounded-tile border-l-2 border-blue bg-blue/5 px-3 py-2 text-xs text-ink">
+                  <Info className="mt-px size-4 shrink-0 text-blue" aria-hidden />
                   {t("work.idNote")}
                 </p>
                 <FilePick
@@ -257,7 +257,7 @@ export default function Work() {
                     }
                   }}
                 />
-                {fileErr.extra && <p role="alert" className="mt-2 text-2xs text-danger">{fileErr.extra}</p>}
+                {fileErr.extra && <p role="alert" className="mt-2 text-xs text-danger">{fileErr.extra}</p>}
               </div>
 
               <Field label={t("form.notes")} className="sm:col-span-2">
@@ -265,7 +265,7 @@ export default function Work() {
               </Field>
               <div className="sm:col-span-2">
                 <Checkbox label={<ConsentLabel />} aria-invalid={!!e.consent} {...register("consent")} />
-                {e.consent && <p role="alert" className="mt-2 text-2xs text-danger">{e.consent.message}</p>}
+                {e.consent && <p role="alert" className="mt-2 text-xs text-danger">{e.consent.message}</p>}
               </div>
               <div className="sm:col-span-2">
                 <TurnstileSlot />
@@ -286,7 +286,7 @@ export default function Work() {
 function FilePick({ id, files, onPick, multiple }: { id: string; files: File[]; onPick: (l: FileList | null) => void; multiple?: boolean }) {
   return (
     <div className="mt-3">
-      <label htmlFor={id} className="flex min-h-14 cursor-pointer items-center gap-3 border border-dashed border-line px-4 text-sm text-ink-dim transition-colors hover:border-accent hover:text-accent">
+      <label htmlFor={id} className="flex min-h-14 cursor-pointer items-center gap-3 rounded-pill border border-dashed border-line px-5 text-sm text-ink-dim transition-colors hover:border-pink hover:text-pink-core">
         <FileText className="size-5 shrink-0" aria-hidden />
         <span className="truncate">{files.length ? files.map((f) => f.name).join(", ") : "PDF"}</span>
       </label>

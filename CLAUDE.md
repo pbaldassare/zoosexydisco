@@ -35,7 +35,7 @@ npm run dev            # sviluppo su http://localhost:5173
 npm run typecheck      # tsc
 npm run lint           # eslint
 npm run build          # tsc + vite build → dist/
-npm run placeholders   # rigenera immagini segnaposto, logo e og-image
+npm run placeholders   # rigenera immagini segnaposto, favicon e og-image
 ```
 
 ## Struttura
@@ -48,7 +48,8 @@ npm run placeholders   # rigenera immagini segnaposto, logo e og-image
 ## Grafica (aggiornata il 22/09/2026)
 
 - La direzione visiva è **«Insegna al neon»**: `DESIGN.md` (token, font, componenti, regole) e `PRODUCT.md` sono la fonte di verità e sostituiscono la palette e la hero precedenti.
-- Il sistema è **implementato nel sito**: token in `src/styles/index.css` (muro, pannelli, i due tubi `--pink` e `--blue`), font Tilt Neon / Atkinson Hyperlegible / Chivo Mono via `@fontsource`, classi `.tube` + `.tube-pink` / `.tube-blue` per gli aloni. I nomi vecchi (`bg`, `surface`, `accent`) restano come alias in `tailwind.config.ts`: le pagine interne prendono la nuova palette senza essere state reimpaginate.
+- Il sistema è **implementato in tutto il sito**, home e pagine interne: token in `src/styles/index.css` (muro, pannelli, i due tubi `--pink` e `--blue`), font Tilt Neon / Atkinson Hyperlegible / Chivo Mono via `@fontsource`, classi `.tube` + `.tube-pink` / `.tube-blue` per gli aloni. I nomi vecchi (`bg`, `surface`, `accent`) restano come alias in `tailwind.config.ts`, ma nessun componente li usa più.
+- Grammatica delle pagine interne: titoli come tubi che si alternano rosa/blu, niente occhielli sopra i titoli, elenchi a righe con filetti invece di griglie di card uguali, immagini con raggi 18–26px, moduli a pillola con il bordo che si accende in rosa.
 - Home rifatta sul riferimento: insegna, pannello delle serate con lo stato calcolato sull'ora di Roma (`src/lib/opening.ts`), le notti, serate a tema, il locale, regole, gallery, lavora con noi.
 - Riferimento visivo della home: `design/zoo-home.html` (apribile nel browser). Sorgente con segnaposto: `design/home.src.html`.
 - Asset del cliente: insegna e logo con fondo trasparente in `public/brand/` (`insegna-neon.webp`, `logo-zoo.webp`, `logo-zoo-192.webp`, più gli originali), foto per gli sfondi in `public/photos/`.
