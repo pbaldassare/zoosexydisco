@@ -48,12 +48,12 @@ export const content: Record<string, L> = {
 
   /* il locale, in home */
   "home.club.p1": {
-    it: "ZOO Sexy Disco è uno dei locali per adulti e night club più conosciuti della zona. Siamo a Madone, in via Vincenzo Bellini 43, dalla fine degli anni '90.",
-    en: "ZOO Sexy Disco is one of the best-known adult venues and night clubs in the area. We've been in Madone, at Via Vincenzo Bellini 43, since the late '90s.",
+    it: "Uno dei locali per adulti e night club più conosciuti della zona di Bergamo. Dal 1998, a Madone, in Via Vincenzo Bellini 43, ZOO Sexy Disco è un punto di riferimento per chi cerca una serata diversa, fatta di spettacolo, musica, atmosfera e divertimento.",
+    en: "One of the best-known adult venues and night clubs in the Bergamo area. Since 1998, in Madone, at Via Vincenzo Bellini 43, ZOO Sexy Disco has been a landmark for anyone looking for a different kind of night: shows, music, atmosphere and fun.",
   },
   "home.club.p2": {
-    it: "Spettacoli di ballerine, serate a tema durante tutto l'anno, il bar, i tavoli e il privè. [Qui va la storia del locale, per tappe: da completare con il proprietario.]",
-    en: "Dancer shows, theme nights all year round, the bar, tables and private rooms. [The club's story goes here, step by step: to be completed with the owner.]",
+    it: "Spettacoli di pole dance con ballerine professioniste, serate a tema durante tutto l'anno, il bar, i tavoli e il privé.",
+    en: "Pole dance shows with professional dancers, theme nights all year round, the bar, the tables and the private rooms.",
   },
   "home.feat.bar.title": { it: "Bar", en: "Bar" },
   "home.feat.bar.body": { it: "Cocktail, superalcolici, champagne e molto altro.", en: "Cocktails, spirits, champagne and much more." },
@@ -116,9 +116,33 @@ export const content: Record<string, L> = {
     en: "The tables: raised, with table service and the best view of the stage.",
   },
   "club.room.prive": {
-    it: "Il privé: più raccolto, separato dalla sala, pensato per chi cerca riservatezza.",
-    en: "The private room: more intimate, set apart from the main room, for those who want discretion.",
+    it: "Per chi desidera maggiore tranquillità e riservatezza, sono disponibili privé confortevoli e riservati, dedicati a spettacoli privati e momenti più esclusivi.",
+    en: "For anyone after more quiet and privacy, there are comfortable, reserved private rooms for private shows and more exclusive moments.",
   },
+  /* la storia del locale, nella pagina «Il locale» */
+  "club.experience.title": { it: "Un'esperienza da vivere", en: "A night to live" },
+  "club.experience.p1": {
+    it: "Qui trovi spettacoli di pole dance con ballerine professioniste, serate a tema durante tutto l'anno, un bar, tavoli e un'area privé pensata per vivere la serata con maggiore riservatezza.",
+    en: "Here you'll find pole dance shows with professional dancers, theme nights all year round, a bar, tables and a private area for a more discreet evening.",
+  },
+  "club.experience.p2": {
+    it: "Le serate a tema rendono ogni appuntamento diverso: scenografie, atmosfera e look delle ballerine vengono adattati al tema della serata, creando ogni volta un'esperienza particolare e coinvolgente.",
+    en: "Theme nights make every date different: the set, the mood and the dancers' looks are built around the night's theme, so the experience is never quite the same.",
+  },
+  "club.experience.p3": {
+    it: "Il locale conserva il fascino di una realtà storica, ma mantiene un'atmosfera curata, calda e informale, pensata per mettere il cliente a proprio agio fin dal suo arrivo.",
+    en: "The club keeps the charm of a long-standing place, with a warm, careful and informal atmosphere meant to put you at ease from the moment you arrive.",
+  },
+  "club.new.title": { it: "Sempre qualcosa di nuovo", en: "Always something new" },
+  "club.new.body": {
+    it: "Una delle caratteristiche di ZOO Sexy Disco è anche la continua evoluzione della proposta: nuove ballerine si alternano regolarmente alle artiste già presenti, creando un ricambio costante e permettendo ai clienti di trovare sempre volti nuovi e nuovi spettacoli da scoprire.",
+    en: "Another of ZOO Sexy Disco's traits is that the line-up keeps evolving: new dancers regularly join the artists already performing, so there are always new faces and new shows to discover.",
+  },
+  "club.new.closing": {
+    it: "Dal 1998, una notte allo ZOO non è semplicemente una serata fuori. È un'esperienza da vivere.",
+    en: "Since 1998, a night at ZOO isn't simply a night out. It's an experience to live.",
+  },
+
   "club.directions": {
     it: "Come arrivare e parcheggio: [da completare].",
     en: "Getting here and parking: [to be completed].",

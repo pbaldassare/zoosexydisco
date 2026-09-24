@@ -52,6 +52,20 @@ export default function Club() {
         </div>
       </section>
 
+      {/* l'esperienza: il racconto del locale */}
+      <section className="relative z-[1] pt-section" aria-labelledby="esperienza-t">
+        <div className="container-site grid gap-8 md:grid-cols-12">
+          <h2 className="h2 tube-pink text-2xl md:col-span-4" id="esperienza-t">
+            {c("club.experience.title")}
+          </h2>
+          <div className="grid gap-5 text-ink-dim md:col-span-7 md:col-start-6 md:text-lg">
+            <p className="m-0">{c("club.experience.p1")}</p>
+            <p className="m-0">{c("club.experience.p2")}</p>
+            <p className="m-0">{c("club.experience.p3")}</p>
+          </div>
+        </div>
+      </section>
+
       {/* gli ambienti: i due tubi si alternano scendendo */}
       <section className="container-site space-y-20 pt-section md:space-y-28" aria-labelledby="ambienti">
         <h2 id="ambienti" className="sr-only">
@@ -75,6 +89,20 @@ export default function Club() {
             </div>
           </article>
         ))}
+      </section>
+
+      {/* il ricambio delle artiste, e la chiusa */}
+      <section className="relative z-[1] pt-section" aria-labelledby="nuovo-t">
+        <div className="container-site grid gap-8 md:grid-cols-12">
+          <h2 className="h2 tube-blue text-2xl md:col-span-4" id="nuovo-t">
+            {c("club.new.title")}
+          </h2>
+          <div className="md:col-span-7 md:col-start-6">
+            <p className="m-0 text-ink-dim md:text-lg">{c("club.new.body")}</p>
+            {/* la chiusa: l'unica frase della pagina che alza la voce */}
+            <p className="tube tube-pink mt-10 max-w-[22ch] text-2xl">{c("club.new.closing")}</p>
+          </div>
+        </div>
       </section>
 
       {/* le regole della casa: lo stesso pannello della home */}
