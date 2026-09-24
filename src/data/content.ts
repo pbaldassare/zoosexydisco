@@ -57,10 +57,10 @@ export const content: Record<string, L> = {
   },
   "home.feat.bar.title": { it: "Bar", en: "Bar" },
   "home.feat.bar.body": { it: "Cocktail, superalcolici, champagne e molto altro.", en: "Cocktails, spirits, champagne and much more." },
-  "home.feat.shows.title": { it: "Spettacoli", en: "Shows" },
+  "home.feat.shows.title": { it: "Lap dance & pole dance", en: "Lap dance & pole dance" },
   "home.feat.shows.body": {
-    it: "Ballerine sul palco e lap dance, con serate a tema durante l'anno.",
-    en: "Dancers on stage and lap dance, with theme nights throughout the year.",
+    it: "Spettacoli di ballerine professioniste, performance al palo e intrattenimento per adulti in un'atmosfera esclusiva.",
+    en: "Shows by professional dancers, pole performances and adult entertainment in an exclusive setting.",
   },
   "home.feat.tables.title": { it: "Tavoli e privè", en: "Tables and private rooms" },
   "home.feat.tables.body": {
