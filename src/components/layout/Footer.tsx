@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
+import { MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Logo } from "@/components/brand/Logo";
 import { AdultsBadge, InstagramGlyph, NoPhotoGlyph } from "@/components/ui/icons";
 import { useContent, useSettings } from "@/hooks/useData";
 import { useLang } from "@/hooks/useLang";
 import { pathFor } from "@/lib/routes";
+import { mapsDirections } from "@/lib/maps";
 import { weekdayName } from "@/lib/opening";
 import { capitalize, isPlaceholder } from "@/lib/utils";
 import { telLink, waLink } from "@/lib/whatsapp";
@@ -27,12 +29,22 @@ export function Footer() {
       <div className="container-site">
         <div className="grid gap-[34px] pb-[34px] pt-[52px] md:grid-cols-[1.1fr_1fr_1fr_1fr]">
           <div>
-            <Logo className="mb-3 size-24" title="" />
-            <p className="m-0 text-[15.5px] text-ink-dim">
-              Via Vincenzo Bellini 43
-              <br />
-              24040 Madone (BG)
-            </p>
+            <Logo className="mb-4 size-36 md:size-44" title="" />
+            {/* L'indirizzo è il link alle indicazioni stradali: chi lo legge
+                nel footer di solito sta decidendo se venire stasera. */}
+            <a
+              href={mapsDirections(s.address_venue)}
+              target="_blank"
+              rel="noopener"
+              className="inline-flex items-start gap-2 text-[15.5px] text-ink-dim no-underline transition-colors hover:text-pink-core"
+            >
+              <MapPin className="mt-1 size-4 shrink-0 text-pink" aria-hidden />
+              <span>
+                Via Vincenzo Bellini 43
+                <br />
+                24040 Madone (BG)
+              </span>
+            </a>
           </div>
 
           <div>

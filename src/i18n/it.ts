@@ -27,6 +27,7 @@ const it = {
     whatsapp: "Scrivici su WhatsApp",
     call: "Chiama",
     showMap: "Mostra la mappa",
+    directions: "Indicazioni stradali",
     send: "Invia",
     sending: "Invio in corso…",
     subscribe: "Iscriviti",

@@ -14,6 +14,7 @@ import { Seo } from "@/components/ui/seo";
 import { useContent, useSettings } from "@/hooks/useData";
 import { useL } from "@/hooks/useLang";
 import { nightClubJsonLd } from "@/lib/jsonld";
+import { mapsDirections } from "@/lib/maps";
 import { telLink, waLink } from "@/lib/whatsapp";
 import { api } from "@/services/api";
 
@@ -93,7 +94,17 @@ export default function Contacts() {
                 <I className="mt-1 size-5 shrink-0 text-pink" />
                 <div>
                   <dt className="label text-ink-faint">{k as string}</dt>
-                  <dd className="mt-1 text-lg text-ink">{k === t("contacts.email") ? <a href={`mailto:${v}`}>{v as string}</a> : (v as string)}</dd>
+                  <dd className="mt-1 text-lg text-ink">
+                    {k === t("contacts.email") ? (
+                      <a href={`mailto:${v}`}>{v as string}</a>
+                    ) : k === t("contacts.address") ? (
+                      <a href={mapsDirections(v as string)} target="_blank" rel="noopener">
+                        {v as string}
+                      </a>
+                    ) : (
+                      (v as string)
+                    )}
+                  </dd>
                 </div>
               </div>
             );
@@ -105,6 +116,13 @@ export default function Contacts() {
           <div>
             <dt className="label text-ink-faint">{t("contacts.directions")}</dt>
             <dd className="mt-1 text-ink-dim">{c("club.directions")}</dd>
+            <dd className="mt-4">
+              <Button asChild variant="outline" size="sm">
+                <a href={mapsDirections(s.address_venue)} target="_blank" rel="noopener">
+                  <MapPin className="size-4" aria-hidden /> {t("cta.directions")}
+                </a>
+              </Button>
+            </dd>
           </div>
         </dl>
         <div className="md:col-span-7">

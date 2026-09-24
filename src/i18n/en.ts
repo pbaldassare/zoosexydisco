@@ -29,6 +29,7 @@ const en: Dict = {
     whatsapp: "Message us on WhatsApp",
     call: "Call",
     showMap: "Show the map",
+    directions: "Get directions",
     send: "Send",
     sending: "Sending…",
     subscribe: "Subscribe",
