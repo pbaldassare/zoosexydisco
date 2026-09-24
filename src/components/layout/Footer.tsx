@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Logo } from "@/components/brand/Logo";
+import { InstagramQr } from "@/components/sections/InstagramQr";
 import { AdultsBadge, InstagramGlyph, NoPhotoGlyph } from "@/components/ui/icons";
 import { useContent, useSettings } from "@/hooks/useData";
 import { useLang } from "@/hooks/useLang";
@@ -101,9 +102,17 @@ export function Footer() {
                 <InstagramGlyph /> Instagram {s.instagram_handle}
               </p>
             ) : (
-              <a href={s.instagram_url} target="_blank" rel="noopener" className="inline-flex items-center gap-2 text-[15.5px] text-ink no-underline hover:text-pink-core">
-                <InstagramGlyph /> @{s.instagram_handle}
-              </a>
+              <>
+                <a href={s.instagram_url} target="_blank" rel="noopener" className="inline-flex items-center gap-2 text-[15.5px] text-ink no-underline hover:text-pink-core">
+                  <InstagramGlyph /> @{s.instagram_handle}
+                </a>
+                {/* Il QR si disegna nel browser: nessuna richiesta a Instagram
+                    finché non lo si inquadra. Serve a chi ha il telefono in
+                    mano davanti allo schermo del computer. */}
+                <div className="mt-4">
+                  <InstagramQr url={s.instagram_url} handle={s.instagram_handle} size={140} />
+                </div>
+              </>
             )}
           </div>
         </div>

@@ -137,7 +137,7 @@ export default function Contacts() {
             <h2 className="h2 tube-pink text-2xl">{t("contacts.form")}</h2>
             <div className="mt-10">
               <p className="label mb-4 text-ink-faint">{t("contacts.instagram")}</p>
-              <InstagramQr url={s.instagram_url} handle={s.instagram_handle} size={148} />
+              <InstagramQr url={s.instagram_url} handle={s.instagram_handle} size={168} />
             </div>
           </div>
           <div className="md:col-span-7 md:col-start-6">
