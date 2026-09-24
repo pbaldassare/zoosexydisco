@@ -34,6 +34,7 @@ export default function Club() {
         accent={en ? "one rule." : "una regola."}
         intro={c("club.intro")}
         image="/photos/foto-pedana.webp"
+        imagePosition="50% 78%"
       />
 
       {/* chi siamo e cosa si trova: l'apertura della pagina */}

@@ -29,7 +29,7 @@ export const heroBackground = {
   video: "/hero/hero.mp4" as string | undefined,
 
   /** Fotografia di ripiego, e primo fotogramma mentre il video carica. */
-  poster: "/photos/foto-pedana.webp",
+  poster: "/photos/foto-palo.webp",
 
   /**
    * Quanto va rallentato il video: 1 = velocità normale, 0.5 = metà.

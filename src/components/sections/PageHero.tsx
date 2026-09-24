@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
  */
 export function PageHero({
   title,
+  imagePosition = "50% 50%",
   accent,
   intro,
   image,
@@ -14,6 +15,8 @@ export function PageHero({
   children,
 }: {
   title: string;
+  /** Punto della foto da tenere quando viene ritagliata. */
+  imagePosition?: string;
   accent?: string;
   intro?: string;
   image?: string;
@@ -23,7 +26,7 @@ export function PageHero({
   return (
     <section className={cn("wash-sign relative isolate z-[1] flex items-end overflow-hidden", compact ? "min-h-[42svh]" : "min-h-[56svh] md:min-h-[62svh]")}>
       {image && (
-        <img src={image} alt="" width={2400} height={1350} {...{ fetchpriority: "high" }} className="absolute inset-0 -z-[1] h-full w-full object-cover brightness-[0.38] saturate-[0.85]" />
+        <img src={image} alt="" width={2400} height={1350} {...{ fetchpriority: "high" }} style={{ objectPosition: imagePosition }} className="absolute inset-0 -z-[1] h-full w-full object-cover brightness-[0.38] saturate-[0.85]" />
       )}
       <div className="absolute inset-0 -z-[1] bg-gradient-to-t from-wall via-wall/40 to-wall/10" aria-hidden />
       <div className="grain absolute inset-0 -z-[1]" aria-hidden />

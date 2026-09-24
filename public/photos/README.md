@@ -27,9 +27,3 @@ file**, tenendo lo stesso nome: non c'è codice da toccare.
 Queste quattro non sono contenuti da sfogliare: sono l'atmosfera del sito,
 parte della grafica. Le foto delle serate, quelle sì, andranno caricate dal
 pannello admin e finiranno nella gallery.
-
-## Stato attuale
-
-`foto-palo.webp` non c'è ancora: finché manca, dietro l'insegna resta
-`foto-pedana.webp`. Il punto dove si cambia è una riga in
-`src/data/hero.ts`, campo `poster`.
