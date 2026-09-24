@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { ClubFeatures, RulesPanel } from "@/components/sections/ClubBits";
 import { PageHero } from "@/components/sections/PageHero";
 import { Seo } from "@/components/ui/seo";
-import { useContent, useMedia, useSettings, useTimeline } from "@/hooks/useData";
+import { useContent, useMedia, useSettings } from "@/hooks/useData";
 import { useL } from "@/hooks/useLang";
 import { cn } from "@/lib/utils";
 
@@ -22,7 +22,6 @@ export default function Club() {
   const { t, i18n } = useTranslation();
   const c = useContent();
   const l = useL();
-  const { data: steps } = useTimeline();
   const { data: s } = useSettings();
   const { data: roomPhotos = [] } = useMedia({ kind: "image", placement: "club" });
   const en = i18n.language === "en";
@@ -50,28 +49,6 @@ export default function Club() {
             <p className="mt-4 max-w-[56ch] text-ink-dim">{c("home.club.p2")}</p>
           </div>
           <ClubFeatures />
-        </div>
-      </section>
-
-      {/* la storia, a tappe lungo un tubo verticale */}
-      <section className="pt-section" aria-labelledby="story">
-        <div className="container-site grid gap-12 md:grid-cols-12">
-          <div className="md:col-span-4">
-            <h2 id="story" className="h2 tube-pink text-2xl">
-              {en ? "A story made of nights" : "Una storia fatta di notti"}
-            </h2>
-          </div>
-          <ol className="relative md:col-span-7 md:col-start-6">
-            <span className="absolute bottom-2 left-[7px] top-2 w-px bg-gradient-to-b from-pink via-line to-transparent" aria-hidden />
-            {steps?.map((st, i) => (
-              <li key={i} className="relative pb-12 pl-10 last:pb-0">
-                <span className="absolute left-0 top-2 size-[15px] rounded-full bg-wall shadow-[inset_0_0_0_1.5px_rgb(var(--pink)),0_0_10px_rgb(var(--pink)/0.5)]" aria-hidden />
-                <p className="tnum label font-mono text-ink-faint">{l(st.year)}</p>
-                <h3 className="tube mt-2 text-xl text-ink">{l(st.title)}</h3>
-                <p className="mt-2 max-w-prose text-ink-dim">{l(st.text)}</p>
-              </li>
-            ))}
-          </ol>
         </div>
       </section>
 
