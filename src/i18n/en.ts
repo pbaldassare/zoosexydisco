@@ -68,6 +68,8 @@ const en: Dict = {
     story: "The story",
     sign: "ZOO Sexy Disco neon sign",
     seoTitle: "ZOO Sexy Disco — lap dance and night club in Madone, Bergamo",
+    from: "from",
+    untilLate: "until late",
     state: {
       openStrong: "We're open tonight",
       openRest: " until {{close}}. Come on in.",

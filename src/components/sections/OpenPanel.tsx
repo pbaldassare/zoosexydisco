@@ -84,8 +84,10 @@ export function NightsList({ className }: { className?: string }) {
             <span className={cn("tube text-[clamp(40px,9vw,88px)]", isTurn ? "tube-pink" : "tube-blue opacity-[0.78]")}>
               {capitalize(weekdayName(w.day, lang))}
             </span>
-            <span className="tnum whitespace-nowrap font-mono text-[clamp(16px,2.4vw,22px)] font-medium leading-none text-ink">
-              {w.open} – {w.close}
+            {/* L'ora in mono con le cifre tabellari, la frase no: il mono non
+                si usa per le frasi (DESIGN.md, Don'ts). */}
+            <span className="max-w-[16ch] text-balance text-right text-[clamp(15px,1.9vw,20px)] leading-snug text-ink md:max-w-none md:whitespace-nowrap">
+              {t("home.from")} <span className="tnum font-mono font-medium">{w.open}</span> {t("home.untilLate")}
             </span>
             {isTurn && (
               <span

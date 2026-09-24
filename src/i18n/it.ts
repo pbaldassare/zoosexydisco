@@ -66,6 +66,8 @@ const it = {
     story: "La storia",
     sign: "Insegna al neon ZOO Sexy Disco",
     seoTitle: "ZOO Sexy Disco — lap dance e night club a Madone, Bergamo",
+    from: "dalle",
+    untilLate: "sino a notte fonda",
     state: {
       openStrong: "Stasera siamo aperti",
       openRest: " fino alle {{close}}. Ti aspettiamo.",
