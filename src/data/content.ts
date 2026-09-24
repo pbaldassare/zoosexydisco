@@ -32,7 +32,7 @@ export const content: Record<string, L> = {
   "home.nights.title": { it: "Le nostre notti", en: "Our nights" },
   "home.nights.lead": {
     it: "Siamo aperti solo il giovedì, il venerdì e il sabato, dalle 22 fino a notte fonda.",
-    en: "We're open on Thursdays, Fridays and Saturdays only, from 10 pm until late.",
+    en: "We're open on Thursdays, Fridays and Saturdays only, from 22:00 until late.",
   },
   "home.nights.holidays": {
     it: "Nei giorni di festa apriamo anche in altre sere, e a dicembre siamo aperti più giorni. Le date extra le trovi qui e sul nostro Instagram man mano che si avvicinano.",

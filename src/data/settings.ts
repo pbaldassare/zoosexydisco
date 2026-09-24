@@ -33,9 +33,11 @@ export const settings: SiteSettings = {
   google_reviews_url: "",
   address_venue: "Via Vincenzo Bellini 43, 24040 Madone (BG)",
   maps_query: "ZOO Sexy Disco Madone BG",
+  // Riga leggibile, usata dove serve una frase sola (Il locale, Contatti,
+  // dati strutturati). Niente orario di chiusura: vale quanto si legge in home.
   opening_hours: {
-    it: "Giovedì 22:00–02:00 · Venerdì e sabato 22:00–03:30",
-    en: "Thursday 10 pm–2 am · Friday and Saturday 10 pm–3:30 am",
+    it: "Giovedì, venerdì e sabato, dalle 22:00 sino a notte fonda",
+    en: "Thursday, Friday and Saturday, from 22:00 until late",
   },
   entry_prices: { it: PLACEHOLDER, en: PLACEHOLDER },
   drink_prices: { it: PLACEHOLDER, en: PLACEHOLDER },

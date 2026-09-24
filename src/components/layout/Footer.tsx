@@ -19,6 +19,8 @@ export function Footer() {
   const { data: s } = useSettings();
   if (!s) return null;
   const year = new Date().getFullYear();
+  // Tutte le serate aprono alla stessa ora? Allora una riga sola basta.
+  const sameOpening = new Set(s.opening_windows.map((w) => w.open)).size === 1 && s.opening_windows.length > 0;
 
   return (
     <footer className="relative z-[1] mt-[clamp(80px,12vw,130px)] border-t border-line bg-[linear-gradient(180deg,rgb(var(--wall-2)),#040206)]" id="contatti">
@@ -58,16 +60,25 @@ export function Footer() {
 
           <div>
             <h3 className={colTitle}>{t("contacts.hours")}</h3>
-            <ul className="tnum m-0 grid list-none gap-2 p-0 font-mono text-xs text-ink-dim">
-              {s.opening_windows.map((w) => (
-                <li key={w.day} className="flex max-w-[260px] justify-between gap-3.5">
-                  <span className="font-body text-[15.5px]">{capitalize(weekdayName(w.day, lang))}</span>
-                  <span>
-                    {w.open}–{w.close}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            {/* Niente orario di chiusura: «sino a notte fonda», come in home.
+                Se un giorno le aperture non coincidessero più, ogni serata
+                torna sulla sua riga invece di dire una cosa falsa. */}
+            {sameOpening ? (
+              <>
+                <p className="m-0 text-[15.5px] text-ink-dim">{s.opening_windows.map((w) => capitalize(weekdayName(w.day, lang))).join(" · ")}</p>
+                <p className="m-0 mt-1 text-[15.5px] text-ink-dim">
+                  {t("home.from")} <span className="tnum font-mono font-medium">{s.opening_windows[0]!.open}</span> {t("home.untilLate")}
+                </p>
+              </>
+            ) : (
+              <ul className="m-0 grid list-none gap-2 p-0 text-[15.5px] text-ink-dim">
+                {s.opening_windows.map((w) => (
+                  <li key={w.day}>
+                    {capitalize(weekdayName(w.day, lang))} · {t("home.from")} <span className="tnum font-mono font-medium">{w.open}</span> {t("home.untilLate")}
+                  </li>
+                ))}
+              </ul>
+            )}
             <p className="mt-2.5 text-xs text-ink-dim">{c("home.nights.holidays")}</p>
           </div>
 
