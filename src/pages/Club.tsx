@@ -33,7 +33,7 @@ export default function Club() {
         title={en ? "Three rooms," : "Tre ambienti,"}
         accent={en ? "one rule." : "una regola."}
         intro={c("club.intro")}
-        image="/placeholders/locale-01.webp"
+        image="/photos/foto-pedana.webp"
       />
 
       {/* chi siamo e cosa si trova: l'apertura della pagina */}
