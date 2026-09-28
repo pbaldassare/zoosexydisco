@@ -28,6 +28,7 @@ const it = {
     call: "Chiama",
     showMap: "Mostra la mappa",
     directions: "Indicazioni stradali",
+    openMaps: "Apri il navigatore",
     send: "Invia",
     sending: "Invio in corso…",
     subscribe: "Iscriviti",

@@ -30,6 +30,7 @@ const en: Dict = {
     call: "Call",
     showMap: "Show the map",
     directions: "Get directions",
+    openMaps: "Open in Maps",
     send: "Send",
     sending: "Sending…",
     subscribe: "Subscribe",

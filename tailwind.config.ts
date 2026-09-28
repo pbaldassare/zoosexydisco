@@ -88,6 +88,11 @@ export default {
           "49%": { opacity: "1" },
           "72%": { opacity: "0.94" },
         },
+        /* il segnaposto della mappa: un battito lento, non un lampeggio */
+        pin: {
+          "0%,100%": { transform: "scale(1)", opacity: "1" },
+          "50%": { transform: "scale(1.16)", opacity: "0.72" },
+        },
         /* l'insegna che si accende all'avvio */
         ignite: {
           "0%": { filter: "brightness(.35) saturate(.6)" },
@@ -104,6 +109,7 @@ export default {
         strike: "strike 1.3s steps(1,end) both",
         hum: "hum 7s ease-in-out infinite",
         ignite: "ignite 1.6s steps(1,end) both",
+        pin: "pin 2.4s ease-in-out infinite",
       },
     },
   },

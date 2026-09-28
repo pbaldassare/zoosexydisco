@@ -40,7 +40,7 @@ export const settings: SiteSettings = {
     en: "Thursday, Friday and Saturday, from 22:30 until late",
   },
   entry_prices: { it: "€ 18, prima consumazione compresa", en: "€18, first drink included" },
-  drink_prices: { it: "€ 10", en: "€10" },
+  drink_prices: { it: "€ 10 dalla seconda in poi", en: "€10 each after the first" },
   logo_path: "/brand/logo-zoo.webp",
   upload_video_max_mb: 50,
   upload_video_max_seconds: 90,

@@ -31,19 +31,26 @@ export function Footer() {
         <div className="grid gap-[34px] pb-[34px] pt-[52px] md:grid-cols-[1.1fr_1fr_1fr_1fr]">
           <div>
             <Logo className="mb-4 size-36 md:size-44" title="" />
-            {/* L'indirizzo è il link alle indicazioni stradali: chi lo legge
-                nel footer di solito sta decidendo se venire stasera. */}
+            {/* Non basta che l'indirizzo sia cliccabile: nessuno lo indovina.
+                È un riquadro con il segnaposto che batte piano e la riga che
+                dice cosa succede toccandolo. */}
             <a
               href={mapsDirections(s.address_venue)}
               target="_blank"
               rel="noopener"
-              className="inline-flex items-start gap-2 text-[15.5px] text-ink-dim no-underline transition-colors hover:text-pink-core"
+              className="group inline-flex items-start gap-3 rounded-tile border border-line bg-panel/60 px-4 py-3.5 no-underline transition-colors hover:border-pink/50"
             >
-              <MapPin className="mt-1 size-4 shrink-0 text-pink" aria-hidden />
-              <span>
+              <MapPin className="mt-0.5 size-[19px] shrink-0 animate-pin text-pink" aria-hidden />
+              <span className="text-[15.5px] leading-snug text-ink-dim">
                 Via Vincenzo Bellini 43
                 <br />
                 24040 Madone (BG)
+                <span className="label mt-2 flex items-center gap-1.5 text-pink-core">
+                  {t("cta.openMaps")}
+                  <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
+                    →
+                  </span>
+                </span>
               </span>
             </a>
           </div>

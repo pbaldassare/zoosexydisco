@@ -43,9 +43,13 @@ if (carnival < today) carnival = carnivalSaturday(today.getFullYear() + 1);
 const night = (d: Date) => ({ starts_at: at(d, 23).toISOString(), ends_at: at(addDays(d, 1), 5).toISOString() });
 const cover = (t: string) => `/placeholders/event-${t}.webp`;
 
+/**
+ * Prezzo d'ingresso delle serate. Oggi è lo stesso per tutte; dall'admin il
+ * gestore potrà scriverne uno diverso per ogni serata a tema.
+ */
 const entrySample = {
-  it: "[da completare]",
-  en: "[to be completed]",
+  it: "€ 18, prima consumazione compresa. Consumazioni successive € 10.",
+  en: "€18, first drink included. Further drinks €10.",
 };
 
 export const events: EventItem[] = [
