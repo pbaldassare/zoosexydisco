@@ -86,7 +86,7 @@ export function NightsList({ className }: { className?: string }) {
             </span>
             {/* L'ora in mono con le cifre tabellari, la frase no: il mono non
                 si usa per le frasi (DESIGN.md, Don'ts). */}
-            <span className="max-w-[16ch] text-balance text-right text-[clamp(15px,1.9vw,20px)] leading-snug text-ink md:max-w-none md:whitespace-nowrap">
+            <span className="on-photo max-w-[16ch] text-balance text-right text-[clamp(15px,1.9vw,20px)] leading-snug text-ink md:max-w-none md:whitespace-nowrap">
               {t("home.from")} <span className="tnum font-mono font-medium">{w.open}</span> {t("home.untilLate")}
             </span>
             {isTurn && (

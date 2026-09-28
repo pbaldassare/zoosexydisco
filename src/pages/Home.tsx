@@ -68,11 +68,11 @@ function Nights() {
         <h2 className="h2 tube-pink md:max-w-[62%]" id="notti-t">
           {c("home.nights.title")}
         </h2>
-        <p className="lead md:max-w-[62%]">{c("home.nights.lead")}</p>
+        <p className="lead on-photo text-ink md:max-w-[62%]">{c("home.nights.lead")}</p>
         <NightsList className="md:max-w-[62%]" />
         <div className="mt-[26px] flex max-w-[62ch] items-start gap-3.5 text-ink-dim md:max-w-[62%]">
           <IcoCalendar className="ico-blue mt-0.5 size-7 flex-none" />
-          <p className="m-0">{c("home.nights.holidays")}</p>
+          <p className="on-photo m-0">{c("home.nights.holidays")}</p>
         </div>
       </div>
     </section>

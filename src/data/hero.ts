@@ -26,7 +26,7 @@
  */
 export const heroBackground = {
   /** Video di sfondo. Metti a `undefined` per usare solo la fotografia. */
-  video: "/hero/hero.mp4" as string | undefined,
+  video: undefined as string | undefined, // rimetti "/hero/hero.mp4" per riaccendere il video
 
   /** Fotografia di ripiego, e primo fotogramma mentre il video carica. */
   poster: "/photos/foto-palo.webp",

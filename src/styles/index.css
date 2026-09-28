@@ -199,22 +199,22 @@
   }
   .hero-photo::after {
     background:
-      radial-gradient(70% 40% at 50% 22%, rgb(var(--wall) / 0.55), rgb(var(--wall) / 0.2) 70%),
-      linear-gradient(180deg, rgb(var(--wall) / 0.6) 0%, rgb(var(--wall) / 0.28) 36%, rgb(var(--wall) / 0.5) 70%, rgb(var(--wall)) 100%);
+      radial-gradient(70% 40% at 50% 22%, rgb(var(--wall) / 0.22), rgb(var(--wall) / 0.04) 70%),
+      linear-gradient(180deg, rgb(var(--wall) / 0.3) 0%, rgb(var(--wall) / 0.05) 36%, rgb(var(--wall) / 0.22) 70%, rgb(var(--wall)) 100%);
   }
 
   .nights-photo {
     background-position: 80% 40%;
   }
   .nights-photo::after {
-    background: linear-gradient(180deg, rgb(var(--wall)) 0%, rgb(var(--wall) / 0.72) 20%, rgb(var(--wall) / 0.82) 80%, rgb(var(--wall)) 100%);
+    background: linear-gradient(180deg, rgb(var(--wall)) 0%, rgb(var(--wall) / 0.58) 22%, rgb(var(--wall) / 0.5) 78%, rgb(var(--wall)) 100%);
   }
 
   .rules-photo {
     background-position: 70% 35%;
   }
   .rules-photo::after {
-    background: linear-gradient(180deg, rgb(var(--panel) / 0.78), rgb(var(--panel) / 0.92));
+    background: linear-gradient(180deg, rgb(var(--panel) / 0.64), rgb(var(--panel) / 0.8));
   }
 
   @media (min-width: 900px) {
@@ -226,8 +226,8 @@
     }
     .hero-photo::after {
       background:
-        linear-gradient(90deg, rgb(var(--wall)) 30%, rgb(var(--wall) / 0.55) 62%, rgb(var(--wall) / 0.25) 100%),
-        linear-gradient(180deg, rgb(var(--wall) / 0.6) 0%, rgb(var(--wall) / 0) 30%, rgb(var(--wall) / 0.2) 75%, rgb(var(--wall)) 100%);
+        linear-gradient(90deg, rgb(var(--wall)) 26%, rgb(var(--wall) / 0.4) 62%, rgb(var(--wall) / 0.08) 100%),
+        linear-gradient(180deg, rgb(var(--wall) / 0.45) 0%, rgb(var(--wall) / 0) 30%, rgb(var(--wall) / 0.12) 75%, rgb(var(--wall)) 100%);
     }
     .nights-photo {
       background-size: auto 115%;
@@ -235,7 +235,7 @@
     }
     .nights-photo::after {
       background:
-        linear-gradient(90deg, rgb(var(--wall)) 38%, rgb(var(--wall) / 0.6) 62%, rgb(var(--wall) / 0.1) 100%),
+        linear-gradient(90deg, rgb(var(--wall)) 34%, rgb(var(--wall) / 0.42) 62%, rgb(var(--wall) / 0) 100%),
         linear-gradient(180deg, rgb(var(--wall)) 0%, rgb(var(--wall) / 0) 18%, rgb(var(--wall) / 0) 82%, rgb(var(--wall)) 100%);
     }
     .rules-photo {
@@ -243,8 +243,17 @@
       background-position: 104% 30%;
     }
     .rules-photo::after {
-      background: linear-gradient(90deg, rgb(var(--panel)) 42%, rgb(var(--panel) / 0.55) 70%, rgb(var(--panel) / 0.2) 100%);
+      background: linear-gradient(90deg, rgb(var(--panel)) 38%, rgb(var(--panel) / 0.38) 70%, rgb(var(--panel) / 0.04) 100%);
     }
+  }
+
+  /* Testo appoggiato a una fotografia: l'alone scuro lo stacca dallo sfondo,
+   * così il velo può restare leggero e la foto si vede. */
+  .on-photo {
+    text-shadow:
+      0 1px 10px rgb(var(--wall)),
+      0 0 26px rgb(var(--wall)),
+      0 0 46px rgb(var(--wall) / 0.9);
   }
 
   /* ---------- icone al neon ---------- */
