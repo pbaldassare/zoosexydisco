@@ -1,4 +1,3 @@
-import { PLACEHOLDER } from "@/lib/utils";
 import type { SiteSettings } from "./types";
 
 /**
@@ -21,12 +20,13 @@ export const settings: SiteSettings = {
     { name: "Diana", phone: "347 587 2376" },
     { name: "Alessia", phone: "333 894 2087" },
   ],
-  // Giovedì 22–02, venerdì e sabato 22–03:30. Le aperture extra di festività
+  // Si apre alle 22:30; la chiusura resta qui perché serve a calcolare se
+  // stasera siamo aperti, ma in pagina non si mostra. Le aperture extra di festività
   // e dicembre si pubblicano di volta in volta come serate.
   opening_windows: [
-    { day: 4, open: "22:00", close: "02:00" },
-    { day: 5, open: "22:00", close: "03:30" },
-    { day: 6, open: "22:00", close: "03:30" },
+    { day: 4, open: "22:30", close: "02:00" },
+    { day: 5, open: "22:30", close: "03:30" },
+    { day: 6, open: "22:30", close: "03:30" },
   ],
   instagram_handle: "zoosexydisco_",
   instagram_url: "https://www.instagram.com/zoosexydisco_/",
@@ -36,11 +36,11 @@ export const settings: SiteSettings = {
   // Riga leggibile, usata dove serve una frase sola (Il locale, Contatti,
   // dati strutturati). Niente orario di chiusura: vale quanto si legge in home.
   opening_hours: {
-    it: "Giovedì, venerdì e sabato, dalle 22:00 sino a notte fonda",
-    en: "Thursday, Friday and Saturday, from 22:00 until late",
+    it: "Giovedì, venerdì e sabato, dalle 22:30 sino a notte fonda",
+    en: "Thursday, Friday and Saturday, from 22:30 until late",
   },
-  entry_prices: { it: PLACEHOLDER, en: PLACEHOLDER },
-  drink_prices: { it: PLACEHOLDER, en: PLACEHOLDER },
+  entry_prices: { it: "€ 18, prima consumazione compresa", en: "€18, first drink included" },
+  drink_prices: { it: "€ 10", en: "€10" },
   logo_path: "/brand/logo-zoo.webp",
   upload_video_max_mb: 50,
   upload_video_max_seconds: 90,

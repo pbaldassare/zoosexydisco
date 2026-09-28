@@ -105,9 +105,10 @@ export const reviews: Review[] = reviewTexts.map(([it, en], i) => ({
 /* ---------- ruoli aperti (titoli neutri rispetto al genere) ---------- */
 export const jobRoles: JobRole[] = [
   { id: "j-ballo", name: { it: "Ballerina", en: "Dancer" }, active: true, sort: 1 },
-  { id: "j-sala", name: { it: "Cameriere / Cameriera", en: "Waiting staff" }, active: true, sort: 2 },
-  { id: "j-bar", name: { it: "Barman / Barlady", en: "Bartender" }, active: true, sort: 3 },
-  { id: "j-sec", name: { it: "Sicurezza", en: "Security" }, active: true, sort: 4 },
+  { id: "j-figurante", name: { it: "Figurante di sala", en: "Floor host" }, active: true, sort: 2 },
+  { id: "j-sala", name: { it: "Cameriere / Cameriera", en: "Waiting staff" }, active: true, sort: 3 },
+  { id: "j-bar", name: { it: "Barman / Barlady", en: "Bartender" }, active: true, sort: 4 },
+  { id: "j-sec", name: { it: "Sicurezza", en: "Security" }, active: true, sort: 5 },
 ];
 
 /* ---------- promozioni ---------- */
