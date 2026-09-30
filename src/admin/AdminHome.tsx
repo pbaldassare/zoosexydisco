@@ -6,7 +6,7 @@ import { useAuth } from "./auth";
 /** Le sezioni con `to` sono pronte; le altre arrivano una alla volta. */
 const SECTIONS: { name: string; to?: string; hint?: string }[] = [
   { name: "Testi", to: "testi", hint: "Tutti i testi del sito, in italiano e inglese" },
-  { name: "Impostazioni" },
+  { name: "Impostazioni", to: "impostazioni", hint: "Contatti, orari, prezzi, indirizzo, Instagram" },
   { name: "Media" },
   { name: "Eventi" },
   { name: "Temi" },

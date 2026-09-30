@@ -6,6 +6,7 @@ import { AdminLayout } from "./AdminLayout";
 import { Login } from "./Login";
 import { NewPassword } from "./NewPassword";
 import { NotAdmin } from "./NotAdmin";
+import { Settings } from "./settings/Settings";
 import { Texts } from "./texts/Texts";
 
 /** Senza sessione si va al login; con sessione ma fuori da admin_users, nessuna sezione. */
@@ -39,6 +40,7 @@ export default function AdminApp() {
         >
           <Route index element={<AdminHome />} />
           <Route path="testi" element={<Texts />} />
+          <Route path="impostazioni" element={<Settings />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Route>
       </Routes>

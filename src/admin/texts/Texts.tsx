@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ExternalLink, Search } from "lucide-react";
 import { Input, Textarea } from "@/components/forms/fields";
-import { Button } from "@/components/ui/button";
 import { adminClient } from "@/lib/supabase";
 import { pathFor } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import { Notice } from "../AuthShell";
+import { SaveBar } from "../SaveBar";
 import { TEXT_GROUPS, type TextEntry } from "./catalog";
 
 type Pair = { it: string; en: string };
@@ -38,14 +38,6 @@ export function Texts() {
     [draft, saved],
   );
   const emptyIt = dirty.filter((k) => !draft[k]!.it.trim());
-
-  // Uscendo con modifiche non salvate il browser chiede conferma.
-  useEffect(() => {
-    if (!dirty.length) return;
-    const warn = (e: BeforeUnloadEvent) => e.preventDefault();
-    window.addEventListener("beforeunload", warn);
-    return () => window.removeEventListener("beforeunload", warn);
-  }, [dirty.length]);
 
   const save = useMutation({
     mutationFn: async () => {
@@ -154,33 +146,15 @@ export function Texts() {
         </section>
       ))}
 
-      {(dirty.length > 0 || done || save.isError) && (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-wall/95 backdrop-blur-xl">
-          <div className="container-site flex min-h-[76px] items-center justify-between gap-4 py-3">
-            <div className="text-sm" aria-live="polite">
-              {save.isError ? (
-                <span className="text-danger">Salvataggio non riuscito. Riprova.</span>
-              ) : emptyIt.length ? (
-                <span className="text-danger">L'italiano non può restare vuoto.</span>
-              ) : dirty.length ? (
-                <span className="text-ink">{dirty.length === 1 ? "1 modifica da salvare" : `${dirty.length} modifiche da salvare`}</span>
-              ) : (
-                <span className="text-blue-core">Salvato. Il sito è già aggiornato.</span>
-              )}
-            </div>
-            {dirty.length > 0 && (
-              <div className="flex shrink-0 gap-2">
-                <Button type="button" variant="ghost" size="sm" onClick={() => setDraft({})} disabled={save.isPending}>
-                  Annulla
-                </Button>
-                <Button type="button" size="sm" onClick={() => save.mutate()} disabled={save.isPending || emptyIt.length > 0}>
-                  {save.isPending ? "Salvo…" : "Salva"}
-                </Button>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      <SaveBar
+        dirty={dirty.length}
+        saving={save.isPending}
+        failed={save.isError}
+        saved={done}
+        blocked={emptyIt.length ? "L'italiano non può restare vuoto." : undefined}
+        onSave={() => save.mutate()}
+        onCancel={() => setDraft({})}
+      />
     </div>
   );
 }
