@@ -14,6 +14,7 @@ const it = {
     menu: "Menu",
     openMenu: "Apri il menu",
     closeMenu: "Chiudi il menu",
+    login: "Accedi",
     home: "Torna alla home",
     skip: "Vai al contenuto",
   },

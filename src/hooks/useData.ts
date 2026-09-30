@@ -5,6 +5,7 @@ import type { Media } from "@/data/types";
 
 export const useSettings = () => useQuery({ queryKey: ["settings"], queryFn: api.settings });
 export const useActiveTheme = () => useQuery({ queryKey: ["active-theme"], queryFn: api.activeTheme, staleTime: 5 * 60_000 });
+export const useThemes = () => useQuery({ queryKey: ["themes"], queryFn: api.themes });
 export const useEvents = () => useQuery({ queryKey: ["events"], queryFn: api.events });
 export const useEvent = (slug: string) => useQuery({ queryKey: ["event", slug], queryFn: () => api.event(slug) });
 export const useNextEvent = () => useQuery({ queryKey: ["next-event"], queryFn: api.nextEvent });

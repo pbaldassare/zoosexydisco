@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { UserRound } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { AdultsBadge } from "@/components/ui/icons";
 import { useLang } from "@/hooks/useLang";
@@ -52,6 +53,11 @@ export function Header() {
           </ul>
         </nav>
 
+        {/* Ingresso al pannello admin: discreto, solo icona sul telefono. */}
+        <Link to="/admin/login" aria-label={t("nav.login")} className={cn(linkCls({ isActive: false }), "gap-2 px-2.5")}>
+          <UserRound className="size-5" aria-hidden />
+          <span className="hidden sm:inline">{t("nav.login")}</span>
+        </Link>
         <LangSwitch />
         <AdultsBadge className="hidden lg:inline-flex" />
         <MobileMenu />

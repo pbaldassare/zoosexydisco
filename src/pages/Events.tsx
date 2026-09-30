@@ -5,8 +5,7 @@ import { PageHero } from "@/components/sections/PageHero";
 import { Button } from "@/components/ui/button";
 import { Seo } from "@/components/ui/seo";
 import { eventStatus } from "@/data/events";
-import { themes } from "@/data/themes";
-import { useContent, useEvents } from "@/hooks/useData";
+import { useContent, useEvents, useThemes } from "@/hooks/useData";
 import { cn } from "@/lib/utils";
 
 const ARCHIVE_PAGE = 6;
@@ -15,6 +14,7 @@ export default function Events() {
   const { t } = useTranslation();
   const c = useContent();
   const { data: all = [] } = useEvents();
+  const { data: themes = [] } = useThemes();
   const [theme, setTheme] = useState<string>("all");
   const [archiveCount, setArchiveCount] = useState(ARCHIVE_PAGE);
 

@@ -3,6 +3,7 @@
  * dal nome dell'elemento, quindi rilanciarlo aggiorna invece di duplicare.
  *
  *   npm run seed         genera i placeholder (se mancano) e carica tutto
+ *   npm run seed -- --prune  in più toglie righe e file non più in src/data
  *   npm run seed:clean   cancella tutto ciò che ha is_sample = true
  *
  * Usa SUPABASE_SERVICE_ROLE_KEY da .env.local: mai nel frontend.
@@ -64,6 +65,19 @@ async function upsert(table: string, rows: Record<string, unknown>[], onConflict
   console.log(`  ${table}: ${rows.length}`);
 }
 
+/**
+ * Con --prune toglie le righe che non sono più in src/data: per le tabelle con
+ * is_sample solo quelle di esempio; testi e ruoli non hanno quel campo, quindi
+ * va usato prima che l'admin ne crei di suoi.
+ */
+async function prune(table: string, column: string, keep: string[], sampleOnly = true) {
+  let q = db.from(table).delete({ count: "exact" }).not(column, "in", `(${keep.map((k) => `"${k}"`).join(",")})`);
+  if (sampleOnly) q = q.eq("is_sample", true);
+  const { error, count } = await q;
+  if (error) throw new Error(`prune ${table}: ${error.message}`);
+  if (count) console.log(`  ${table}: ${count} tolti`);
+}
+
 async function seed() {
   if (!existsSync(path.join(root, "public", "placeholders", "hero-01.webp"))) {
     throw new Error("Mancano le immagini: esegui prima npm run placeholders");
@@ -85,6 +99,8 @@ async function seed() {
         email: settings.email,
         phone: settings.phone,
         whatsapp: settings.whatsapp,
+        contacts: settings.contacts,
+        opening_windows: settings.opening_windows,
         instagram_handle: settings.instagram_handle,
         instagram_url: settings.instagram_url,
         google_reviews_url: settings.google_reviews_url,
@@ -215,6 +231,30 @@ async function seed() {
       is_sample: true,
     })),
   );
+
+  if (process.argv.includes("--prune")) {
+    await prune("themes", "id", themeRows.map((r) => r.id));
+    await prune("events", "slug", eventRows.map((r) => r.slug));
+    await prune("reviews", "id", reviews.map((r) => stableId(r.id)));
+    await prune("promotions", "id", promotions.map((p) => stableId(p.id)));
+
+    // I media tolti portano via anche i loro file.
+    const keepMedia = mediaRows.map((r) => r.id);
+    const { data: gone, error: ge } = await db
+      .from("media")
+      .select("bucket, path, thumb_path, poster_path")
+      .eq("is_sample", true)
+      .not("id", "in", `(${keepMedia.join(",")})`);
+    if (ge) throw ge;
+    for (const f of gone ?? []) await db.storage.from(f.bucket).remove([f.path, f.thumb_path, f.poster_path].filter(Boolean));
+    await prune("media", "id", keepMedia);
+
+    await prune("content_blocks", "key", [
+      ...Object.keys(content),
+      ...timeline.flatMap((_, i) => ["year", "title", "text"].map((f) => `story.${i + 1}.${f}`)),
+    ], false);
+    await prune("job_roles", "id", jobRoles.map((j) => stableId(j.id)), false);
+  }
 
   console.log("Fatto.");
 }

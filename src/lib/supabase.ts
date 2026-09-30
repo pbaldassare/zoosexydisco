@@ -9,7 +9,12 @@ const key = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
  */
 export const DATA_SOURCE: "local" | "supabase" = import.meta.env.VITE_DATA_SOURCE === "supabase" && url && key ? "supabase" : "local";
 
-export const supabase: SupabaseClient | null = DATA_SOURCE === "supabase" ? createClient(url!, key!) : null;
+const client: SupabaseClient | null = url && key ? createClient(url, key) : null;
+
+export const supabase: SupabaseClient | null = DATA_SOURCE === "supabase" ? client : null;
+
+/** Il pannello admin lavora sempre su Supabase, anche quando il sito legge i dati locali. */
+export const adminClient = client;
 
 /** URL pubblico di un file in un bucket pubblico; i path già assoluti passano invariati. */
 export function publicUrl(bucket: string, path: string | null | undefined): string {

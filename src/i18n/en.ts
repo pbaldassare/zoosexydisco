@@ -16,6 +16,7 @@ const en: Dict = {
     menu: "Menu",
     openMenu: "Open menu",
     closeMenu: "Close menu",
+    login: "Log in",
     home: "Back to home",
     skip: "Skip to content",
   },

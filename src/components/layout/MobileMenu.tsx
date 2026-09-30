@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { UserRound } from "lucide-react";
 import { ContactButtons } from "@/components/sections/ContactButtons";
 import { AdultsBadge } from "@/components/ui/icons";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
@@ -63,6 +64,9 @@ export function MobileMenu() {
               <span className="flex items-center gap-2">
                 <AdultsBadge /> {t("rules.adults")}
               </span>
+              <Link to="/admin/login" className="flex min-h-11 items-center gap-2 no-underline hover:text-pink-core">
+                <UserRound className="size-5" aria-hidden /> {t("nav.login")}
+              </Link>
             </div>
           </div>,
           document.body,

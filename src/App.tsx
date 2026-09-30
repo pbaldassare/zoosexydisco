@@ -19,7 +19,7 @@ const pages: Record<Exclude<RouteKey, "home">, React.LazyExoticComponent<React.C
   privacy: lazy(() => import("@/pages/Privacy")),
 };
 const NotFound = lazy(() => import("@/pages/NotFound"));
-const Admin = lazy(() => import("@/admin/AdminPlaceholder"));
+const Admin = lazy(() => import("@/admin/AdminApp"));
 
 /** «/» → lingua salvata dall'utente, altrimenti quella del browser. */
 function RootRedirect() {
