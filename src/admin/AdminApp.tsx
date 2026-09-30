@@ -2,9 +2,11 @@ import { Helmet } from "react-helmet-async";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { AuthProvider, useAuth } from "./auth";
 import { AdminHome } from "./AdminHome";
+import { AdminLayout } from "./AdminLayout";
 import { Login } from "./Login";
 import { NewPassword } from "./NewPassword";
 import { NotAdmin } from "./NotAdmin";
+import { Texts } from "./texts/Texts";
 
 /** Senza sessione si va al login; con sessione ma fuori da admin_users, nessuna sezione. */
 function Guard({ children }: { children: React.ReactNode }) {
@@ -29,13 +31,16 @@ export default function AdminApp() {
         <Route path="login" element={<Login />} />
         <Route path="password" element={<NewPassword />} />
         <Route
-          path="*"
           element={
             <Guard>
-              <AdminHome />
+              <AdminLayout />
             </Guard>
           }
-        />
+        >
+          <Route index element={<AdminHome />} />
+          <Route path="testi" element={<Texts />} />
+          <Route path="*" element={<Navigate to="/admin" replace />} />
+        </Route>
       </Routes>
     </AuthProvider>
   );
