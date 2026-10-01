@@ -5,6 +5,7 @@ import { useAuth } from "./auth";
 
 /** Le sezioni con `to` sono pronte; le altre arrivano una alla volta. */
 const SECTIONS: { name: string; to?: string; hint?: string }[] = [
+  { name: "Dashboard", to: "dashboard", hint: "Visite, provenienza, tocchi su WhatsApp e telefono" },
   { name: "Testi", to: "testi", hint: "Tutti i testi del sito, in italiano e inglese" },
   { name: "Impostazioni", to: "impostazioni", hint: "Contatti, orari, prezzi, indirizzo, Instagram" },
   { name: "Media", to: "media", hint: "Carica foto e video, scegli dove compaiono" },
@@ -16,7 +17,6 @@ const SECTIONS: { name: string; to?: string; hint?: string }[] = [
   { name: "Messaggi", to: "messaggi", hint: "Dal modulo della pagina Contatti" },
   { name: "Candidature", to: "candidature", hint: "Da Lavora con noi: foto, CV, stato" },
   { name: "Newsletter" },
-  { name: "Dashboard" },
   { name: "Esempi", to: "esempi", hint: "I contenuti di prova da togliere" },
 ];
 

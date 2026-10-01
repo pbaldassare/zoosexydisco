@@ -4,3 +4,7 @@ project_id = "rpbprmngkkscnhqqayfq"
 # Chiamate da pg_cron con un segreto proprio, non con un JWT.
 [functions.purge-expired]
 verify_jwt = false
+
+# Chiamata con sendBeacon, che non manda intestazioni: niente JWT.
+[functions.track]
+verify_jwt = false

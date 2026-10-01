@@ -8,6 +8,7 @@ import { useSettings } from "@/hooks/useData";
 import { useLang } from "@/hooks/useLang";
 import { useScrollY } from "@/hooks/useScrollY";
 import { useThemeVars } from "@/hooks/useThemeVars";
+import { trackContactClicks, trackPage } from "@/lib/track";
 import { cn } from "@/lib/utils";
 import { waLink } from "@/lib/whatsapp";
 import { AgeGate } from "./AgeGate";
@@ -47,6 +48,10 @@ export function SiteLayout() {
   useEffect(() => {
     if (i18n.language !== lang) void i18n.changeLanguage(lang);
   }, [lang, i18n]);
+
+  // Statistiche in-house: una riga per pagina, nessun dato personale.
+  useEffect(() => trackContactClicks(), []);
+  useEffect(() => trackPage(pathname, lang), [pathname, lang]);
 
   // Cambio pagina: si torna in cima. Con un'ancora (#notti) si va invece alla
   // sezione — anche quando si è già sulla pagina, dove il percorso non cambia.

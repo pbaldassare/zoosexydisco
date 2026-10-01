@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from "./auth";
 import { AdminHome } from "./AdminHome";
 import { Applications } from "./applications/Applications";
 import { AdminLayout } from "./AdminLayout";
+import { Dashboard } from "./dashboard/Dashboard";
 import { EventEditorPage } from "./events/EventEditor";
 import { Events } from "./events/Events";
 import { Login } from "./Login";
@@ -61,6 +62,7 @@ export default function AdminApp() {
           <Route path="recensioni" element={<Reviews />} />
           <Route path="ruoli" element={<Roles />} />
           <Route path="esempi" element={<Samples />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="messaggi" element={<Messages />} />
           <Route path="candidature" element={<Applications />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
