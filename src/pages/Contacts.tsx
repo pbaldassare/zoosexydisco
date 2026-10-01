@@ -4,7 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
 import type { z } from "zod";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { Checkbox, ConsentLabel, Field, Input, SentPanel, Textarea, TurnstileSlot } from "@/components/forms/fields";
+import { Checkbox, ConsentLabel, Field, Input, SentPanel, Textarea } from "@/components/forms/fields";
+import { Turnstile } from "@/components/forms/Turnstile";
 import { contactSchema } from "@/components/forms/schemas";
 import { InstagramQr } from "@/components/sections/InstagramQr";
 import { PageHero } from "@/components/sections/PageHero";
@@ -16,7 +17,7 @@ import { useL } from "@/hooks/useLang";
 import { nightClubJsonLd } from "@/lib/jsonld";
 import { mapsDirections } from "@/lib/maps";
 import { telLink, waLink } from "@/lib/whatsapp";
-import { api } from "@/services/api";
+import { api, SubmitError } from "@/services/api";
 
 type Values = z.infer<ReturnType<typeof contactSchema>>;
 
@@ -54,7 +55,11 @@ export default function Contacts() {
   const c = useContent();
   const l = useL();
   const { data: s } = useSettings();
-  const [sent, setSent] = useState(false);
+  const [sent, setSent] = useState<{ demo: boolean } | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  // Il token anti-spam vale una volta: dopo un errore il widget si rimonta.
+  const [widget, setWidget] = useState(0);
+  const [sendErr, setSendErr] = useState("");
   const { register, handleSubmit, formState } = useForm<Values>({ resolver: zodResolver(contactSchema(t)) });
   const e = formState.errors;
   if (!s) return null;
@@ -142,14 +147,22 @@ export default function Contacts() {
           </div>
           <div className="md:col-span-7 md:col-start-6">
             {sent ? (
-              <SentPanel title={t("form.sentTitle")} body={t("form.sentBody")} demo />
+              <SentPanel title={t("form.sentTitle")} body={t("form.sentBody")} demo={sent.demo} />
             ) : (
               <form
                 noValidate
                 className="grid gap-8 sm:grid-cols-2"
                 onSubmit={handleSubmit(async (v) => {
-                  await api.submitContact({ kind: "contact", ...v });
-                  setSent(true);
+                  setSendErr("");
+                  if (!token) return setSendErr(t("form.turnstileWait"));
+                  try {
+                    const r = await api.submitContact({ kind: "contact", ...v, turnstile: token });
+                    setSent({ demo: r.demo });
+                  } catch (err) {
+                    setSendErr(err instanceof SubmitError && err.code === "turnstile" ? t("form.turnstileWait") : t("form.sendError"));
+                    setToken(null);
+                    setWidget((w) => w + 1);
+                  }
                 })}
               >
                 <Field label={t("form.name")} error={e.name?.message} required>
@@ -173,12 +186,17 @@ export default function Contacts() {
                   )}
                 </div>
                 <div className="sm:col-span-2">
-                  <TurnstileSlot />
+                  <Turnstile key={widget} onToken={setToken} />
                 </div>
                 <div className="sm:col-span-2">
                   <Button type="submit" disabled={formState.isSubmitting}>
                     {formState.isSubmitting ? t("cta.sending") : t("cta.send")}
                   </Button>
+                  {sendErr && (
+                    <p role="alert" className="mt-3 text-sm text-danger">
+                      {sendErr}
+                    </p>
+                  )}
                 </div>
               </form>
             )}

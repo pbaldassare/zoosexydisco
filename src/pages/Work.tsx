@@ -4,7 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
 import type { z } from "zod";
 import { FileText, ImagePlus, Info, X } from "lucide-react";
-import { Checkbox, ConsentLabel, Field, Input, Select, SentPanel, Textarea, TurnstileSlot } from "@/components/forms/fields";
+import { Checkbox, ConsentLabel, Field, Input, Select, SentPanel, Textarea } from "@/components/forms/fields";
+import { Turnstile } from "@/components/forms/Turnstile";
 import { applicationSchema } from "@/components/forms/schemas";
 import { PageHero } from "@/components/sections/PageHero";
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,7 @@ import { useContent, useJobRoles } from "@/hooks/useData";
 import { useL } from "@/hooks/useLang";
 import { MB, resizeToWebp } from "@/lib/images";
 import { cn } from "@/lib/utils";
-import { api } from "@/services/api";
+import { api, SubmitError } from "@/services/api";
 
 type Values = z.infer<ReturnType<typeof applicationSchema>>;
 type Photo = { name: string; blob: Blob; preview: string };
@@ -25,14 +26,17 @@ export default function Work() {
   const c = useContent();
   const l = useL();
   const { data: roles = [] } = useJobRoles();
-  const [sent, setSent] = useState(false);
+  const [sent, setSent] = useState<{ demo: boolean } | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const [widget, setWidget] = useState(0);
+  const [sendErr, setSendErr] = useState("");
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [cv, setCv] = useState<File | null>(null);
   const [extra, setExtra] = useState<File[]>([]);
   const [fileErr, setFileErr] = useState<{ photos?: string; cv?: string; extra?: string }>({});
   const [busy, setBusy] = useState(false);
 
-  const { register, handleSubmit, formState, reset } = useForm<Values>({
+  const { register, handleSubmit, formState, reset, setError } = useForm<Values>({
     resolver: zodResolver(applicationSchema(t)),
     defaultValues: { days: [], role_id: "" },
   });
@@ -78,20 +82,33 @@ export default function Work() {
   }
 
   const onSubmit = handleSubmit(async (v) => {
+    setSendErr("");
     if (!photos.length) return setFileErr((x) => ({ ...x, photos: t("form.needPhoto") }));
+    if (!token) return setSendErr(t("form.turnstileWait"));
     const fd = new FormData();
     Object.entries(v).forEach(([k, val]) => fd.append(k, Array.isArray(val) ? JSON.stringify(val) : String(val ?? "")));
     photos.forEach((p) => fd.append("photos", p.blob, p.name));
     if (cv) fd.append("cv", cv);
     extra.forEach((f) => fd.append("extra", f));
-    await api.submitApplication(fd);
+    fd.append("turnstile", token);
+    let result: { demo: boolean };
+    try {
+      result = await api.submitApplication(fd);
+    } catch (err) {
+      const code = err instanceof SubmitError ? err.code : "network";
+      if (code === "underage") setError("birth_date", { message: t("form.underage") });
+      setSendErr(code === "turnstile" ? t("form.turnstileWait") : code === "files" ? t("form.filesRejected") : code === "underage" ? t("form.underage") : t("form.sendError"));
+      setToken(null);
+      setWidget((w) => w + 1);
+      return;
+    }
     // Nessun dato resta nel browser dopo l'invio.
     photos.forEach((p) => URL.revokeObjectURL(p.preview));
     setPhotos([]);
     setCv(null);
     setExtra([]);
     reset();
-    setSent(true);
+    setSent({ demo: result.demo });
   });
 
   return (
@@ -116,7 +133,7 @@ export default function Work() {
         <div className="md:col-span-7">
           <h2 className="h2 tube-pink text-2xl">{t("work.form")}</h2>
           {sent ? (
-            <SentPanel title={t("form.sentTitle")} body={t("form.appSentBody")} demo />
+            <SentPanel title={t("form.sentTitle")} body={t("form.appSentBody")} demo={sent.demo} />
           ) : (
             <form noValidate onSubmit={onSubmit} className="grid gap-8 sm:grid-cols-2">
               <Field label={t("form.firstName")} error={e.first_name?.message} required>
@@ -268,12 +285,13 @@ export default function Work() {
                 {e.consent && <p role="alert" className="mt-2 text-xs text-danger">{e.consent.message}</p>}
               </div>
               <div className="sm:col-span-2">
-                <TurnstileSlot />
+                <Turnstile key={widget} onToken={setToken} />
               </div>
               <div className="sm:col-span-2">
                 <Button type="submit" disabled={formState.isSubmitting || busy}>
                   {formState.isSubmitting ? t("cta.sending") : t("cta.send")}
                 </Button>
+                {sendErr && <p role="alert" className="mt-3 text-sm text-danger">{sendErr}</p>}
               </div>
             </form>
           )}

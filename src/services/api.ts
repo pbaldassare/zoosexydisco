@@ -14,6 +14,25 @@ import { remote } from "./remote";
 
 const delay = <T,>(v: T) => Promise.resolve(v);
 
+/** Errore di un invio, con il codice della funzione: «turnstile», «invalid», «underage», «files»… */
+export class SubmitError extends Error {
+  constructor(
+    public code: string,
+    public fields: string[] = [],
+  ) {
+    super(code);
+  }
+}
+
+async function submit(fn: string, body: Record<string, unknown> | FormData) {
+  const { error } = await supabase!.functions.invoke(fn, { body });
+  if (!error) return { ok: true as const, demo: false };
+  // Le risposte 4xx portano il motivo nel corpo.
+  const res = (error as { context?: Response }).context;
+  const j = res && typeof res.json === "function" ? await res.json().catch(() => null) : null;
+  throw new SubmitError(j?.error ?? "network", j?.fields ?? []);
+}
+
 /** Dati locali di esempio (src/data): usati senza Supabase o con VITE_DATA_SOURCE=local. */
 const local = {
   settings: () => delay(settings),
@@ -74,14 +93,20 @@ export const api = {
     return error || !data?.url ? null : data.url;
   },
 
-  /* Invii dei moduli: in anteprima si limitano a simulare la risposta. */
-  submitContact: async (_payload: Record<string, unknown>) => {
-    await new Promise((r) => setTimeout(r, 700));
-    return { ok: true as const, demo: true };
+  /* Invii dei moduli: con Supabase passano dalle Edge Functions; senza, simulano la risposta. */
+  submitContact: async (payload: Record<string, unknown>) => {
+    if (!supabase) {
+      await new Promise((r) => setTimeout(r, 700));
+      return { ok: true as const, demo: true };
+    }
+    return submit("contact-submit", payload);
   },
-  submitApplication: async (_payload: FormData) => {
-    await new Promise((r) => setTimeout(r, 900));
-    return { ok: true as const, demo: true };
+  submitApplication: async (payload: FormData) => {
+    if (!supabase) {
+      await new Promise((r) => setTimeout(r, 900));
+      return { ok: true as const, demo: true };
+    }
+    return submit("application-submit", payload);
   },
   subscribe: async (_payload: { name: string; email: string; lang: string }) => {
     await new Promise((r) => setTimeout(r, 700));

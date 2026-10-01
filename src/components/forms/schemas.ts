@@ -47,7 +47,8 @@ export const applicationSchema = (t: TFunction) =>
     experience: z.string().trim().optional(),
     days: z.array(z.string()),
     period: z.string().trim().optional(),
-    travel: z.enum(["yes", "no"]).optional(),
+    // Una domanda a scelta non toccata vale null: deve restare facoltativa davvero.
+    travel: z.enum(["yes", "no"]).nullish(),
     notes: z.string().trim().optional(),
     consent: z.literal(true, { message: t("form.consentRequired") }),
   });

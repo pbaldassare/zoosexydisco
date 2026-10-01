@@ -2,11 +2,13 @@ import { Helmet } from "react-helmet-async";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { AuthProvider, useAuth } from "./auth";
 import { AdminHome } from "./AdminHome";
+import { Applications } from "./applications/Applications";
 import { AdminLayout } from "./AdminLayout";
 import { EventEditorPage } from "./events/EventEditor";
 import { Events } from "./events/Events";
 import { Login } from "./Login";
 import { Media } from "./media/Media";
+import { Messages } from "./messages/Messages";
 import { NewPassword } from "./NewPassword";
 import { NotAdmin } from "./NotAdmin";
 import { Settings } from "./settings/Settings";
@@ -59,6 +61,8 @@ export default function AdminApp() {
           <Route path="recensioni" element={<Reviews />} />
           <Route path="ruoli" element={<Roles />} />
           <Route path="esempi" element={<Samples />} />
+          <Route path="messaggi" element={<Messages />} />
+          <Route path="candidature" element={<Applications />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Route>
       </Routes>
