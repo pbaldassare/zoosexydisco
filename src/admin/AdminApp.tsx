@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from "./auth";
 import { AdminHome } from "./AdminHome";
 import { AdminLayout } from "./AdminLayout";
 import { Login } from "./Login";
+import { Media } from "./media/Media";
 import { NewPassword } from "./NewPassword";
 import { NotAdmin } from "./NotAdmin";
 import { Settings } from "./settings/Settings";
@@ -41,6 +42,7 @@ export default function AdminApp() {
           <Route index element={<AdminHome />} />
           <Route path="testi" element={<Texts />} />
           <Route path="impostazioni" element={<Settings />} />
+          <Route path="media" element={<Media />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Route>
       </Routes>

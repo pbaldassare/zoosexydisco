@@ -51,7 +51,7 @@ Textarea.displayName = "Textarea";
 export const Select = forwardRef<HTMLSelectElement, React.SelectHTMLAttributes<HTMLSelectElement>>(({ className, children, ...p }, ref) => (
   <select
     ref={ref}
-    className={cn(control, "min-h-[52px] cursor-pointer appearance-none bg-[length:12px] bg-[right_18px_center] bg-no-repeat pr-11 [&>option]:bg-panel", className)}
+    className={cn(control, "min-h-[52px] cursor-pointer appearance-none bg-[length:12px] bg-[position:right_18px_center] bg-no-repeat pr-11 [&>option]:bg-panel", className)}
     style={{
       backgroundImage:
         "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23BDAAC4' fill='none' stroke-width='1.5'/%3E%3C/svg%3E\")",

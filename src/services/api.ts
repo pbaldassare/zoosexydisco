@@ -9,7 +9,7 @@ import { themes, resolveActiveTheme } from "@/data/themes";
 import { events, eventStatus } from "@/data/events";
 import { jobRoles, media, promotions, reviews, timeline } from "@/data/catalog";
 import type { EventItem, Media } from "@/data/types";
-import { DATA_SOURCE } from "@/lib/supabase";
+import { DATA_SOURCE, supabase } from "@/lib/supabase";
 import { remote } from "./remote";
 
 const delay = <T,>(v: T) => Promise.resolve(v);
@@ -65,10 +65,14 @@ export const api = {
   ...reads,
 
   /**
-   * Chiederà a sign-media un URL firmato di 300 secondi. Senza Supabase non c'è
-   * nessun file video da firmare: restituisce null e il player lo dice.
+   * Chiede a sign-media un URL firmato di 300 secondi. Senza Supabase (o se la
+   * funzione non risponde) restituisce null e il player lo dice.
    */
-  signMedia: async (_mediaId: string): Promise<string | null> => null,
+  signMedia: async (mediaId: string): Promise<string | null> => {
+    if (!supabase) return null;
+    const { data, error } = await supabase.functions.invoke<{ url: string }>("sign-media", { body: { media_id: mediaId } });
+    return error || !data?.url ? null : data.url;
+  },
 
   /* Invii dei moduli: in anteprima si limitano a simulare la risposta. */
   submitContact: async (_payload: Record<string, unknown>) => {
