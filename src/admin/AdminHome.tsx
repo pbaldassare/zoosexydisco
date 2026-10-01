@@ -17,7 +17,7 @@ const SECTIONS: { name: string; to?: string; hint?: string }[] = [
   { name: "Messaggi" },
   { name: "Newsletter" },
   { name: "Dashboard" },
-  { name: "Esempi" },
+  { name: "Esempi", to: "esempi", hint: "I contenuti di prova da togliere" },
 ];
 
 /** Ingresso del pannello. */

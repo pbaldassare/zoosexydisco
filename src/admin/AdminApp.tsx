@@ -13,6 +13,7 @@ import { Settings } from "./settings/Settings";
 import { Promotions } from "./promotions/Promotions";
 import { Reviews } from "./reviews/Reviews";
 import { Roles } from "./roles/Roles";
+import { Samples } from "./samples/Samples";
 import { Texts } from "./texts/Texts";
 import { ThemeEditor } from "./themes/ThemeEditor";
 import { Themes } from "./themes/Themes";
@@ -57,6 +58,7 @@ export default function AdminApp() {
           <Route path="promozioni" element={<Promotions />} />
           <Route path="recensioni" element={<Reviews />} />
           <Route path="ruoli" element={<Roles />} />
+          <Route path="esempi" element={<Samples />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Route>
       </Routes>
