@@ -21,6 +21,7 @@ Venera S.r.l.s., Via Vincenzo Bellini 43, 24040 Madone (BG), Italy, tax code and
 The site uses no profiling cookies and no third-party tracking tools. It only uses:
 
 - the browser's local storage to remember the age confirmation (30 days) and the chosen language;
+- a mark in the tab's session storage ("visit already counted"), deleted by the browser when you close the tab: it keeps the statistics from counting the same visit twice and contains no identifier;
 - the sign-in session for the members' area;
 - Cloudflare's technical security cookie and the Cloudflare Turnstile anti-spam check on forms.
 

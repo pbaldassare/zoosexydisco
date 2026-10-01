@@ -20,6 +20,7 @@ Venera S.r.l.s., Via Vincenzo Bellini 43, 24040 Madone (BG), C.F. e P.IVA 046161
 Il sito non usa cookie di profilazione né strumenti di tracciamento di terze parti. Usa solo:
 
 - memoria locale del browser per ricordare la conferma della maggiore età (30 giorni) e la lingua scelta;
+- un segno nella memoria della scheda («visita già contata»), che il browser cancella da solo quando chiudi la scheda: serve a non contare due volte la stessa visita nelle statistiche e non contiene alcun identificativo;
 - la sessione di accesso all'area riservata;
 - il cookie tecnico di sicurezza di Cloudflare e la verifica anti-spam Cloudflare Turnstile nei moduli.
 
