@@ -9,7 +9,7 @@ const SECTIONS: { name: string; to?: string; hint?: string }[] = [
   { name: "Impostazioni", to: "impostazioni", hint: "Contatti, orari, prezzi, indirizzo, Instagram" },
   { name: "Media", to: "media", hint: "Carica foto e video, scegli dove compaiono" },
   { name: "Serate", to: "eventi", hint: "Crea, duplica e pubblica le serate" },
-  { name: "Temi" },
+  { name: "Temi", to: "temi", hint: "Colori e video della home, per date o serate" },
   { name: "Promozioni" },
   { name: "Recensioni" },
   { name: "Candidature" },

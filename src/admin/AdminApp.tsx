@@ -11,6 +11,8 @@ import { NewPassword } from "./NewPassword";
 import { NotAdmin } from "./NotAdmin";
 import { Settings } from "./settings/Settings";
 import { Texts } from "./texts/Texts";
+import { ThemeEditor } from "./themes/ThemeEditor";
+import { Themes } from "./themes/Themes";
 
 /** Senza sessione si va al login; con sessione ma fuori da admin_users, nessuna sezione. */
 function Guard({ children }: { children: React.ReactNode }) {
@@ -47,6 +49,8 @@ export default function AdminApp() {
           <Route path="media" element={<Media />} />
           <Route path="eventi" element={<Events />} />
           <Route path="eventi/:id" element={<EventEditorPage />} />
+          <Route path="temi" element={<Themes />} />
+          <Route path="temi/:id" element={<ThemeEditor />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Route>
       </Routes>
