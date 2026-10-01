@@ -8,7 +8,7 @@ const SECTIONS: { name: string; to?: string; hint?: string }[] = [
   { name: "Testi", to: "testi", hint: "Tutti i testi del sito, in italiano e inglese" },
   { name: "Impostazioni", to: "impostazioni", hint: "Contatti, orari, prezzi, indirizzo, Instagram" },
   { name: "Media", to: "media", hint: "Carica foto e video, scegli dove compaiono" },
-  { name: "Eventi" },
+  { name: "Serate", to: "eventi", hint: "Crea, duplica e pubblica le serate" },
   { name: "Temi" },
   { name: "Promozioni" },
   { name: "Recensioni" },

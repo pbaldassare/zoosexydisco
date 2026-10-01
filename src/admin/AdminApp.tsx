@@ -3,6 +3,8 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { AuthProvider, useAuth } from "./auth";
 import { AdminHome } from "./AdminHome";
 import { AdminLayout } from "./AdminLayout";
+import { EventEditorPage } from "./events/EventEditor";
+import { Events } from "./events/Events";
 import { Login } from "./Login";
 import { Media } from "./media/Media";
 import { NewPassword } from "./NewPassword";
@@ -43,6 +45,8 @@ export default function AdminApp() {
           <Route path="testi" element={<Texts />} />
           <Route path="impostazioni" element={<Settings />} />
           <Route path="media" element={<Media />} />
+          <Route path="eventi" element={<Events />} />
+          <Route path="eventi/:id" element={<EventEditorPage />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Route>
       </Routes>

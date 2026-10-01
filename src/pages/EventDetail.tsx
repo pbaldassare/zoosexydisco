@@ -95,7 +95,8 @@ export default function EventDetail() {
             <Ticket className="mt-0.5 size-5 shrink-0 text-pink" aria-hidden />
             <div>
               <dt className="label text-ink-faint">{t("events.entry")}</dt>
-              <dd className="mt-1 text-ink">{l(e.entry)}</dd>
+              {/* Senza un prezzo proprio, la serata mostra quello standard delle impostazioni. */}
+              <dd className="mt-1 text-ink">{l(e.entry) || (s ? l(s.entry_prices) : "")}</dd>
             </div>
           </div>
         </dl>
