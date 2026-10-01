@@ -10,6 +10,9 @@ import { Media } from "./media/Media";
 import { NewPassword } from "./NewPassword";
 import { NotAdmin } from "./NotAdmin";
 import { Settings } from "./settings/Settings";
+import { Promotions } from "./promotions/Promotions";
+import { Reviews } from "./reviews/Reviews";
+import { Roles } from "./roles/Roles";
 import { Texts } from "./texts/Texts";
 import { ThemeEditor } from "./themes/ThemeEditor";
 import { Themes } from "./themes/Themes";
@@ -51,6 +54,9 @@ export default function AdminApp() {
           <Route path="eventi/:id" element={<EventEditorPage />} />
           <Route path="temi" element={<Themes />} />
           <Route path="temi/:id" element={<ThemeEditor />} />
+          <Route path="promozioni" element={<Promotions />} />
+          <Route path="recensioni" element={<Reviews />} />
+          <Route path="ruoli" element={<Roles />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Route>
       </Routes>
