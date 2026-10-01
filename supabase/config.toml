@@ -1,0 +1,6 @@
+# Solo le impostazioni delle Edge Functions che servono al deploy.
+project_id = "rpbprmngkkscnhqqayfq"
+
+# Chiamate da pg_cron con un segreto proprio, non con un JWT.
+[functions.purge-expired]
+verify_jwt = false
